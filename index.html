@@ -28,6 +28,7 @@
   "@type": "Person",
   "name": "Bandaru Sai Pranav",
   "jobTitle": "AI & Full-Stack Engineer",
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Bennett University" },
   "url": "https://saipranav13188.github.io/",
   "image": "https://avatars.githubusercontent.com/u/142961143?v=4",
   "email": "mailto:saipranav1388@gmail.com",
@@ -112,6 +113,11 @@ body::after {
 .nav-logo { font-family: var(--display); font-weight: 700; font-size: .95rem; padding: 8px 14px; }
 .nav a.link { font-size: .85rem; color: var(--muted); padding: 8px 14px; border-radius: 999px; transition: color .2s, background .2s; }
 .nav a.link:hover, .nav a.link.active { color: var(--text); background: rgba(255,255,255,.06); }
+.resume-btn { font-size: .85rem; font-weight: 600; color: var(--text); border: 1px solid var(--line-2); padding: 7px 14px; border-radius: 999px; margin-left: 4px; transition: border-color .2s; }
+.resume-btn:hover { border-color: var(--text); }
+@media (max-width: 1080px) { .nav a.link.opt { display: none; } }
+@media (max-width: 720px) { .resume-btn { display: none; } }
+.nav a, .nav button { white-space: nowrap; }
 .nav .cta { font-size: .85rem; font-weight: 600; color: var(--bg); background: var(--text); padding: 8px 16px; border-radius: 999px; margin-left: 4px; }
 @media (max-width: 720px) { .nav a.link { display: none; } .nav { left: auto; right: 16px; transform: none; } }
 
@@ -389,6 +395,37 @@ footer { border-top: 1px solid var(--line); padding: 32px 0; font-size: .85rem; 
 footer .container { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
 footer a:hover { color: var(--text); }
 
+/* ---------- background ---------- */
+.bg-grid { display: grid; gap: 20px; }
+@media (min-width: 960px) { .bg-grid { grid-template-columns: 1.15fr 1fr; gap: 24px; } }
+.edu { position: relative; display: grid; gap: 20px; align-content: start; }
+.edu-item { position: relative; border: 1px solid var(--line); border-radius: 22px; padding: 30px 32px; background: var(--panel); }
+.edu-item:first-child { background: linear-gradient(160deg, rgba(167,139,250,.08), transparent 50%), var(--panel); }
+.edu-when { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-family: var(--mono); font-size: .76rem; color: var(--muted); letter-spacing: .04em; }
+.badge-done { font-size: .68rem; font-weight: 500; color: var(--teal); background: rgba(94,234,212,.1); border-radius: 999px; padding: 3px 10px; }
+.edu-item h3 { font-family: var(--display); font-size: 1.7rem; font-weight: 600; letter-spacing: -.025em; margin: 14px 0 6px; }
+.edu-deg { margin: 0; color: var(--text); font-size: 1rem; }
+.edu-deg span { color: var(--muted); font-size: .92rem; }
+.edu-score { display: flex; align-items: baseline; gap: 8px; margin-top: 20px; }
+.edu-score b { font-family: var(--display); font-size: 2.4rem; font-weight: 600; letter-spacing: -.04em; line-height: 1; }
+.edu-score span { color: var(--muted); font-size: .88rem; }
+.edu-notes { margin: 22px 0 0; padding: 20px 0 0; border-top: 1px solid var(--line); list-style: none; display: grid; gap: 10px; }
+.edu-notes li { position: relative; padding-left: 20px; color: var(--muted); font-size: .94rem; }
+.edu-notes li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 2px; background: var(--violet); transform: rotate(45deg); }
+.edu-notes b { color: var(--text); font-weight: 600; }
+.bg-side { display: grid; gap: 20px; align-content: start; }
+.side-card { border: 1px solid var(--line); border-radius: 22px; padding: 28px 30px; background: var(--panel); }
+.side-card h4 { margin: 0 0 18px; font-family: var(--mono); font-size: .74rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.hl-list, .cert-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.hl-list li { display: grid; grid-template-columns: 74px 1fr; gap: 14px; align-items: baseline; }
+.hl-list b { font-family: var(--display); font-size: 1.5rem; font-weight: 600; letter-spacing: -.03em; }
+.hl-list span { color: var(--muted); font-size: .9rem; line-height: 1.45; }
+.cert-list li { display: flex; gap: 14px; align-items: center; }
+.cert-list i { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; font-style: normal; font-family: var(--display); font-weight: 700; font-size: .72rem; color: #fff; }
+.cert-list b { display: block; font-size: .92rem; font-weight: 600; line-height: 1.35; }
+.cert-list span { display: block; font-size: .8rem; color: var(--dim); margin-top: 2px; }
+@media (max-width: 520px) { .edu-item, .side-card { padding: 24px; } .hl-list li { grid-template-columns: 1fr; gap: 2px; } }
+
 /* ---------- a11y, progress, mobile menu ---------- */
 .skip { position: fixed; left: 16px; top: -60px; z-index: 300; background: var(--text); color: var(--bg); font-weight: 600; padding: 10px 16px; border-radius: 10px; transition: top .2s; }
 .skip:focus { top: 16px; }
@@ -561,17 +598,19 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
 <nav class="nav" aria-label="Primary">
   <a href="#top" class="nav-logo grad-text">SP</a>
   <a href="#about" class="link">About</a>
+  <a href="#background" class="link">Background</a>
   <a href="#work" class="link">Work</a>
-  <a href="#demo" class="link">Live demo</a>
-  <a href="#more" class="link">Projects</a>
-  <a href="#decisions" class="link">Decisions</a>
+  <a href="#demo" class="link opt">Live demo</a>
+  <a href="#more" class="link opt">Projects</a>
   <button type="button" class="term-btn" id="termOpen" aria-label="Open terminal (press ~)" title="Terminal — press ~">&gt;_</button>
+  <a href="Bandaru_Sai_Pranav_Resume.pdf" class="resume-btn" target="_blank" rel="noopener">Résumé</a>
   <a href="#contact" class="cta magnetic">Let's talk</a>
   <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span></button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu" hidden>
   <a href="#about">About</a>
+  <a href="#background">Background</a>
   <a href="#work">Work</a>
   <a href="#demo">Live demo</a>
   <a href="#more">Projects</a>
@@ -579,6 +618,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   <a href="#toolbox">Toolbox</a>
   <a href="#contact">Contact</a>
   <div class="mm-foot">
+    <a href="Bandaru_Sai_Pranav_Resume.pdf" target="_blank" rel="noopener">Résumé ↓</a>
     <a href="https://www.linkedin.com/in/sai-pranav-2a3b50303" target="_blank" rel="noopener">LinkedIn ↗</a>
     <a href="https://github.com/SaiPranav13188" target="_blank" rel="noopener">GitHub ↗</a>
     <a href="mailto:saipranav1388@gmail.com">Email ↗</a>
@@ -590,7 +630,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   <section class="hero">
     <canvas id="gl" aria-hidden="true"></canvas>
     <div class="container hero-inner">
-      <span class="eyebrow hero-in"><span class="dot"></span>AI &amp; Full-Stack Engineer · Open to work</span>
+      <span class="eyebrow hero-in"><span class="dot"></span>AI &amp; Full-Stack Engineer · B.Tech CSE ’26 · Open to full-time roles</span>
       <h1>
         <span class="line"><span>Bandaru</span></span>
         <span class="line"><span class="grad-text">Sai Pranav</span></span>
@@ -602,6 +642,9 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
         <a href="https://github.com/SaiPranav13188" target="_blank" rel="noopener" class="btn btn-ghost magnetic">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
           GitHub</a>
+        <a href="Bandaru_Sai_Pranav_Resume.pdf" target="_blank" rel="noopener" class="btn btn-ghost magnetic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 12v6M9 15l3 3 3-3"/></svg>
+          Résumé</a>
         <a href="https://www.linkedin.com/in/sai-pranav-2a3b50303" target="_blank" rel="noopener" class="btn btn-ghost magnetic">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2ZM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2ZM7.1 20.5H3.5V9h3.6v11.5ZM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0Z"/></svg>
           LinkedIn</a>
@@ -631,6 +674,61 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
         <div class="stat rv"><b><span class="count" data-to="7">7</span></b><span>agent-based systems built</span></div>
         <div class="stat rv"><b><span class="count" data-to="99.6" data-dec="1">99.6</span>%</b><span>field accuracy in BondCheck's benchmark</span></div>
         <div class="stat rv"><b><span class="count" data-to="3">3</span></b><span>platforms: macOS, Android, web</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACKGROUND -->
+  <section id="background" class="sec-pad" style="padding-top:40px">
+    <div class="container">
+      <div class="work-head">
+        <div>
+          <div class="sec-label">Background</div>
+          <h2 class="sec-title rv">Education &amp; <span class="grad-text">recognition</span></h2>
+        </div>
+        <p class="rv">I studied computer science with a specialisation in data science, then spent my final year building and shipping AI products end to end.</p>
+      </div>
+
+      <div class="bg-grid">
+        <div class="edu">
+          <article class="edu-item rv">
+            <div class="edu-when"><span>Aug 2022 – May 2026</span><span class="badge-done">Graduated</span></div>
+            <h3>Bennett University</h3>
+            <p class="edu-deg">B.Tech in Computer Science Engineering<br><span>Specialisation in Data Science</span></p>
+            <div class="edu-score"><b>8.30</b><span>/ 10 CGPA</span></div>
+            <ul class="edu-notes">
+              <li>Won the <b>Dean's Award</b> for a PySpark ensemble model that recommends crops from soil and climate data.</li>
+              <li>Took <b>3rd place</b> in the college hackathon (2024) and competed in the <b>Smart India Hackathon</b>.</li>
+            </ul>
+          </article>
+          <article class="edu-item rv">
+            <div class="edu-when"><span>Jun 2020 – May 2022</span></div>
+            <h3>Sri Chaitanya Junior College</h3>
+            <p class="edu-deg">Intermediate (TSBIE)</p>
+            <div class="edu-score"><b>97.8%</b><span>978 / 1000</span></div>
+          </article>
+        </div>
+
+        <div class="bg-side">
+          <div class="side-card rv">
+            <h4>Highlights</h4>
+            <ul class="hl-list">
+              <li><b>10+</b><span>full-stack AI apps built (agentic, RAG, vision, voice), several live on Vercel and Render</span></li>
+              <li><b>200+</b><span>DSA problems solved on LeetCode, HackerRank and GeeksforGeeks</span></li>
+              <li><b>v1.0</b><span>public Android release of Handsoff, for offline gesture-based file transfer</span></li>
+            </ul>
+          </div>
+          <div class="side-card rv">
+            <h4>Certifications</h4>
+            <ul class="cert-list">
+              <li><i style="background:#86bc25">D</i><div><b>Data Analytics Job Simulation</b><span>Deloitte Australia · Forage · Aug 2025</span></div></li>
+              <li><i style="background:#4285f4">G</i><div><b>Google Data Analytics Professional Certificate</b><span>Google · Coursera</span></div></li>
+              <li><i style="background:#ff6f61">DL</i><div><b>Sequences, Time Series and Prediction</b><span>DeepLearning.AI · 2024</span></div></li>
+              <li><i style="background:#1f70c1">IBM</i><div><b>Exploratory Data Analysis for Machine Learning</b><span>IBM · 2024</span></div></li>
+              <li><i style="background:#8b5cf6">C++</i><div><b>Object-Oriented C++</b><span>Codio · 2025</span></div></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -728,9 +826,9 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
           <span class="case-num">03</span><span class="case-kicker">Agentic civic tech · Expo</span>
           <h3>Nagrik</h3>
           <p class="lede">Photograph a pothole, and AI agents file the complaint with the right government office for you.</p>
-          <p class="body">Five agents classify the photo with Gemini vision, work out which office is responsible, draft a formal letter, submit it on the official portal with Playwright, then keep checking and escalate when nothing happens. CAPTCHAs and OTPs are always handed back to the citizen, never bypassed.</p>
+          <p class="body">Six agents, led by a coordinator, classify the photo with Gemini vision, work out which office is responsible, draft a formal letter, submit it on the official portal with Playwright, then keep checking and escalate when nothing happens. CAPTCHAs and OTPs are always handed back to the citizen, never bypassed.</p>
           <ul class="metrics">
-            <li><b>5</b><span>agents, every tool call logged</span></li>
+            <li><b>6</b><span>agents, every tool call logged</span></li>
             <li><b>3</b><span>languages: English, Telugu, Hindi</span></li>
             <li><b>0 keys</b><span>needed: runs offline with a rule planner</span></li>
           </ul>
@@ -1084,12 +1182,12 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
         <div class="pr rv"><span class="ix">03</span><h4>Ship the whole thing</h4><p>From the agent graph to the database, the mobile app, the deployment and the README, every project is something people can actually use.</p></div>
       </div>
       <div class="tool-grid">
-        <div class="tool rv"><span class="ix">/01</span><h4>AI &amp; agents</h4><ul><li>LangGraph</li><li>Claude API</li><li>Gemini</li><li>Vercel AI SDK</li><li>Tool calling</li><li>RAG</li><li>Structured output</li><li>Evals</li></ul></div>
-        <div class="tool rv"><span class="ix">/02</span><h4>Languages</h4><ul><li>TypeScript</li><li>Python</li><li>Swift</li><li>Kotlin</li><li>SQL</li><li>C++</li></ul></div>
+        <div class="tool rv"><span class="ix">/01</span><h4>AI &amp; agents</h4><ul><li>LangGraph</li><li>LangChain</li><li>MCP</li><li>Claude / Gemini / OpenAI APIs</li><li>Vercel AI SDK</li><li>RAG</li><li>FAISS</li><li>Hugging Face</li><li>Evals</li></ul></div>
+        <div class="tool rv"><span class="ix">/02</span><h4>Languages</h4><ul><li>Python</li><li>TypeScript</li><li>JavaScript</li><li>SQL</li><li>Kotlin</li><li>Swift</li><li>C++</li></ul></div>
         <div class="tool rv"><span class="ix">/03</span><h4>Apps &amp; front end</h4><ul><li>Next.js</li><li>React</li><li>React Native / Expo</li><li>SwiftUI</li><li>Jetpack Compose</li><li>Tailwind</li><li>Framer Motion</li></ul></div>
-        <div class="tool rv"><span class="ix">/04</span><h4>Back end &amp; data</h4><ul><li>FastAPI</li><li>Express</li><li>Fastify</li><li>PostgreSQL</li><li>Supabase</li><li>Room</li><li>Playwright</li></ul></div>
-        <div class="tool rv"><span class="ix">/05</span><h4>ML &amp; analytics</h4><ul><li>scikit-learn</li><li>PySpark</li><li>Pandas</li><li>MediaPipe</li><li>Streamlit</li><li>Power BI</li></ul></div>
-        <div class="tool rv"><span class="ix">/06</span><h4>Shipping</h4><ul><li>Vercel</li><li>Render</li><li>Docker</li><li>EAS Build</li><li>GitHub Actions</li><li>XCTest / pytest</li></ul></div>
+        <div class="tool rv"><span class="ix">/04</span><h4>Back end &amp; data</h4><ul><li>FastAPI</li><li>Flask</li><li>Node.js / Express</li><li>Fastify</li><li>PostgreSQL</li><li>Supabase + RLS</li><li>WebSockets</li><li>Playwright</li></ul></div>
+        <div class="tool rv"><span class="ix">/05</span><h4>ML &amp; analytics</h4><ul><li>PyTorch</li><li>TensorFlow</li><li>scikit-learn</li><li>PySpark</li><li>Pandas</li><li>MediaPipe</li><li>Power BI</li><li>Tableau</li></ul></div>
+        <div class="tool rv"><span class="ix">/06</span><h4>Cloud &amp; shipping</h4><ul><li>AWS (EC2, S3, IAM)</li><li>Docker</li><li>Vercel</li><li>Render</li><li>GitHub Actions CI/CD</li><li>EAS Build</li><li>pytest / XCTest</li></ul></div>
       </div>
     </div>
   </section>
@@ -1118,7 +1216,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
     <div class="container">
       <div class="sec-label" style="justify-content:center">What's next</div>
       <h2 class="rv">Let's build AI<br>people can <span class="grad-text">trust.</span></h2>
-      <p class="rv">I'm open to full-time roles and internships in AI engineering and full-stack development. If you're hiring, I'd love to hear from you.</p>
+      <p class="rv">I graduated in May 2026 and I'm looking for my first full-time role in AI engineering or full-stack development. If you're hiring, I'd love to hear from you.</p>
       <div class="hero-ctas">
         <a href="mailto:saipranav1388@gmail.com" class="btn big-btn magnetic">Say<br>hello ↗</a>
       </div>
@@ -1126,6 +1224,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
         <span class="mono">saipranav1388@gmail.com</span><span class="copy-tag" id="copyTag">Copy</span>
       </button>
       <div class="contact-links">
+        <a href="Bandaru_Sai_Pranav_Resume.pdf" target="_blank" rel="noopener">Résumé ↓</a>
         <a href="https://www.linkedin.com/in/sai-pranav-2a3b50303" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a href="https://github.com/SaiPranav13188" target="_blank" rel="noopener">GitHub ↗</a>
         <a href="mailto:saipranav1388@gmail.com">Email ↗</a>
@@ -1469,7 +1568,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   var P = {
     bytewise: { t: 'Bytewise', d: 'Native macOS disk analyzer with safe, undoable cleanup.', m: '84k files/s · <1 ms treemap layout · 79 tests', s: 'Swift, SwiftUI', u: 'https://github.com/SaiPranav13188/Bytewise' },
     bondcheck: { t: 'BondCheck', d: 'Seven AI agents that verify job-bond terms in offer letters.', m: '88.5% → 99.6% accuracy · 22 → 0 hallucinations · 0/335 PII leaked', s: 'LangGraph, Claude API, FastAPI, Next.js', u: 'https://bondcheck-two.vercel.app' },
-    nagrik: { t: 'Nagrik', d: 'Agents that file and escalate civic complaints from a photo.', m: '5 agents · 3 languages · runs offline without keys', s: 'Expo, Express, Playwright, Gemini', u: 'https://github.com/SaiPranav13188/Nagrik' },
+    nagrik: { t: 'Nagrik', d: 'Agents that file and escalate civic complaints from a photo.', m: '6 agents · 3 languages · runs offline without keys', s: 'Expo, Express, Playwright, Gemini', u: 'https://github.com/SaiPranav13188/Nagrik' },
     journi: { t: 'Journi', d: 'Multi-agent AI travel planner with group trips.', m: '6 agents · 14-case eval harness · realtime group sync', s: 'React Native, Vercel AI SDK, Supabase', u: 'https://github.com/SaiPranav13188/Journi' },
     tally: { t: 'Tally', d: 'Automatic expense tracking from bank SMS, parsed on-device.', m: 'raw SMS never leaves the phone · RLS on every table', s: 'Kotlin, Compose, FastAPI, Next.js', u: 'https://tally-sooty-mu.vercel.app' },
     handsoff: { t: 'Handsoff', d: 'Send files between phones with hand gestures.', m: 'v1.0 APK · offline over Nearby Connections · 200 MB per send', s: 'Kotlin, MediaPipe, WebSockets', u: 'https://github.com/SaiPranav13188/Handsoff' },
@@ -1486,7 +1585,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   }
   var run2 = {
     help: function () { out('<span class="c">whoami</span>          who I am\n<span class="c">ls</span>              list projects\n<span class="c">cat</span> <span class="y">&lt;project&gt;</span>   project details and numbers\n<span class="c">open</span> <span class="y">&lt;project&gt;</span>  open it in a new tab\n<span class="c">skills</span>          my toolbox\n<span class="c">demo</span>            jump to the live agent demo\n<span class="c">contact</span>         ways to reach me\n<span class="c">github</span> · <span class="c">linkedin</span> · <span class="c">email</span>\n<span class="c">clear</span> · <span class="c">exit</span>'); },
-    whoami: function () { out('<span class="v">Bandaru Sai Pranav</span>, AI &amp; full-stack engineer.\nI build agentic AI systems that check their own work, and ship them\nas native macOS, Android and web apps. <span class="c">Open to work.</span>'); },
+    whoami: function () { out('<span class="v">Bandaru Sai Pranav</span>, AI &amp; full-stack engineer.\nI build agentic AI systems that check their own work, and ship them\nas native macOS, Android and web apps.\nB.Tech CSE (Data Science), Bennett University, 2026. <span class="c">Open to full-time roles.</span>'); },
     ls: function () { out(Object.keys(P).map(function (k) { return '<span class="c">' + k + '/</span>'; }).join('  ') + '\n<span class="d">+ 11 more ML/data projects on GitHub. Try</span> <span class="c">cat bondcheck</span>'); },
     cat: function (a) {
       var p = P[(a || '').replace(/\/$/, '').toLowerCase()];
@@ -1662,7 +1761,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   });
 
   /* active nav link */
-  ['about', 'work', 'demo', 'more', 'decisions'].forEach(function (id) {
+  ['about', 'background', 'work', 'demo', 'more'].forEach(function (id) {
     var a = document.querySelector('.nav a[href="#' + id + '"]');
     ScrollTrigger.create({ trigger: '#' + id, start: 'top 50%', end: 'bottom 50%', onToggle: function (s) { a.classList.toggle('active', s.isActive); } });
   });
