@@ -30,7 +30,7 @@
   "jobTitle": "AI & Full-Stack Engineer",
   "alumniOf": { "@type": "CollegeOrUniversity", "name": "Bennett University" },
   "url": "https://saipranav13188.github.io/",
-  "image": "https://avatars.githubusercontent.com/u/142961143?v=4",
+  "image": "https://saipranav13188.github.io/portrait.jpg",
   "email": "mailto:saipranav1388@gmail.com",
   "sameAs": [
     "https://github.com/SaiPranav13188",
@@ -395,6 +395,18 @@ footer { border-top: 1px solid var(--line); padding: 32px 0; font-size: .85rem; 
 footer .container { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
 footer a:hover { color: var(--text); }
 
+/* ---------- about portrait ---------- */
+.about-grid { display: grid; gap: 40px; align-items: center; }
+@media (min-width: 960px) { .about-grid { grid-template-columns: minmax(280px, 380px) 1fr; gap: 72px; } }
+.portrait { position: relative; margin: 0; max-width: 380px; border-radius: 26px; overflow: hidden; border: 1px solid var(--line-2); box-shadow: 0 50px 100px -40px rgba(0,0,0,.9), 0 0 0 6px rgba(255,255,255,.02); }
+.portrait::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background: linear-gradient(160deg, rgba(94,234,212,.5), transparent 40%, transparent 60%, rgba(167,139,250,.5)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; z-index: 2; pointer-events: none; }
+.portrait img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.portrait figcaption { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-radius: 16px; background: rgba(5,6,10,.62); border: 1px solid var(--line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: .76rem; color: var(--muted); }
+.portrait figcaption b { display: block; font-family: var(--display); font-size: .95rem; font-weight: 600; color: var(--text); }
+.pc-tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); white-space: nowrap; }
+.pc-tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px var(--teal); }
+@media (max-width: 959px) { .portrait { max-width: 340px; } }
+
 /* ---------- background ---------- */
 .bg-grid { display: grid; gap: 20px; }
 @media (min-width: 960px) { .bg-grid { grid-template-columns: 1.15fr 1fr; gap: 24px; } }
@@ -668,7 +680,19 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   <section id="about" class="sec-pad">
     <div class="container">
       <div class="sec-label">About</div>
-      <p class="statement" id="statement">I like the hard part of AI: making it <em class="grad-text">reliable</em>. I design multi-agent systems where the model plans and calls tools, but the safety rules live in code it can't talk its way around. Then I ship them as real products people can install, on macOS, Android and the web.</p>
+      <div class="about-grid">
+        <figure class="portrait rv">
+          <picture>
+            <source srcset="portrait.webp" type="image/webp">
+            <img src="portrait.jpg" width="960" height="1200" loading="lazy" alt="Portrait of Bandaru Sai Pranav">
+          </picture>
+          <figcaption>
+            <span><b>Bandaru Sai Pranav</b>AI &amp; Full-Stack Engineer</span>
+            <span class="pc-tag"><i></i>Open to work</span>
+          </figcaption>
+        </figure>
+        <p class="statement" id="statement">I like the hard part of AI: making it <em class="grad-text">reliable</em>. I design multi-agent systems where the model plans and calls tools, but the safety rules live in code it can't talk its way around. Then I ship them as real products people can install, on macOS, Android and the web.</p>
+      </div>
       <div class="stats">
         <div class="stat rv"><b><span class="count" data-to="19">19</span></b><span>projects shipped on GitHub</span></div>
         <div class="stat rv"><b><span class="count" data-to="7">7</span></b><span>agent-based systems built</span></div>
