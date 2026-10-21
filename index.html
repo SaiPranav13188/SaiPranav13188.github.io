@@ -361,6 +361,133 @@ footer { border-top: 1px solid var(--line); padding: 32px 0; font-size: .85rem; 
 footer .container { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
 footer a:hover { color: var(--text); }
 
+/* ---------- nav terminal button ---------- */
+.term-btn { font-family: var(--mono); font-size: .8rem; font-weight: 500; color: var(--teal); background: rgba(94,234,212,.08); border: 1px solid rgba(94,234,212,.25); border-radius: 999px; padding: 7px 12px; cursor: pointer; transition: background .2s; }
+.term-btn:hover { background: rgba(94,234,212,.18); }
+
+/* ---------- verify link ---------- */
+.verify { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-family: var(--mono); font-size: .72rem; color: var(--muted); letter-spacing: .04em; transition: color .2s; }
+.verify::before { content: "✓"; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--accent, var(--teal)); color: var(--bg); font-size: .6rem; font-weight: 700; }
+.verify:hover { color: var(--accent, var(--teal)); }
+
+/* ---------- live demo ---------- */
+.demo-shell { border: 1px solid var(--line-2); border-radius: 24px; background: linear-gradient(180deg, rgba(167,139,250,.06), transparent 40%), var(--bg-2); overflow: hidden; box-shadow: 0 60px 120px -40px rgba(0,0,0,.9); }
+.demo-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.demo-tabs { display: flex; gap: 6px; padding: 4px; background: rgba(255,255,255,.04); border-radius: 12px; }
+.demo-tab { font: inherit; font-size: .86rem; font-weight: 600; color: var(--muted); background: none; border: 0; border-radius: 9px; padding: 8px 14px; cursor: pointer; transition: all .2s; }
+.demo-tab span { font-weight: 400; font-size: .76rem; color: var(--dim); margin-left: 4px; }
+.demo-tab[aria-selected="true"] { background: var(--panel); color: var(--text); box-shadow: inset 0 0 0 1px var(--line-2); }
+.demo-run { font: inherit; font-weight: 600; font-size: .9rem; color: var(--bg); background: var(--grad); border: 0; border-radius: 999px; padding: 11px 22px; cursor: pointer; transition: transform .2s, opacity .2s; }
+.demo-run:hover { transform: translateY(-2px); }
+.demo-run[disabled] { opacity: .55; cursor: progress; transform: none; }
+.demo-grid { display: grid; }
+@media (min-width: 980px) { .demo-grid { grid-template-columns: 1.05fr 1fr; } }
+.doc-wrap { padding: 28px; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.04), transparent 60%); border-bottom: 1px solid var(--line); }
+@media (min-width: 980px) { .doc-wrap { border-bottom: 0; border-right: 1px solid var(--line); } }
+.doc { background: #f6f3ec; color: #22252b; border-radius: 6px; padding: 30px 32px; font-family: Georgia, "Times New Roman", serif; font-size: .9rem; line-height: 1.65; box-shadow: 0 30px 60px -20px rgba(0,0,0,.7); transform: rotate(-.6deg); max-height: 560px; overflow: auto; }
+.doc h5 { font-family: var(--display); font-size: 1rem; letter-spacing: .12em; margin: 0 0 2px; color: #0f1115; }
+.doc .addr { font-size: .74rem; color: #6b6f78; margin: 0 0 16px; font-family: var(--mono); }
+.doc p { margin: 0 0 11px; }
+.doc .subj { font-weight: 700; }
+.pii { transition: background .35s, color .35s; border-radius: 2px; padding: 0 1px; }
+.pii.redacted { background: #111318; color: transparent; }
+.q { transition: background .3s, box-shadow .3s; border-radius: 3px; }
+.q.hl { background: rgba(124,92,246,.25); box-shadow: 0 0 0 2px rgba(124,92,246,.25); }
+.q.bad { background: rgba(244,63,94,.22); box-shadow: 0 0 0 2px rgba(244,63,94,.3); }
+.q.ok { background: rgba(16,185,129,.2); box-shadow: 0 0 0 2px rgba(16,185,129,.25); }
+.demo-panel { padding: 22px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.steps li { position: relative; border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px 9px 30px; font-size: .78rem; transition: border-color .3s, background .3s; }
+.steps li b { display: block; font-weight: 600; }
+.steps li span { display: block; color: var(--dim); font-size: .68rem; line-height: 1.3; }
+.steps li i { position: absolute; left: 10px; top: 12px; width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid var(--dim); }
+.steps li.run { border-color: var(--violet); background: rgba(167,139,250,.08); }
+.steps li.run i { border-color: var(--violet); border-top-color: transparent; animation: spin .7s linear infinite; }
+.steps li.done i { background: var(--teal); border-color: var(--teal); }
+.steps li.warn { border-color: var(--amber); }
+.steps li.warn i { background: var(--amber); border-color: var(--amber); }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 520px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.fields { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; min-height: 120px; }
+.fields-empty { padding: 40px 16px; text-align: center; color: var(--dim); font-size: .85rem; }
+.frow { display: grid; grid-template-columns: 120px 1fr auto; gap: 10px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: .84rem; cursor: default; animation: rowin .35s ease-out; transition: background .3s; }
+.frow:last-child { border-bottom: 0; }
+.frow:hover { background: rgba(255,255,255,.03); }
+.frow .k { color: var(--muted); font-size: .76rem; }
+.frow .v { font-weight: 600; min-width: 0; }
+.frow .v s { color: #fb7185; font-weight: 400; margin-right: 8px; }
+.frow .why { display: block; font-weight: 400; font-size: .72rem; color: var(--amber); margin-top: 2px; }
+.frow .st { font-family: var(--mono); font-size: .68rem; color: var(--dim); white-space: nowrap; }
+.frow .st.ok { color: var(--teal); }
+.frow.warn { background: rgba(251,191,36,.07); }
+@keyframes rowin { from { opacity: 0; transform: translateY(6px); } }
+@media (max-width: 520px) { .frow { grid-template-columns: 1fr auto; } .frow .k { grid-column: 1 / -1; } }
+.verdict { border-radius: 12px; padding: 14px 16px; font-size: .88rem; animation: rowin .4s ease-out; }
+.verdict b { display: block; font-family: var(--display); font-size: 1.05rem; margin-bottom: 2px; }
+.verdict.risk { background: rgba(251,113,133,.1); border: 1px solid rgba(251,113,133,.35); }
+.verdict.risk b { color: #fb7185; }
+.verdict.safe { background: rgba(94,234,212,.08); border: 1px solid rgba(94,234,212,.3); }
+.verdict.safe b { color: var(--teal); }
+.dlog { font-family: var(--mono); font-size: .72rem; background: #06070b; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; height: 132px; overflow: auto; color: var(--muted); }
+.dlog .ok { color: var(--teal); } .dlog .warn { color: var(--amber); } .dlog .bad { color: #fb7185; } .dlog .dim { color: var(--dim); }
+.demo-note { margin: 0; padding: 14px 20px; border-top: 1px solid var(--line); font-size: .78rem; color: var(--dim); }
+
+/* ---------- decisions ---------- */
+.dec-grid { display: grid; gap: 20px; }
+@media (min-width: 900px) { .dec-grid { grid-template-columns: repeat(2, 1fr); } }
+.dec { position: relative; border: 1px solid var(--line); border-radius: 22px; padding: 32px; background: var(--panel); overflow: hidden; transition: border-color .3s; }
+.dec::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
+.dec:hover { border-color: var(--line-2); }
+.dec-proj { font-family: var(--mono); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.dec h3 { font-family: var(--display); font-size: 1.45rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; margin: 12px 0 22px; }
+.dec dl { margin: 0; display: grid; grid-template-columns: 80px 1fr; gap: 12px 16px; font-size: .92rem; }
+.dec dt { font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); padding-top: 3px; }
+.dec dd { margin: 0; color: var(--muted); }
+.dec code { font-family: var(--mono); font-size: .82em; color: var(--text); }
+.dec > a { display: inline-block; margin-top: 22px; font-weight: 600; font-size: .88rem; border-bottom: 1px solid var(--line-2); padding-bottom: 3px; }
+.dec > a:hover { color: var(--accent); border-color: var(--accent); }
+@media (max-width: 520px) { .dec { padding: 24px; } .dec dl { grid-template-columns: 1fr; gap: 4px; } .dec dd { margin-bottom: 10px; } }
+
+/* ---------- live github ---------- */
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; animation: pulse 2s infinite; }
+.sec-label .live-dot + * { margin: 0; }
+#activity .sec-label::before { display: none; }
+.act-grid { display: grid; gap: 20px; }
+@media (min-width: 900px) { .act-grid { grid-template-columns: 1.4fr 1fr; } }
+.act-card { border: 1px solid var(--line); border-radius: 22px; padding: 28px; background: var(--panel); }
+.act-card h4 { margin: 0 0 18px; font-family: var(--display); font-size: 1.2rem; font-weight: 600; }
+.act-list { list-style: none; margin: 0; padding: 0; }
+.act-list li { border-top: 1px solid var(--line); }
+.act-list a { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 12px 0; }
+.act-list a:hover .nm { color: var(--teal); }
+.act-list .nm { font-weight: 600; transition: color .2s; }
+.act-list .when { font-family: var(--mono); font-size: .72rem; color: var(--dim); text-align: right; }
+.act-list .ds { grid-column: 1 / -1; color: var(--muted); font-size: .84rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.act-list .lg { display: inline-flex; align-items: center; gap: 6px; font-size: .74rem; color: var(--dim); font-weight: 400; margin-left: 10px; }
+.act-list .lg i, .lang-legend i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.lang-bar { display: flex; height: 12px; border-radius: 99px; overflow: hidden; gap: 2px; }
+.lang-bar span { height: 100%; }
+.lang-legend { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: .86rem; }
+.lang-legend li { display: flex; align-items: center; gap: 8px; }
+.lang-legend b { margin-left: auto; font-family: var(--mono); font-size: .74rem; color: var(--dim); font-weight: 400; }
+.act-meta { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); font-size: .84rem; color: var(--muted); }
+
+/* ---------- terminal ---------- */
+.term { position: fixed; inset: 0; z-index: 160; display: grid; place-items: center; padding: 16px; background: rgba(2,3,6,.6); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.term-win { width: min(760px, 100%); height: min(480px, 80vh); display: flex; flex-direction: column; background: rgba(10,12,18,.96); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; box-shadow: 0 60px 120px -30px rgba(0,0,0,.9); animation: rowin .25s ease-out; }
+.term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--line); background: #0d1018; }
+.term-bar i, .term-x { width: 12px; height: 12px; border-radius: 50%; background: #febc2e; border: 0; padding: 0; }
+.term-x { background: #ff5f57; cursor: pointer; }
+.term-bar i:last-of-type { background: #28c840; }
+.term-bar span { flex: 1; text-align: center; font-family: var(--mono); font-size: .72rem; color: var(--dim); margin-right: 50px; }
+.term-body { flex: 1; overflow: auto; padding: 14px 16px; font-family: var(--mono); font-size: .82rem; line-height: 1.6; color: #cfd3dc; }
+.term-out div { white-space: pre-wrap; word-break: break-word; }
+.term-out .c { color: var(--teal); } .term-out .v { color: var(--violet); } .term-out .y { color: var(--amber); } .term-out .d { color: var(--dim); } .term-out .p { color: var(--pink); }
+.term-out a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+.term-line { display: flex; gap: 8px; align-items: center; }
+.term-ps { color: var(--violet); white-space: nowrap; }
+.term-line input { flex: 1; min-width: 0; font: inherit; color: var(--text); background: none; border: 0; outline: none; caret-color: var(--teal); }
+
 /* reveal defaults (only when animations are live) */
 .anim .rv { opacity: 0; transform: translateY(40px); }
 @media (prefers-reduced-motion: reduce) {
@@ -383,8 +510,10 @@ footer a:hover { color: var(--text); }
   <a href="#top" class="nav-logo grad-text">SP</a>
   <a href="#about" class="link">About</a>
   <a href="#work" class="link">Work</a>
+  <a href="#demo" class="link">Live demo</a>
   <a href="#more" class="link">Projects</a>
-  <a href="#toolbox" class="link">Toolbox</a>
+  <a href="#decisions" class="link">Decisions</a>
+  <button type="button" class="term-btn" id="termOpen" aria-label="Open terminal (press ~)" title="Terminal — press ~">&gt;_</button>
   <a href="#contact" class="cta magnetic">Let's talk</a>
 </nav>
 
@@ -450,7 +579,7 @@ footer a:hover { color: var(--text); }
       </div>
 
       <!-- 01 Bytewise -->
-      <article class="case" style="--accent:#5eead4">
+      <article class="case" style="--accent:#5eead4" data-verify="https://github.com/SaiPranav13188/Bytewise#measurements">
         <div class="case-text rv">
           <span class="case-num">01</span><span class="case-kicker">Native macOS · Swift</span>
           <h3>Bytewise</h3>
@@ -475,7 +604,7 @@ footer a:hover { color: var(--text); }
       </article>
 
       <!-- 02 BondCheck -->
-      <article class="case" style="--accent:#a78bfa">
+      <article class="case" style="--accent:#a78bfa" data-verify="https://github.com/SaiPranav13188/bondcheck#evaluation-offline-engine-50-synthetic-letters">
         <div class="case-text rv">
           <span class="case-num">02</span><span class="case-kicker">Multi-agent AI · LangGraph</span>
           <h3>BondCheck</h3>
@@ -526,7 +655,7 @@ footer a:hover { color: var(--text); }
       </article>
 
       <!-- 03 Nagrik -->
-      <article class="case" style="--accent:#fbbf24">
+      <article class="case" style="--accent:#fbbf24" data-verify="https://github.com/SaiPranav13188/Nagrik#guardrails">
         <div class="case-text rv">
           <span class="case-num">03</span><span class="case-kicker">Agentic civic tech · Expo</span>
           <h3>Nagrik</h3>
@@ -566,7 +695,7 @@ footer a:hover { color: var(--text); }
       </article>
 
       <!-- 04 Journi -->
-      <article class="case" style="--accent:#38bdf8">
+      <article class="case" style="--accent:#38bdf8" data-verify="https://github.com/SaiPranav13188/Journi#agentic-ai-v2">
         <div class="case-text rv">
           <span class="case-num">04</span><span class="case-kicker">AI travel planner · React Native</span>
           <h3>Journi</h3>
@@ -641,7 +770,7 @@ footer a:hover { color: var(--text); }
       </article>
 
       <!-- 06 Handsoff -->
-      <article class="case" style="--accent:#f472b6">
+      <article class="case" style="--accent:#f472b6" data-verify="https://github.com/SaiPranav13188/Handsoff#tests">
         <div class="case-text rv">
           <span class="case-num">06</span><span class="case-kicker">Computer vision · Android</span>
           <h3>Handsoff</h3>
@@ -684,7 +813,7 @@ footer a:hover { color: var(--text); }
       </article>
 
       <!-- 07 NutriSnap -->
-      <article class="case" style="--accent:#fb923c">
+      <article class="case" style="--accent:#fb923c" data-verify="https://github.com/SaiPranav13188/NutriSnap#verifying-a-change">
         <div class="case-text rv">
           <span class="case-num">07</span><span class="case-kicker">Vision AI · Monorepo</span>
           <h3>NutriSnap</h3>
@@ -719,6 +848,46 @@ footer a:hover { color: var(--text); }
           </div>
         </div>
       </article>
+    </div>
+  </section>
+
+  <!-- LIVE DEMO -->
+  <section id="demo" class="sec-pad demo" style="padding-top:60px">
+    <div class="container">
+      <div class="work-head">
+        <div>
+          <div class="sec-label">Live demo · BondCheck</div>
+          <h2 class="sec-title rv">Watch an agent <span class="grad-text">check its own work</span></h2>
+        </div>
+        <p class="rv">Pick an offer letter and press Run. You'll see personal data get redacted, terms get extracted with their evidence, and a wrong answer get caught and fixed by the agent's own self-check.</p>
+      </div>
+
+      <div class="demo-shell rv">
+        <div class="demo-top">
+          <div class="demo-tabs" role="tablist" aria-label="Sample letters">
+            <button type="button" role="tab" class="demo-tab" data-sample="0" aria-selected="true">Letter A <span>has a bond</span></button>
+            <button type="button" role="tab" class="demo-tab" data-sample="1" aria-selected="false">Letter B <span>no bond</span></button>
+          </div>
+          <button type="button" class="demo-run" id="demoRun"><span id="demoRunLabel">▶ Run agents</span></button>
+        </div>
+        <div class="demo-grid">
+          <div class="doc-wrap"><div class="doc" id="doc" aria-live="off"></div></div>
+          <div class="demo-panel">
+            <ol class="steps" id="steps">
+              <li data-step="0"><i></i><b>Classify</b><span>Is this an offer letter?</span></li>
+              <li data-step="1"><i></i><b>Privacy</b><span>Redact, then re-scan</span></li>
+              <li data-step="2"><i></i><b>Extract</b><span>Every field needs a quote</span></li>
+              <li data-step="3"><i></i><b>Self-check</b><span>Re-read anything that fails</span></li>
+              <li data-step="4"><i></i><b>verify_quote</b><span>Quotes must exist in the text</span></li>
+              <li data-step="5"><i></i><b>Verdict</b><span>Store, or send to a moderator</span></li>
+            </ol>
+            <div class="fields" id="fields"><div class="fields-empty">Extracted fields will appear here.</div></div>
+            <div class="verdict" id="verdict" hidden></div>
+            <div class="dlog" id="dlog"><div class="dim">$ waiting for run…</div></div>
+          </div>
+        </div>
+        <p class="demo-note">A replay of BondCheck's pipeline on fictional letters, running entirely in your browser. Hover over a field to see its evidence in the letter.</p>
+      </div>
     </div>
   </section>
 
@@ -781,6 +950,61 @@ footer a:hover { color: var(--text); }
     </div>
   </section>
 
+  <!-- DECISIONS -->
+  <section id="decisions" class="sec-pad">
+    <div class="container">
+      <div class="work-head">
+        <div>
+          <div class="sec-label">Engineering decisions</div>
+          <h2 class="sec-title rv">Calls I'd <span class="grad-text">defend</span></h2>
+        </div>
+        <p class="rv">Shipping is mostly trade-offs. These are four I made on purpose, along with what each one cost.</p>
+      </div>
+      <div class="dec-grid">
+        <article class="dec rv" style="--accent:#fbbf24">
+          <div class="dec-proj">Nagrik</div>
+          <h3>Hand OTPs back to the citizen. Never bypass them.</h3>
+          <dl>
+            <dt>Problem</dt><dd>The real municipal portal asks for a mobile OTP before the complaint form even appears.</dd>
+            <dt>Choice</dt><dd>Check for CAPTCHAs and OTPs before filling a form and again after submitting it. If one appears, give the citizen a three-step hand-off. Monitoring and escalation still run automatically.</dd>
+            <dt>Cost</dt><dd>Filing isn't fully hands-off on gated portals, but the agents never automate their way around a human check.</dd>
+          </dl>
+          <a href="https://github.com/SaiPranav13188/Nagrik#behaviour-against-the-real-wanaparthy-portal" target="_blank" rel="noopener">Read the reasoning ↗</a>
+        </article>
+        <article class="dec rv" style="--accent:#5eead4">
+          <div class="dec-proj">Bytewise</div>
+          <h3>Never delete anything. Move it to a holding area.</h3>
+          <dl>
+            <dt>Problem</dt><dd>If a cleanup tool gets it wrong even once, someone's files are gone for good.</dd>
+            <dt>Choice</dt><dd>Moves are logged and can be undone for 30 days. Rules for user data and system folders are checked first, so no later rule can mark anything inside them as safe.</dd>
+            <dt>Cost</dt><dd>Space isn't freed until the holding period ends or you confirm, and that's the point.</dd>
+          </dl>
+          <a href="https://github.com/SaiPranav13188/Bytewise#safety" target="_blank" rel="noopener">Read the reasoning ↗</a>
+        </article>
+        <article class="dec rv" style="--accent:#a78bfa">
+          <div class="dec-proj">BondCheck</div>
+          <h3>Every value needs a quote, or it gets dropped.</h3>
+          <dl>
+            <dt>Problem</dt><dd>LLM extraction invents plausible numbers, and a fake bond penalty could change someone's career decision.</dd>
+            <dt>Choice</dt><dd><code>verify_quote()</code> checks that every quote exists in the redacted letter, and plain Python re-derives each value from its quote.</dd>
+            <dt>Cost</dt><dd>Some true values get dropped and sent to the uploader to confirm, trading recall for accuracy. Hallucinated fields fell from 22 to 0.</dd>
+          </dl>
+          <a href="https://github.com/SaiPranav13188/bondcheck#the-self-verification-loop-extraction-agent" target="_blank" rel="noopener">Read the reasoning ↗</a>
+        </article>
+        <article class="dec rv" style="--accent:#34d399">
+          <div class="dec-proj">Tally</div>
+          <h3>Raw bank SMS never leaves the phone.</h3>
+          <dl>
+            <dt>Problem</dt><dd>Bank messages are some of the most sensitive data on a phone, and sending them to a server to parse is the easy route.</dd>
+            <dt>Choice</dt><dd>Parse on the device and keep only the last four digits of accounts. The AI fallback is opt-in and masks text twice, on the phone and on the server.</dd>
+            <dt>Cost</dt><dd>Every bank needs its own parser and test fixtures, instead of a single LLM call.</dd>
+          </dl>
+          <a href="https://tally-sooty-mu.vercel.app" target="_blank" rel="noopener">See the product ↗</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- TOOLBOX -->
   <section id="toolbox" class="sec-pad">
     <div class="container">
@@ -798,6 +1022,25 @@ footer a:hover { color: var(--text); }
         <div class="tool rv"><span class="ix">/04</span><h4>Back end &amp; data</h4><ul><li>FastAPI</li><li>Express</li><li>Fastify</li><li>PostgreSQL</li><li>Supabase</li><li>Room</li><li>Playwright</li></ul></div>
         <div class="tool rv"><span class="ix">/05</span><h4>ML &amp; analytics</h4><ul><li>scikit-learn</li><li>PySpark</li><li>Pandas</li><li>MediaPipe</li><li>Streamlit</li><li>Power BI</li></ul></div>
         <div class="tool rv"><span class="ix">/06</span><h4>Shipping</h4><ul><li>Vercel</li><li>Render</li><li>Docker</li><li>EAS Build</li><li>GitHub Actions</li><li>XCTest / pytest</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE GITHUB -->
+  <section id="activity" class="sec-pad" style="padding-top:0" hidden>
+    <div class="container">
+      <div class="sec-label"><span class="live-dot"></span>Live from GitHub</div>
+      <div class="act-grid">
+        <div class="act-card">
+          <h4>Recently pushed</h4>
+          <ul class="act-list" id="actList"></ul>
+        </div>
+        <div class="act-card">
+          <h4>What I write</h4>
+          <div class="lang-bar" id="langBar"></div>
+          <ul class="lang-legend" id="langLegend"></ul>
+          <div class="act-meta" id="actMeta"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -822,6 +1065,16 @@ footer a:hover { color: var(--text); }
     </div>
   </section>
 </main>
+
+<div class="term" id="term" role="dialog" aria-modal="true" aria-label="Terminal" hidden>
+  <div class="term-win">
+    <div class="term-bar"><button type="button" class="term-x" id="termClose" aria-label="Close terminal"></button><i></i><i></i><span>sai@portfolio — zsh</span></div>
+    <div class="term-body" id="termBody">
+      <div class="term-out" id="termOut"></div>
+      <label class="term-line"><span class="term-ps">sai@portfolio ~ %</span><input id="termIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command"></label>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="container">
@@ -963,6 +1216,266 @@ footer a:hover { color: var(--text); }
     });
   }
 
+  /* ---------- "verify these numbers" links ---------- */
+  document.querySelectorAll('.case[data-verify]').forEach(function (c) {
+    var m = c.querySelector('.metrics'); if (!m) return;
+    var a = document.createElement('a');
+    a.className = 'verify'; a.href = c.dataset.verify; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = 'Verify these numbers in the repo ↗';
+    m.insertAdjacentElement('afterend', a);
+  });
+
+  /* ---------- BondCheck live demo ---------- */
+  var SAMPLES = [
+    {
+      doc: '<h5>NORTHWIND TECHNOLOGIES PVT. LTD.</h5><div class="addr">Plot 21, HITEC City, Hyderabad · 14 June 2026</div>' +
+        '<p>To: <span class="pii">Ravi Kumar</span>, <span class="pii">12-4/A, Lakshmi Nagar, Hyderabad 500032</span><br>Phone: <span class="pii">+91 98480 12345</span> · Email: <span class="pii">ravi.k@example.com</span></p>' +
+        '<p class="subj">Subject: Offer of Employment: Graduate Engineer Trainee</p>' +
+        '<p>Dear <span class="pii">Ravi</span>,</p>' +
+        '<p>We are pleased to offer you the position of Graduate Engineer Trainee with an <span class="q" data-q="ctc">annual CTC of ₹4,20,000</span>.</p>' +
+        '<p>You will be on probation for <span class="q" data-q="prob">six (6) months</span> from the date of joining.</p>' +
+        '<p><b>Service agreement.</b> You agree to serve the company for a <span class="q" data-q="bond">minimum period of two (2) years</span>. If you leave before completing this period, <span class="q" data-q="pen">you shall pay the company ₹1.5 lakh</span> towards training costs.</p>' +
+        '<p><b>Documents.</b> <span class="q" data-q="cert">Your original degree certificates will be retained by HR</span> for the duration of the service agreement.</p>' +
+        '<p><b>Notice.</b> After confirmation, <span class="q" data-q="notice">either party may end employment with 60 days\' notice</span>.</p>' +
+        '<p>Sincerely,<br>Human Resources, Northwind Technologies</p>',
+      pii: 5, cls: 'offer letter (0.97)',
+      fields: [
+        { k: 'Bond period', v: '24 months', q: 'bond', norm: '"two (2) years" → 24' },
+        { k: 'Exit penalty', v: '₹1,50,000', q: 'pen', norm: '"₹1.5 lakh" → 150000', fail: { v: '₹4,20,000', q: 'ctc', why: 'Rule failed: a salary isn\'t a penalty. Re-reading "Service agreement"…' } },
+        { k: 'Certificates held', v: 'Yes', q: 'cert' },
+        { k: 'Probation', v: '6 months', q: 'prob', norm: '"six (6) months" → 6' },
+        { k: 'Notice period', v: '60 days', q: 'notice' }
+      ],
+      verdict: ['risk', 'Bond found: 24 months, ₹1,50,000 exit cost', 'Original certificates are held. Corroborated by 3 earlier reports for this company, so it was stored and searchable before the next placement drive.']
+    },
+    {
+      doc: '<h5>ZEPHYR LABS LLP</h5><div class="addr">4th Floor, Koramangala, Bengaluru · 2 July 2026</div>' +
+        '<p>To: <span class="pii">Ananya Reddy</span>, <span class="pii">Flat 302, Sai Residency, Warangal 506002</span><br>Phone: <span class="pii">+91 90000 54321</span> · Email: <span class="pii">ananya.r@example.com</span></p>' +
+        '<p class="subj">Subject: Offer of Employment: Associate Software Engineer</p>' +
+        '<p>Dear <span class="pii">Ananya</span>,</p>' +
+        '<p>We are delighted to offer you the role of Associate Software Engineer with an <span class="q" data-q="ctc">annual CTC of ₹6,00,000</span>.</p>' +
+        '<p><span class="q" data-q="prob">You will serve a probation period of three (3) months</span>, after which your performance will be reviewed.</p>' +
+        '<p><b>Notice.</b> <span class="q" data-q="notice">Either party may terminate employment with 30 days\' written notice</span>.</p>' +
+        '<p><b>No service bond.</b> <span class="q" data-q="nobond">This offer does not require any service agreement or bond</span>, and no original documents will be retained.</p>' +
+        '<p>Warm regards,<br>People Team, Zephyr Labs</p>',
+      pii: 5, cls: 'offer letter (0.95)',
+      fields: [
+        { k: 'Bond', v: 'None', q: 'nobond', fail: { v: '3 months', q: 'prob', why: 'Rule failed: a probation clause isn\'t a bond. Re-reading the letter…' } },
+        { k: 'Exit penalty', v: '₹0', q: 'nobond' },
+        { k: 'Probation', v: '3 months', q: 'prob', norm: '"three (3) months" → 3' },
+        { k: 'Notice period', v: '30 days', q: 'notice' }
+      ],
+      verdict: ['safe', 'No bond, high confidence', 'The letter states explicitly that there is no bond. Students are only alerted about this company if they opted in to "no bond" alerts.']
+    }
+  ];
+  var docEl = document.getElementById('doc'), fieldsEl = document.getElementById('fields'), verdictEl = document.getElementById('verdict'),
+      dlog = document.getElementById('dlog'), runBtn = document.getElementById('demoRun'), runLabel = document.getElementById('demoRunLabel'),
+      stepEls = document.querySelectorAll('#steps li'), tabs = document.querySelectorAll('.demo-tab'), sampleIdx = 0, token = 0;
+
+  function wait(ms, t) { return new Promise(function (res, rej) { setTimeout(function () { t === token ? res() : rej('stop'); }, reduce ? ms * 0.3 : ms); }); }
+  function logLine(cls, txt) { var d = document.createElement('div'); d.innerHTML = '<span class="' + cls + '">' + (cls === 'ok' ? '✓' : cls === 'warn' ? '⟲' : cls === 'bad' ? '✗' : '›') + '</span> ' + txt; dlog.appendChild(d); dlog.scrollTop = dlog.scrollHeight; }
+  function step(i, state) { stepEls[i].className = state; }
+  function quote(id) { return docEl.querySelector('[data-q="' + id + '"]'); }
+  function mark(id, cls) { docEl.querySelectorAll('.q').forEach(function (q) { q.classList.remove('hl', 'bad', 'ok'); }); var q = quote(id); if (q) {
+    q.classList.add(cls);
+    // scroll only inside the letter, never the page
+    var qr = q.getBoundingClientRect(), dr = docEl.getBoundingClientRect();
+    if (qr.top < dr.top || qr.bottom > dr.bottom) docEl.scrollTo({ top: docEl.scrollTop + qr.top - dr.top - dr.height / 3, behavior: reduce ? 'auto' : 'smooth' });
+  } }
+  function quoteText(id) { var q = quote(id); return q ? q.textContent : ''; }
+
+  function reset(i) {
+    token++; sampleIdx = i;
+    docEl.innerHTML = SAMPLES[i].doc; docEl.scrollTop = 0;
+    fieldsEl.innerHTML = '<div class="fields-empty">Extracted fields will appear here.</div>';
+    verdictEl.hidden = true; dlog.innerHTML = '<div class="dim">$ waiting for run…</div>';
+    stepEls.forEach(function (s) { s.className = ''; });
+    runBtn.disabled = false; runLabel.textContent = '▶ Run agents';
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', String(+t.dataset.sample === i)); });
+  }
+
+  function addRow(f, val, q) {
+    if (fieldsEl.querySelector('.fields-empty')) fieldsEl.innerHTML = '';
+    var r = document.createElement('div'); r.className = 'frow';
+    r.innerHTML = '<span class="k">' + f.k + '</span><span class="v">' + val + '</span><span class="st">quoted</span>';
+    r.dataset.q = q;
+    r.addEventListener('mouseenter', function () { mark(r.dataset.q, r.classList.contains('warn') ? 'bad' : 'hl'); });
+    fieldsEl.appendChild(r); return r;
+  }
+
+  async function run() {
+    reset(sampleIdx); var t = token, s = SAMPLES[sampleIdx];
+    runBtn.disabled = true; runLabel.textContent = 'Running…'; dlog.innerHTML = '';
+    try {
+      step(0, 'run'); logLine('dim', 'orchestrator · new upload, plan: classify → privacy → extract'); await wait(700, t);
+      logLine('ok', 'classify → ' + s.cls); step(0, 'done'); await wait(350, t);
+
+      step(1, 'run'); logLine('dim', 'privacy · scanning for names, phones, emails, addresses');
+      var pii = docEl.querySelectorAll('.pii');
+      for (var i = 0; i < pii.length; i++) { pii[i].classList.add('redacted'); await wait(260, t); }
+      logLine('ok', 'privacy → ' + pii.length + ' items redacted'); await wait(300, t);
+      logLine('ok', 're-scan with broader rules → clean'); step(1, 'done'); await wait(350, t);
+
+      step(2, 'run'); var rows = [];
+      for (var j = 0; j < s.fields.length; j++) {
+        var f = s.fields[j], val = f.fail ? f.fail.v : f.v, q = f.fail ? f.fail.q : f.q;
+        mark(q, 'hl'); rows.push(addRow(f, val, q));
+        logLine('dim', 'extract · ' + f.k.toLowerCase() + ' = ' + val + ' ← "' + quoteText(q).slice(0, 34) + '…"');
+        await wait(620, t);
+      }
+      step(2, 'done'); await wait(300, t);
+
+      step(3, 'run');
+      for (var k = 0; k < s.fields.length; k++) {
+        var fk = s.fields[k], row = rows[k];
+        if (fk.fail) {
+          row.classList.add('warn'); mark(fk.fail.q, 'bad'); step(3, 'run warn');
+          row.querySelector('.v').innerHTML = fk.fail.v + '<span class="why">' + fk.fail.why + '</span>';
+          row.querySelector('.st').textContent = 'failed';
+          logLine('bad', 'self-check · ' + fk.k.toLowerCase() + ': ' + fk.fail.why.split('.')[0]);
+          await wait(1500, t);
+          logLine('warn', 're-read section with failure as feedback (round 1/2)');
+          mark(fk.q, 'hl'); await wait(1000, t);
+          row.classList.remove('warn'); row.dataset.q = fk.q;
+          row.querySelector('.v').innerHTML = '<s>' + fk.fail.v + '</s>' + fk.v;
+          row.querySelector('.st').textContent = 'fixed';
+          logLine('ok', 'self-check · ' + fk.k.toLowerCase() + ' corrected → ' + fk.v);
+          await wait(600, t);
+        } else if (fk.norm) {
+          logLine('ok', 'normalise · ' + fk.norm); await wait(380, t);
+        }
+      }
+      step(3, 'done'); await wait(300, t);
+
+      step(4, 'run');
+      for (var m2 = 0; m2 < rows.length; m2++) {
+        mark(rows[m2].dataset.q, 'ok'); var st2 = rows[m2].querySelector('.st'); st2.textContent = '✓ found'; st2.className = 'st ok';
+        await wait(330, t);
+      }
+      logLine('ok', 'verify_quote → ' + rows.length + '/' + rows.length + ' quotes exist in redacted text, 0 hallucinated'); step(4, 'done'); await wait(400, t);
+
+      step(5, 'run'); await wait(600, t);
+      verdictEl.className = 'verdict ' + s.verdict[0]; verdictEl.innerHTML = '<b>' + s.verdict[1] + '</b>' + s.verdict[2]; verdictEl.hidden = false;
+      logLine('ok', 'finalize · record saved, original document deleted'); step(5, 'done');
+      docEl.querySelectorAll('.q').forEach(function (q) { q.classList.remove('hl', 'bad', 'ok'); });
+      runBtn.disabled = false; runLabel.textContent = '↻ Replay';
+    } catch (e) { /* run was cancelled by a tab switch */ }
+  }
+  tabs.forEach(function (tb) { tb.addEventListener('click', function () { reset(+tb.dataset.sample); }); });
+  runBtn.addEventListener('click', run);
+  reset(0);
+  if (!reduce) new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { o.disconnect(); setTimeout(run, 600); } }, { threshold: 0.45 }).observe(document.querySelector('.demo-shell'));
+
+  /* ---------- live GitHub activity ---------- */
+  var LANG_COLORS = { TypeScript: '#3178c6', Python: '#3572A5', Kotlin: '#A97BFF', Swift: '#F05138', 'Jupyter Notebook': '#DA5B0B', 'C++': '#f34b7d', JavaScript: '#f1e05a' };
+  function ago(d) {
+    var s = (Date.now() - new Date(d)) / 1000, u = [['year', 31536000], ['month', 2592000], ['week', 604800], ['day', 86400], ['hour', 3600], ['minute', 60]];
+    for (var i = 0; i < u.length; i++) { var n = Math.floor(s / u[i][1]); if (n >= 1) return n + ' ' + u[i][0] + (n > 1 ? 's' : '') + ' ago'; }
+    return 'just now';
+  }
+  function esc(x) { return String(x || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  fetch('https://api.github.com/users/SaiPranav13188/repos?sort=pushed&per_page=100')
+    .then(function (r) { if (!r.ok) throw r.status; return r.json(); })
+    .then(function (repos) {
+      repos = repos.filter(function (r) { return !r.fork && r.name.toLowerCase() !== 'saipranav13188.github.io'; });
+      if (!repos.length) return;
+      document.getElementById('actList').innerHTML = repos.slice(0, 5).map(function (r) {
+        var c = LANG_COLORS[r.language] || '#8b90a0';
+        return '<li><a href="' + esc(r.html_url) + '" target="_blank" rel="noopener"><span class="nm">' + esc(r.name) +
+          (r.language ? '<span class="lg"><i style="background:' + c + '"></i>' + esc(r.language) + '</span>' : '') +
+          '</span><span class="when">pushed ' + ago(r.pushed_at) + '</span>' +
+          '<span class="ds">' + esc(r.description || (P[r.name.toLowerCase()] || {}).d || 'Work in progress') + '</span></a></li>';
+      }).join('');
+      var counts = {}, total = 0;
+      repos.forEach(function (r) { if (r.language) { counts[r.language] = (counts[r.language] || 0) + 1; total++; } });
+      var langs = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
+      document.getElementById('langBar').innerHTML = langs.map(function (l) { return '<span style="flex:' + counts[l] + ';background:' + (LANG_COLORS[l] || '#8b90a0') + '" title="' + esc(l) + '"></span>'; }).join('');
+      document.getElementById('langLegend').innerHTML = langs.map(function (l) { return '<li><i style="background:' + (LANG_COLORS[l] || '#8b90a0') + '"></i>' + esc(l) + '<b>' + Math.round(counts[l] / total * 100) + '%</b></li>'; }).join('');
+      document.getElementById('actMeta').innerHTML = '<b style="color:var(--text)">' + repos.length + '</b> public repositories · last push <b style="color:var(--text)">' + ago(repos[0].pushed_at) + '</b>';
+      document.getElementById('activity').hidden = false;
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    })
+    .catch(function () { /* stay hidden if the API is unavailable or rate-limited */ });
+
+  /* ---------- terminal ---------- */
+  var P = {
+    bytewise: { t: 'Bytewise', d: 'Native macOS disk analyzer with safe, undoable cleanup.', m: '84k files/s · <1 ms treemap layout · 79 tests', s: 'Swift, SwiftUI', u: 'https://github.com/SaiPranav13188/Bytewise' },
+    bondcheck: { t: 'BondCheck', d: 'Seven AI agents that verify job-bond terms in offer letters.', m: '88.5% → 99.6% accuracy · 22 → 0 hallucinations · 0/335 PII leaked', s: 'LangGraph, Claude API, FastAPI, Next.js', u: 'https://bondcheck-two.vercel.app' },
+    nagrik: { t: 'Nagrik', d: 'Agents that file and escalate civic complaints from a photo.', m: '5 agents · 3 languages · runs offline without keys', s: 'Expo, Express, Playwright, Gemini', u: 'https://github.com/SaiPranav13188/Nagrik' },
+    journi: { t: 'Journi', d: 'Multi-agent AI travel planner with group trips.', m: '6 agents · 14-case eval harness · realtime group sync', s: 'React Native, Vercel AI SDK, Supabase', u: 'https://github.com/SaiPranav13188/Journi' },
+    tally: { t: 'Tally', d: 'Automatic expense tracking from bank SMS, parsed on-device.', m: 'raw SMS never leaves the phone · RLS on every table', s: 'Kotlin, Compose, FastAPI, Next.js', u: 'https://tally-sooty-mu.vercel.app' },
+    handsoff: { t: 'Handsoff', d: 'Send files between phones with hand gestures.', m: 'v1.0 APK · offline over Nearby Connections · 200 MB per send', s: 'Kotlin, MediaPipe, WebSockets', u: 'https://github.com/SaiPranav13188/Handsoff' },
+    nutrisnap: { t: 'NutriSnap', d: 'Vision-AI calorie and macro tracker.', m: '70 engine tests · one engine for web, iOS and Android', s: 'Next.js, Expo, Fastify, Gemini', u: 'https://github.com/SaiPranav13188/NutriSnap' }
+  };
+  var LINKS = { github: 'https://github.com/SaiPranav13188', linkedin: 'https://www.linkedin.com/in/sai-pranav-2a3b50303', email: 'mailto:saipranav1388@gmail.com' };
+  var CMDS = ['help', 'whoami', 'ls', 'cat', 'open', 'skills', 'contact', 'github', 'linkedin', 'email', 'demo', 'clear', 'exit', 'sudo'];
+  var term = document.getElementById('term'), tOut = document.getElementById('termOut'), tIn = document.getElementById('termIn'), tBody = document.getElementById('termBody'),
+      hist = [], hi = 0, lastFocus = null;
+  function out(html) { var d = document.createElement('div'); d.innerHTML = html; tOut.appendChild(d); tBody.scrollTop = tBody.scrollHeight; }
+  function banner() {
+    out('<span class="v">Bandaru Sai Pranav</span> <span class="d">· portfolio shell v1.0</span>');
+    out('<span class="d">Type</span> <span class="c">help</span> <span class="d">to see commands. Tab completes, ↑ recalls, Esc closes.</span>\n');
+  }
+  var run2 = {
+    help: function () { out('<span class="c">whoami</span>          who I am\n<span class="c">ls</span>              list projects\n<span class="c">cat</span> <span class="y">&lt;project&gt;</span>   project details and numbers\n<span class="c">open</span> <span class="y">&lt;project&gt;</span>  open it in a new tab\n<span class="c">skills</span>          my toolbox\n<span class="c">demo</span>            jump to the live agent demo\n<span class="c">contact</span>         ways to reach me\n<span class="c">github</span> · <span class="c">linkedin</span> · <span class="c">email</span>\n<span class="c">clear</span> · <span class="c">exit</span>'); },
+    whoami: function () { out('<span class="v">Bandaru Sai Pranav</span>, AI &amp; full-stack engineer.\nI build agentic AI systems that check their own work, and ship them\nas native macOS, Android and web apps. <span class="c">Open to work.</span>'); },
+    ls: function () { out(Object.keys(P).map(function (k) { return '<span class="c">' + k + '/</span>'; }).join('  ') + '\n<span class="d">+ 11 more ML/data projects on GitHub. Try</span> <span class="c">cat bondcheck</span>'); },
+    cat: function (a) {
+      var p = P[(a || '').replace(/\/$/, '').toLowerCase()];
+      if (!p) return out('<span class="p">cat: ' + esc(a || '') + ': No such project.</span> <span class="d">Run</span> <span class="c">ls</span>');
+      out('<span class="v">' + p.t + '</span>: ' + p.d + '\n<span class="y">metrics</span>  ' + esc(p.m) + '\n<span class="y">stack</span>    ' + p.s + '\n<span class="y">link</span>     <a href="' + p.u + '" target="_blank" rel="noopener">' + p.u.replace('https://', '') + '</a>');
+    },
+    open: function (a) {
+      var k = (a || '').replace(/\/$/, '').toLowerCase(), u = (P[k] && P[k].u) || LINKS[k];
+      if (!u) return out('<span class="p">open: ' + esc(a || '') + ': not found.</span>');
+      out('<span class="d">Opening ' + esc(k) + '…</span>'); window.open(u, '_blank', 'noopener');
+    },
+    skills: function () { out('<span class="y">ai</span>        LangGraph, Claude API, Gemini, Vercel AI SDK, RAG, evals\n<span class="y">languages</span> TypeScript, Python, Swift, Kotlin, SQL, C++\n<span class="y">apps</span>      Next.js, React Native/Expo, SwiftUI, Jetpack Compose\n<span class="y">backend</span>   FastAPI, Express, Fastify, PostgreSQL, Supabase, Playwright\n<span class="y">ml</span>        scikit-learn, PySpark, Pandas, MediaPipe, Power BI'); },
+    contact: function () { out('<span class="y">email</span>     <a href="mailto:saipranav1388@gmail.com">saipranav1388@gmail.com</a>\n<span class="y">linkedin</span>  <a href="' + LINKS.linkedin + '" target="_blank" rel="noopener">linkedin.com/in/sai-pranav-2a3b50303</a>\n<span class="y">github</span>    <a href="' + LINKS.github + '" target="_blank" rel="noopener">github.com/SaiPranav13188</a>'); },
+    github: function () { run2.open('github'); }, linkedin: function () { run2.open('linkedin'); },
+    email: function () { out('<span class="d">Opening your mail app…</span>'); location.href = LINKS.email; },
+    demo: function () { closeTerm(); document.getElementById('demo').scrollIntoView({ behavior: 'smooth' }); },
+    clear: function () { tOut.innerHTML = ''; },
+    exit: function () { closeTerm(); },
+    sudo: function (a) {
+      if ((a || '').indexOf('hire') === 0) { out('<span class="c">[sudo] permission granted.</span> Great choice. Opening email…'); setTimeout(function () { location.href = LINKS.email; }, 900); }
+      else out('<span class="p">sudo: nice try.</span> <span class="d">Maybe</span> <span class="c">sudo hire-me</span><span class="d">?</span>');
+    }
+  };
+  function exec(line) {
+    out('<span class="term-ps">sai@portfolio ~ %</span> ' + esc(line));
+    var parts = line.trim().split(/\s+/), c = (parts[0] || '').toLowerCase(), a = parts.slice(1).join(' ');
+    if (!c) return;
+    if (run2[c]) run2[c](a); else out('<span class="p">zsh: command not found: ' + esc(c) + '</span> <span class="d">(try</span> <span class="c">help</span><span class="d">)</span>');
+  }
+  function openTerm() {
+    lastFocus = document.activeElement; term.hidden = false;
+    if (!tOut.children.length) banner();
+    setTimeout(function () { tIn.focus(); }, 30);
+  }
+  function closeTerm() { term.hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  document.getElementById('termOpen').addEventListener('click', openTerm);
+  document.getElementById('termClose').addEventListener('click', closeTerm);
+  term.addEventListener('click', function (e) { if (e.target === term) closeTerm(); });
+  tBody.addEventListener('click', function (e) { if (e.target.tagName !== 'A') tIn.focus(); });
+  tIn.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { var v = tIn.value; if (v.trim()) { hist.push(v); } hi = hist.length; tIn.value = ''; exec(v); }
+    else if (e.key === 'ArrowUp') { if (hi > 0) { hi--; tIn.value = hist[hi]; } e.preventDefault(); }
+    else if (e.key === 'ArrowDown') { if (hi < hist.length) { hi++; tIn.value = hist[hi] || ''; } e.preventDefault(); }
+    else if (e.key === 'Tab') {
+      e.preventDefault();
+      var parts = tIn.value.split(' '), pool = parts.length > 1 ? Object.keys(P).concat(Object.keys(LINKS)) : CMDS, last = parts[parts.length - 1].toLowerCase();
+      var hit = pool.filter(function (x) { return x.indexOf(last) === 0; });
+      if (hit.length === 1) { parts[parts.length - 1] = hit[0]; tIn.value = parts.join(' ') + (parts.length === 1 ? ' ' : ''); }
+      else if (hit.length > 1) out('<span class="d">' + hit.join('  ') + '</span>');
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !term.hidden) { closeTerm(); return; }
+    var typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName);
+    if (!typing && (e.key === '`' || e.key === '~') && term.hidden) { e.preventDefault(); openTerm(); }
+  });
+
   /* ---------- copy email ---------- */
   var copyBtn = document.getElementById('copyEmail'), copyTag = document.getElementById('copyTag');
   copyBtn.addEventListener('click', function () {
@@ -1060,7 +1573,7 @@ footer a:hover { color: var(--text); }
   });
 
   /* active nav link */
-  ['about', 'work', 'more', 'toolbox'].forEach(function (id) {
+  ['about', 'work', 'demo', 'more', 'decisions'].forEach(function (id) {
     var a = document.querySelector('.nav a[href="#' + id + '"]');
     ScrollTrigger.create({ trigger: '#' + id, start: 'top 50%', end: 'bottom 50%', onToggle: function (s) { a.classList.toggle('active', s.isActive); } });
   });
