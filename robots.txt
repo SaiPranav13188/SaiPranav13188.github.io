@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://saipranav13188.github.io/sitemap.xml
