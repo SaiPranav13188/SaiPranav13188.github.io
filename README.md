@@ -4,11 +4,11 @@ Portfolio of **Bandaru Sai Pranav**, an AI and full-stack engineer who builds ag
 
 **Live: https://saipranav13188.github.io**
 
-![Hero with the interactive 3D particle sphere](docs/hero.png)
+![Hero with the interactive particle portrait](docs/hero.png)
 
 ## What's on it
 
-- **3D hero.** A Three.js particle sphere (custom GLSL shaders) that reacts to the mouse.
+- **Particle portrait hero.** My photo rebuilt from ~50k Three.js points (custom GLSL): they ripple around the cursor and fold into bands as you scroll.
 - **Seven case studies.** Each has the project's real metrics, device mockups, and a link to verify the numbers in the source repo.
 - **Live BondCheck demo.** A replay of the multi-agent pipeline that runs in the browser: PII redaction, quote-backed extraction, a self-check that catches and fixes a wrong value, and `verify_quote`.
 - **Engineering decisions.** Four trade-offs, each with its problem, choice and cost.

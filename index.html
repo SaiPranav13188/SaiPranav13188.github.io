@@ -45,7 +45,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235eead4'/%3E%3Cstop offset='1' stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2305060a'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='26' font-weight='700' fill='url(%23g)' text-anchor='middle'%3ESP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #05060a;
@@ -63,6 +63,7 @@
   --grad: linear-gradient(120deg, var(--teal), var(--violet) 55%, var(--pink));
   --display: "Space Grotesk", Inter, system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, monospace;
+  --serif: "Instrument Serif", Georgia, serif;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -98,12 +99,12 @@ body::after {
 .no-js .loader, .loaded .loader { display: none; }
 
 /* ---------- cursor ---------- */
-.cursor { position: fixed; top: 0; left: 0; z-index: 150; pointer-events: none; mix-blend-mode: difference; }
+.cursor { position: fixed; top: 0; left: 0; z-index: 150; pointer-events: none; }
 .cursor-ring {
-  width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 1.5px solid #fff; border-radius: 50%;
+  width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 1.5px solid rgba(255,255,255,.9); border-radius: 50%; box-shadow: 0 0 0 1px rgba(0,0,0,.35);
   transition: width .25s, height .25s, margin .25s, background .25s;
 }
-.cursor.hover .cursor-ring { width: 72px; height: 72px; margin: -36px 0 0 -36px; background: #fff; }
+.cursor.hover .cursor-ring { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: rgba(255,255,255,.06); }
 @media (hover: none), (max-width: 899px) { .cursor { display: none; } }
 
 /* ---------- nav ---------- */
@@ -125,27 +126,30 @@ body::after {
 @media (max-width: 720px) { .nav a.link { display: none; } .nav { left: auto; right: 16px; transform: none; } }
 
 /* ---------- hero ---------- */
-.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
-#gl { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+#gl { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.gl-ghost { position: fixed; z-index: -2; left: 50%; top: 64px; transform: translateX(-50%); opacity: 0; pointer-events: none; -webkit-mask-image: linear-gradient(#000 62%, transparent 86%); mask-image: linear-gradient(#000 62%, transparent 86%); }
+:where(main > section:not(.hero)) { background-color: var(--bg); }
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(ellipse at 20% 60%, rgba(5,6,10,.85), transparent 60%), linear-gradient(to bottom, transparent 70%, var(--bg));
+  background: linear-gradient(to bottom, transparent 40%, rgba(5,6,10,.7) 72%, var(--bg));
 }
-.hero-inner { position: relative; z-index: 2; padding-top: 120px; padding-bottom: 140px; }
+.hero-inner { position: relative; z-index: 2; padding-top: 120px; padding-bottom: 110px; text-align: center; }
+.hero-inner .hero-ctas { justify-content: center; }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: .78rem;
   color: var(--muted); letter-spacing: .08em; text-transform: uppercase;
-  border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 14px 6px 10px; background: rgba(5,6,10,.5);
+  border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 14px 6px 10px; background: rgba(5,6,10,.78); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
 }
 .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 12px var(--teal); animation: pulse 2s infinite; }
 @keyframes pulse { 50% { opacity: .35; } }
 .hero h1 {
-  font-family: var(--display); font-weight: 600; letter-spacing: -.045em; line-height: .92;
-  font-size: clamp(3.2rem, 10.5vw, 9.5rem); margin: 28px 0 0;
+  font-family: var(--serif); font-weight: 400; letter-spacing: -.025em; line-height: .9;
+  font-size: clamp(3.8rem, 12vw, 11rem); margin: 28px 0 0;
 }
 .hero h1 .line { display: block; overflow: hidden; padding-bottom: .06em; }
 .hero h1 .line > span { display: inline-block; }
-.hero-sub { max-width: 560px; font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--muted); margin: 28px 0 0; }
+.hero-sub { max-width: 620px; font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--muted); margin: 24px auto 0; }
 .hero-sub b { color: var(--text); font-weight: 500; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
 .btn {
@@ -166,6 +170,12 @@ body::after {
 .scroll-hint i { display: block; width: 1px; height: 44px; background: linear-gradient(var(--text), transparent); animation: drip 2s infinite; transform-origin: top; }
 @keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
 @media (max-width: 640px) { .hero-foot .hide-sm { display: none; } }
+@media (max-width: 899px) { .hero-inner { padding-bottom: 104px; } }
+@media (min-width: 900px) {
+  .hero h1 { white-space: nowrap; font-size: clamp(4rem, 8vw, 9rem); }
+  .hero h1 .line { display: inline-block; vertical-align: top; }
+  .hero-sub { max-width: 720px; }
+}
 
 .eyebrow:has(.hero-avatar) { padding: 5px 16px 5px 5px; }
 .hero-avatar { position: relative; flex-shrink: 0; width: 34px; height: 34px; }
@@ -175,30 +185,38 @@ body::after {
 .eb-short { display: none; }
 @media (max-width: 560px) { .eb-long { display: none; } .eb-short { display: inline; } }
 
-/* ---------- marquee ---------- */
-.marquee { border-block: 1px solid var(--line); overflow: hidden; padding: 22px 0; background: var(--bg-2); }
-.marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
-.marquee-track span { font-family: var(--display); font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 500; color: var(--dim); padding: 0 28px; white-space: nowrap; display: inline-flex; align-items: center; gap: 56px; }
-.marquee-track span::after { content: "✦"; font-size: .6em; color: var(--violet); }
-@keyframes marquee { to { transform: translateX(-50%); } }
+/* ---------- proof strip ---------- */
+.proof { border-block: 1px solid var(--line); background: var(--bg-2); padding: 36px 0; }
+.proof-grid { display: grid; gap: 28px; }
+@media (min-width: 900px) { .proof-grid { grid-template-columns: 1fr 1fr 1fr .8fr; gap: 0; } .proof-item, .proof-link { padding: 0 32px; border-left: 1px solid var(--line); } .proof-item:first-child { padding-left: 0; border-left: 0; } }
+.proof-item b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 4.4vw, 3.6rem); letter-spacing: -.02em; line-height: 1; }
+.proof-item b span { color: var(--teal); }
+.proof-item p { margin: 10px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.45; max-width: 240px; }
+.proof-link { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: var(--mono); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); line-height: 1.8; transition: color .2s; }
+.proof-link:hover { color: var(--text); }
+.proof-link svg { width: 22px; height: 22px; flex-shrink: 0; transition: transform .25s; }
+.proof-link:hover svg { transform: translate(3px, -3px); }
 
 /* ---------- sections ---------- */
 section { position: relative; }
 .sec-pad { padding: 140px 0; }
 @media (max-width: 720px) { .sec-pad { padding: 96px 0; } }
 .sec-label { display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: .78rem; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 40px; }
-.sec-label::before { content: ""; width: 40px; height: 1px; background: var(--muted); }
-.sec-title { font-family: var(--display); font-weight: 600; letter-spacing: -.035em; line-height: 1; font-size: clamp(2.6rem, 6.5vw, 5.5rem); margin: 0; }
+main { counter-reset: sec; }
+.sec-label { counter-increment: sec; }
+.sec-label::before { content: counter(sec, decimal-leading-zero) " /"; color: var(--teal); }
+.sec-title { font-family: var(--serif); font-weight: 400; letter-spacing: -.02em; line-height: .98; font-size: clamp(3rem, 7.5vw, 6.4rem); margin: 0; }
 
 /* about */
-.statement { font-family: var(--display); font-weight: 500; letter-spacing: -.025em; line-height: 1.18; font-size: clamp(1.7rem, 3.9vw, 3.3rem); margin: 0; max-width: 1100px; }
+.statement { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; line-height: 1.12; font-size: clamp(2rem, 4.4vw, 3.8rem); margin: 0; max-width: 1100px; }
 .statement .w { opacity: .14; transition: opacity .1s; }
 .no-anim .statement .w { opacity: 1; }
-.statement em { font-style: normal; }
+.statement em { font-style: italic; }
+.hero h1 .grad-text, .sec-title .grad-text, .contact h2 .grad-text { font-style: italic; padding-right: .08em; }
 .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 96px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
 @media (min-width: 900px) { .stats { grid-template-columns: repeat(4, 1fr); } }
 .stat { background: var(--bg); padding: 32px 28px; }
-.stat b { display: block; font-family: var(--display); font-weight: 600; font-size: clamp(2.4rem, 4.5vw, 3.6rem); letter-spacing: -.04em; line-height: 1; }
+.stat b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2.8rem, 5vw, 4rem); letter-spacing: -.02em; line-height: 1; }
 .stat span { display: block; margin-top: 12px; color: var(--muted); font-size: .9rem; }
 
 /* ---------- case studies ---------- */
@@ -214,7 +232,7 @@ section { position: relative; }
 }
 .case-num { font-family: var(--mono); font-size: .8rem; color: var(--dim); }
 .case-kicker { font-family: var(--mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, var(--teal)); margin-left: 14px; }
-.case h3 { font-family: var(--display); font-weight: 600; font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -.04em; line-height: 1; margin: 18px 0 0; }
+.case h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.8rem, 5.6vw, 4.6rem); letter-spacing: -.02em; line-height: 1; margin: 18px 0 0; }
 .case .lede { font-size: 1.15rem; color: var(--text); margin: 20px 0 0; max-width: 520px; }
 .case .body { color: var(--muted); margin: 14px 0 0; max-width: 520px; }
 .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 32px 0 0; padding: 0; list-style: none; max-width: 520px; }
@@ -239,6 +257,18 @@ section { position: relative; }
 .laptop { width: 100%; max-width: 620px; }
 .laptop-screen { background: #0a0b10; border: 10px solid #1a1c24; border-bottom-width: 14px; border-radius: 16px 16px 4px 4px; box-shadow: 0 40px 80px -20px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.05); overflow: hidden; aspect-ratio: 16 / 10; }
 .laptop-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.laptop-screen:has(.bw-stage) { aspect-ratio: 1784 / 1152; }
+.bw-stage { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.bw-stage > img { position: absolute; inset: 0; }
+.bw-labels, .bw-dim, .bw-sheet, .bw-hl, .bw-tip { opacity: 0; visibility: hidden; }
+.bw-dim { position: absolute; inset: 0; background: rgba(0,0,0,.5); }
+.laptop-screen .bw-sheet { left: 18%; width: 64%; height: auto; border-radius: 0 0 10px 10px; box-shadow: 0 24px 50px rgba(0,0,0,.65); }
+.bw-hl { position: absolute; border: 2px solid var(--accent); border-radius: 5px; box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 60%, transparent); pointer-events: none; }
+.bw-tip { position: absolute; z-index: 4; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; white-space: nowrap; color: var(--text); background: rgba(10,12,18,.92); border: 1px solid var(--line-2); }
+.hs { position: absolute; width: 1px; height: 1px; }
+.demo-on .bw-stage { cursor: pointer; }
+.bw-stage .p-tap { width: 18px; height: 22px; margin: 0; border: 0; border-radius: 0; box-shadow: none; transform-origin: 3px 2px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 22'%3E%3Cpath d='M3 2v16l4.2-3.9 2.7 6 2.6-1.2-2.7-5.9H15z' fill='%23fff' stroke='%23000' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat; }
 .laptop-base { height: 14px; margin: 0 -6%; background: linear-gradient(#2a2d38, #15171e); border-radius: 0 0 14px 14px; position: relative; }
 .laptop-base::before { content: ""; position: absolute; left: 50%; top: 0; width: 18%; height: 5px; transform: translateX(-50%); background: #0d0f14; border-radius: 0 0 8px 8px; }
 
@@ -268,6 +298,46 @@ section { position: relative; }
 .p-chip.on { background: var(--accent); color: #05060a; font-weight: 600; }
 .p-btn { margin-top: auto; text-align: center; font-weight: 600; font-size: 11px; padding: 11px; border-radius: 14px; background: var(--accent); color: #05060a; }
 @media (max-width: 600px) { .phone { width: 210px; } .tilt .phone + .phone { display: none; } }
+
+/* phone demos: scripted walkthroughs that play like a screen recording */
+.p-status { z-index: 3; }
+.p-scene { display: none; position: absolute; inset: 0; z-index: 2; padding: 40px 14px 20px; flex-direction: column; gap: 10px; background: #0b0d13; }
+.demo-on .p-scene { display: flex; }
+.demo-on .phone { cursor: pointer; }
+.demo-on .stack div:nth-child(n) { animation: none; }
+.n-status { white-space: nowrap; }
+.cam { position: relative; flex: 1; border-radius: 16px; overflow: hidden; }
+.cam svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cam-box { position: absolute; left: 16%; right: 16%; top: 54%; height: 24%; border: 1.5px solid var(--accent); border-radius: 10px; box-shadow: 0 0 0 999px rgba(0,0,0,.28); }
+.cam-tag { position: absolute; left: 50%; top: calc(54% - 24px); transform: translateX(-50%); background: var(--accent); color: #05060a; font-weight: 600; white-space: nowrap; }
+.shutter { flex-shrink: 0; width: 46px; height: 46px; margin: 0 auto; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px #0b0d13, 0 0 0 5px rgba(255,255,255,.85); }
+.plate { position: absolute; left: 50%; top: 50%; width: 150px; height: 150px; margin: -75px 0 0 -75px; border-radius: 50%; background: radial-gradient(circle at 50% 55%, #f5d0a9 0 28%, #b45309 29% 36%, #e5e7eb 37% 52%, transparent 53%); }
+.scan { position: absolute; left: 8%; right: 8%; top: 10%; height: 2px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 14px var(--accent); }
+.chat { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; }
+.bub { position: relative; max-width: 86%; padding: 8px 10px; border-radius: 14px; font-size: 10.5px; line-height: 1.4; }
+.bub.me { align-self: flex-end; background: var(--accent); color: #05060a; font-weight: 500; border-bottom-right-radius: 4px; }
+.bub.ai { align-self: flex-start; background: rgba(255,255,255,.07); border-bottom-left-radius: 4px; }
+.dots { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); display: flex; gap: 3px; }
+.dots b { width: 5px; height: 5px; border-radius: 50%; background: var(--muted); animation: dotty 1s infinite; }
+.dots b:nth-child(2) { animation-delay: .15s; } .dots b:nth-child(3) { animation-delay: .3s; }
+@keyframes dotty { 0%, 100% { opacity: .3; transform: none; } 40% { opacity: 1; transform: translateY(-2px); } }
+.composer { display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 12px; border-radius: 999px; background: rgba(255,255,255,.06); border: 1px solid var(--line); }
+.comp-txt { flex: 1; min-width: 0; color: var(--muted); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.send { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; background: var(--accent); color: #05060a; }
+.p-lock { background: linear-gradient(170deg, color-mix(in srgb, var(--accent) 22%, #0b0d13), #0b0d13 60%); }
+.lock-time { margin-top: 26px; text-align: center; font-family: var(--display); font-size: 46px; font-weight: 600; letter-spacing: -.03em; line-height: 1; }
+.notif { margin-top: 18px; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.08); font-size: 10px; }
+.notif .p-row { margin-bottom: 3px; }
+.lock-badge { align-self: center; margin-top: auto; background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent); }
+.hand > svg { grid-area: 1 / 1; }
+.h-fist { opacity: 0; }
+.p-tap { position: absolute; left: 0; top: 0; z-index: 6; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; background: rgba(255,255,255,.3); border: 1.5px solid rgba(255,255,255,.85); box-shadow: 0 0 0 6px rgba(255,255,255,.08); opacity: 0; pointer-events: none; }
+.p-flash { position: absolute; inset: 0; z-index: 7; background: #fff; opacity: 0; pointer-events: none; }
+.p-prog { position: absolute; left: 18px; right: 18px; bottom: 7px; z-index: 5; height: 2px; border-radius: 2px; background: rgba(255,255,255,.12); overflow: hidden; pointer-events: none; }
+.p-prog i { display: block; height: 100%; background: rgba(255,255,255,.7); transform-origin: left; transform: scaleX(0); }
+.p-paused { position: absolute; inset: 0; z-index: 8; display: grid; place-items: center; background: rgba(5,6,10,.5); opacity: 0; transition: opacity .2s; pointer-events: none; }
+.p-paused::after { content: ""; width: 54px; height: 54px; border-radius: 50%; background: rgba(255,255,255,.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z' fill='%2305060a'/%3E%3C/svg%3E") center / 24px no-repeat; }
+.is-paused .p-paused { opacity: 1; }
 
 /* agent graph (BondCheck) */
 .agents { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
@@ -385,7 +455,7 @@ section { position: relative; }
 /* ---------- contact ---------- */
 .contact { text-align: center; padding: 180px 0 120px; overflow: hidden; }
 .contact::before { content: ""; position: absolute; left: 50%; top: 40%; width: 900px; height: 600px; transform: translate(-50%, -50%); background: radial-gradient(ellipse, rgba(167,139,250,.18), transparent 65%); pointer-events: none; }
-.contact h2 { position: relative; font-family: var(--display); font-weight: 600; letter-spacing: -.05em; line-height: .95; font-size: clamp(3rem, 9vw, 8rem); margin: 0 auto; max-width: 1100px; }
+.contact h2 { position: relative; font-family: var(--serif); font-weight: 400; letter-spacing: -.025em; line-height: .95; font-size: clamp(3.4rem, 10vw, 9rem); margin: 0 auto; max-width: 1100px; }
 .contact p { position: relative; color: var(--muted); font-size: 1.15rem; max-width: 520px; margin: 32px auto 0; }
 .contact .hero-ctas { justify-content: center; position: relative; }
 .big-btn { width: 180px; height: 180px; border-radius: 50%; justify-content: center; text-align: center; font-size: 1rem; margin-top: 56px; background: var(--grad); color: var(--bg); }
@@ -419,35 +489,6 @@ footer a:hover { color: var(--text); }
 @media (max-width: 959px) { .portrait { max-width: 340px; } }
 
 /* ---------- background ---------- */
-.bg-grid { display: grid; gap: 20px; }
-@media (min-width: 960px) { .bg-grid { grid-template-columns: 1.15fr 1fr; gap: 24px; } }
-.edu { position: relative; display: grid; gap: 20px; align-content: start; }
-.edu-item { position: relative; border: 1px solid var(--line); border-radius: 22px; padding: 30px 32px; background: var(--panel); }
-.edu-item:first-child { background: linear-gradient(160deg, rgba(167,139,250,.08), transparent 50%), var(--panel); }
-.edu-when { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-family: var(--mono); font-size: .76rem; color: var(--muted); letter-spacing: .04em; }
-.badge-done { font-size: .68rem; font-weight: 500; color: var(--teal); background: rgba(94,234,212,.1); border-radius: 999px; padding: 3px 10px; }
-.edu-item h3 { font-family: var(--display); font-size: 1.7rem; font-weight: 600; letter-spacing: -.025em; margin: 14px 0 6px; }
-.edu-deg { margin: 0; color: var(--text); font-size: 1rem; }
-.edu-deg span { color: var(--muted); font-size: .92rem; }
-.edu-score { display: flex; align-items: baseline; gap: 8px; margin-top: 20px; }
-.edu-score b { font-family: var(--display); font-size: 2.4rem; font-weight: 600; letter-spacing: -.04em; line-height: 1; }
-.edu-score span { color: var(--muted); font-size: .88rem; }
-.edu-notes { margin: 22px 0 0; padding: 20px 0 0; border-top: 1px solid var(--line); list-style: none; display: grid; gap: 10px; }
-.edu-notes li { position: relative; padding-left: 20px; color: var(--muted); font-size: .94rem; }
-.edu-notes li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 2px; background: var(--violet); transform: rotate(45deg); }
-.edu-notes b { color: var(--text); font-weight: 600; }
-.bg-side { display: grid; gap: 20px; align-content: start; }
-.side-card { border: 1px solid var(--line); border-radius: 22px; padding: 28px 30px; background: var(--panel); }
-.side-card h4 { margin: 0 0 18px; font-family: var(--mono); font-size: .74rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.hl-list, .cert-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-.hl-list li { display: grid; grid-template-columns: 74px 1fr; gap: 14px; align-items: baseline; }
-.hl-list b { font-family: var(--display); font-size: 1.5rem; font-weight: 600; letter-spacing: -.03em; }
-.hl-list span { color: var(--muted); font-size: .9rem; line-height: 1.45; }
-.cert-list li { display: flex; gap: 14px; align-items: center; }
-.cert-list i { flex-shrink: 0; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; font-style: normal; font-family: var(--display); font-weight: 700; font-size: .72rem; color: #fff; }
-.cert-list b { display: block; font-size: .92rem; font-weight: 600; line-height: 1.35; }
-.cert-list span { display: block; font-size: .8rem; color: var(--dim); margin-top: 2px; }
-@media (max-width: 520px) { .edu-item, .side-card { padding: 24px; } .hl-list li { grid-template-columns: 1fr; gap: 2px; } }
 
 /* ---------- a11y, progress, mobile menu ---------- */
 .skip { position: fixed; left: 16px; top: -60px; z-index: 300; background: var(--text); color: var(--bg); font-weight: 600; padding: 10px 16px; border-radius: 10px; transition: top .2s; }
@@ -598,7 +639,7 @@ footer a:hover { color: var(--text); }
 /* reveal defaults (only when animations are live) */
 .anim .rv { opacity: 0; transform: translateY(40px); }
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track, .stack div, .orb, .agent .st, .eyebrow .dot, .scroll-hint i { animation: none !important; }
+  .stack div, .orb, .agent .st, .eyebrow .dot, .scroll-hint i { animation: none !important; }
 }
 </style>
 </head>
@@ -621,7 +662,6 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
 <nav class="nav" aria-label="Primary">
   <a href="#top" class="nav-logo grad-text">SP</a>
   <a href="#about" class="link">About</a>
-  <a href="#background" class="link">Background</a>
   <a href="#work" class="link">Work</a>
   <a href="#demo" class="link opt">Live demo</a>
   <a href="#more" class="link opt">Projects</a>
@@ -633,7 +673,6 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
 
 <div class="mobile-menu" id="mobileMenu" hidden>
   <a href="#about">About</a>
-  <a href="#background">Background</a>
   <a href="#work">Work</a>
   <a href="#demo">Live demo</a>
   <a href="#more">Projects</a>
@@ -652,8 +691,9 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   <!-- HERO -->
   <section class="hero">
     <canvas id="gl" aria-hidden="true"></canvas>
+    <img class="gl-ghost" id="glGhost" src="portrait-signal.png" alt="" aria-hidden="true">
     <div class="container hero-inner">
-      <span class="eyebrow hero-in"><span class="hero-avatar"><picture><source srcset="avatar.webp" type="image/webp"><img src="avatar.jpg" width="144" height="144" alt="Bandaru Sai Pranav"></picture><span class="dot"></span></span>AI &amp; Full-Stack Engineer<span class="eb-long"> · B.Tech CSE ’26</span> · Open to <span class="eb-long">full-time roles</span><span class="eb-short">work</span></span>
+      <span class="eyebrow hero-in"><span class="hero-avatar"><picture><source srcset="avatar.webp" type="image/webp"><img src="avatar.jpg" width="144" height="144" alt="Bandaru Sai Pranav"></picture><span class="dot"></span></span>AI &amp; Full-Stack Engineer · Open to <span class="eb-long">full-time roles</span><span class="eb-short">work</span></span>
       <h1>
         <span class="line"><span>Bandaru</span></span>
         <span class="line"><span class="grad-text">Sai Pranav</span></span>
@@ -680,12 +720,14 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
     </div>
   </section>
 
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>LangGraph</span><span>Claude API</span><span>Swift</span><span>Kotlin</span><span>Next.js</span><span>FastAPI</span><span>React Native</span><span>Supabase</span><span>Playwright</span><span>Gemini</span><span>PySpark</span>
-      <span>LangGraph</span><span>Claude API</span><span>Swift</span><span>Kotlin</span><span>Next.js</span><span>FastAPI</span><span>React Native</span><span>Supabase</span><span>Playwright</span><span>Gemini</span><span>PySpark</span>
+  <section class="proof" aria-label="Highlights">
+    <div class="container proof-grid">
+      <div class="proof-item rv"><b>10<span>+</span></b><p>full-stack AI apps built: agentic, RAG, vision and voice</p></div>
+      <div class="proof-item rv"><b>200<span>+</span></b><p>DSA problems solved on LeetCode, HackerRank and GeeksforGeeks</p></div>
+      <div class="proof-item rv"><b>v1.0</b><p>public Android release of Handsoff, for offline gesture-based file transfer</p></div>
+      <a class="proof-link rv" href="#work">The work.<br>What I've shipped<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10M7 17 17 7"/></svg></a>
     </div>
-  </div>
+  </section>
 
   <!-- ABOUT -->
   <section id="about" class="sec-pad">
@@ -709,61 +751,6 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
         <div class="stat rv"><b><span class="count" data-to="7">7</span></b><span>agent-based systems built</span></div>
         <div class="stat rv"><b><span class="count" data-to="99.6" data-dec="1">99.6</span>%</b><span>field accuracy in BondCheck's benchmark</span></div>
         <div class="stat rv"><b><span class="count" data-to="3">3</span></b><span>platforms: macOS, Android, web</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BACKGROUND -->
-  <section id="background" class="sec-pad" style="padding-top:40px">
-    <div class="container">
-      <div class="work-head">
-        <div>
-          <div class="sec-label">Background</div>
-          <h2 class="sec-title rv">Education &amp; <span class="grad-text">recognition</span></h2>
-        </div>
-        <p class="rv">I studied computer science with a specialisation in data science, then spent my final year building and shipping AI products end to end.</p>
-      </div>
-
-      <div class="bg-grid">
-        <div class="edu">
-          <article class="edu-item rv">
-            <div class="edu-when"><span>Aug 2022 – May 2026</span><span class="badge-done">Graduated</span></div>
-            <h3>Bennett University</h3>
-            <p class="edu-deg">B.Tech in Computer Science Engineering<br><span>Specialisation in Data Science</span></p>
-            <div class="edu-score"><b>8.30</b><span>/ 10 CGPA</span></div>
-            <ul class="edu-notes">
-              <li>Won the <b>Dean's Award</b> for a PySpark ensemble model that recommends crops from soil and climate data.</li>
-              <li>Took <b>3rd place</b> in the college hackathon (2024) and competed in the <b>Smart India Hackathon</b>.</li>
-            </ul>
-          </article>
-          <article class="edu-item rv">
-            <div class="edu-when"><span>Jun 2020 – May 2022</span></div>
-            <h3>Sri Chaitanya Junior College</h3>
-            <p class="edu-deg">Intermediate (TSBIE)</p>
-            <div class="edu-score"><b>97.8%</b><span>978 / 1000</span></div>
-          </article>
-        </div>
-
-        <div class="bg-side">
-          <div class="side-card rv">
-            <h4>Highlights</h4>
-            <ul class="hl-list">
-              <li><b>10+</b><span>full-stack AI apps built (agentic, RAG, vision, voice), several live on Vercel and Render</span></li>
-              <li><b>200+</b><span>DSA problems solved on LeetCode, HackerRank and GeeksforGeeks</span></li>
-              <li><b>v1.0</b><span>public Android release of Handsoff, for offline gesture-based file transfer</span></li>
-            </ul>
-          </div>
-          <div class="side-card rv">
-            <h4>Certifications</h4>
-            <ul class="cert-list">
-              <li><i style="background:#86bc25">D</i><div><b>Data Analytics Job Simulation</b><span>Deloitte Australia · Forage · Aug 2025</span></div></li>
-              <li><i style="background:#4285f4">G</i><div><b>Google Data Analytics Professional Certificate</b><span>Google · Coursera</span></div></li>
-              <li><i style="background:#ff6f61">DL</i><div><b>Sequences, Time Series and Prediction</b><span>DeepLearning.AI · 2024</span></div></li>
-              <li><i style="background:#1f70c1">IBM</i><div><b>Exploratory Data Analysis for Machine Learning</b><span>IBM · 2024</span></div></li>
-              <li><i style="background:#8b5cf6">C++</i><div><b>Object-Oriented C++</b><span>Codio · 2025</span></div></li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -795,9 +782,22 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
           <div class="case-links"><a href="https://github.com/SaiPranav13188/Bytewise" target="_blank" rel="noopener">View source ↗</a></div>
         </div>
         <div class="case-visual">
-          <div class="tilt">
+          <div class="tilt" data-demo="bytewise">
             <div class="laptop">
-              <div class="laptop-screen"><img loading="lazy" src="https://raw.githubusercontent.com/SaiPranav13188/Bytewise/main/Docs/screenshots/map.png" alt="Bytewise treemap of a home folder with hover details for a 4.27 GB file"></div>
+              <div class="laptop-screen">
+                <div class="bw-stage">
+                  <img class="bw-map" loading="lazy" src="media/bytewise-map.png" width="1784" height="1152" alt="Bytewise treemap of a home folder with hover details for a 4.27 GB file">
+                  <img class="bw-labels" loading="lazy" src="media/bytewise-labels.png" width="1742" height="1120" alt="">
+                  <div class="bw-dim"></div>
+                  <img class="bw-sheet" loading="lazy" src="media/bytewise-cleanup.png" width="1276" height="1006" alt="">
+                  <i class="bw-hl"></i>
+                  <span class="bw-tip">weights.bin · 4.27 GB</span>
+                  <i class="hs" data-hs="big" style="left:15.4%;top:50.8%"></i>
+                  <i class="hs" data-hs="lib" style="left:71.6%;top:27%"></i>
+                  <i class="hs" data-hs="google" style="left:81.5%;top:41.8%"></i>
+                  <i class="hs" data-hs="dry" style="left:58.8%;top:74.9%"></i>
+                </div>
+              </div>
               <div class="laptop-base"></div>
             </div>
           </div>
@@ -871,14 +871,20 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
           <div class="case-links"><a href="https://github.com/SaiPranav13188/Nagrik" target="_blank" rel="noopener">View source ↗</a></div>
         </div>
         <div class="case-visual">
-          <div class="tilt">
+          <div class="tilt" data-demo="nagrik">
             <div class="phone">
               <div class="p-status"><span>9:41</span><span>5G ▮▮▮</span></div>
+              <div class="p-scene">
+                <div class="p-row"><span class="p-title">Report an issue</span><span class="p-sub">Ward 12</span></div>
+                <div class="cam"><svg viewBox="0 0 200 260" preserveAspectRatio="xMidYMid slice"><rect width="200" height="260" fill="#1d2029"/><path d="M0 120 L200 104 L200 260 L0 260Z" fill="#2a2d36"/><ellipse cx="100" cy="182" rx="62" ry="16" fill="#14161c"/><ellipse cx="100" cy="179" rx="50" ry="10" fill="#0b0c10"/><path d="M0 128 L200 112" stroke="#fbbf24" stroke-width="3" stroke-dasharray="14 10"/></svg><i class="cam-box"></i><span class="p-chip cam-tag">Detecting…</span></div>
+                <div class="p-sub" style="text-align:center">Point at the problem and snap</div>
+                <div class="shutter"></div>
+              </div>
               <div class="phone-ui">
-                <div class="p-row"><span class="p-title">Complaint #A-214</span><span class="p-chip on">Filed</span></div>
+                <div class="p-row"><span class="p-title" style="font-size:16px;white-space:nowrap">Complaint #A-214</span><span class="p-chip on n-status">Filed</span></div>
                 <div class="photo">
                   <svg viewBox="0 0 200 92" preserveAspectRatio="none"><path d="M0 60 L200 52 L200 92 L0 92Z" fill="#2a2d36"/><ellipse cx="100" cy="72" rx="46" ry="10" fill="#14161c"/><ellipse cx="100" cy="70" rx="38" ry="6" fill="#0b0c10"/><path d="M0 64 L200 56" stroke="#fbbf24" stroke-width="2" stroke-dasharray="10 8"/></svg>
-                  <span class="p-chip">Pothole · 94% confident</span>
+                  <span class="p-chip n-tag">Pothole · 94% confident</span>
                 </div>
                 <div class="p-row"><span class="p-chip on">EN</span><span class="p-chip">తెలుగు</span><span class="p-chip">हिन्दी</span><span class="p-sub">Ward 12</span></div>
                 <div class="p-card tl">
@@ -911,9 +917,17 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
           <div class="case-links"><a href="https://github.com/SaiPranav13188/Journi" target="_blank" rel="noopener">View source ↗</a></div>
         </div>
         <div class="case-visual">
-          <div class="tilt">
+          <div class="tilt" data-demo="journi">
             <div class="phone">
               <div class="p-status"><span>9:41</span><span>5G ▮▮▮</span></div>
+              <div class="p-scene">
+                <div class="p-row"><span class="p-title">Journi AI</span><span class="p-chip on">6 agents</span></div>
+                <div class="chat">
+                  <div class="bub me">Plan 6 days in Vietnam for 3, ₹50k each</div>
+                  <div class="bub ai"><i class="dots"><b></b><b></b><b></b></i><span class="ai-txt">Checking weather, prices and your budget. Building the days now.</span></div>
+                </div>
+                <div class="composer"><span class="comp-txt">Message Journi…</span><span class="send">↑</span></div>
+              </div>
               <div class="phone-ui">
                 <div><div class="p-sub">Trip · 6 days · 3 travellers</div><div class="p-title">Vietnam</div></div>
                 <div class="p-card">
@@ -923,13 +937,13 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
                 <div class="p-card" style="border-color:color-mix(in srgb,var(--amber) 50%,transparent)">
                   <div class="p-row"><b style="color:var(--amber)">⚠ Day 4 · Rain 80%</b></div>
                   <div class="p-sub" style="margin-top:4px">Weather agent suggests swapping the hike for the museum.</div>
-                  <div class="p-row" style="margin-top:8px;justify-content:flex-start;gap:6px"><span class="p-chip on">Swap plan</span><span class="p-chip">Keep</span></div>
+                  <div class="p-row" style="margin-top:8px;justify-content:flex-start;gap:6px"><span class="p-chip on j-swap">Swap plan</span><span class="p-chip">Keep</span></div>
                 </div>
                 <div class="p-card">
-                  <div class="p-row"><span class="p-sub">Budget / person</span><b>₹48,200</b></div>
-                  <div class="acc-bar" style="margin-top:7px;height:6px"><i style="--w:72%;background:var(--accent)"></i></div>
+                  <div class="p-row"><span class="p-sub">Budget / person</span><b class="j-bud">₹48,200</b></div>
+                  <div class="acc-bar" style="margin-top:7px;height:6px"><i class="j-bar" style="--w:72%;background:var(--accent)"></i></div>
                 </div>
-                <div class="p-card" style="margin-top:auto;background:color-mix(in srgb,var(--accent) 14%,transparent)">"Add a coffee spot near Day 1" <span class="p-sub">→ 6 places found</span></div>
+                <div class="p-card" style="margin-top:auto;background:color-mix(in srgb,var(--accent) 14%,transparent)"><span class="j-ask">"Add a coffee spot near Day 1"</span> <span class="p-sub j-found">→ 6 places found</span></div>
               </div>
             </div>
           </div>
@@ -952,18 +966,24 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
           <div class="case-links"><a href="https://tally-sooty-mu.vercel.app" target="_blank" rel="noopener">Live site ↗</a><span class="private">Source private</span></div>
         </div>
         <div class="case-visual">
-          <div class="tilt">
+          <div class="tilt" data-demo="tally">
             <div class="phone">
               <div class="p-status"><span>9:41</span><span>5G ▮▮▮</span></div>
+              <div class="p-scene p-lock">
+                <div class="lock-time">9:41</div>
+                <div class="p-sub" style="text-align:center">Tuesday, 27 October</div>
+                <div class="notif"><div class="p-row"><b>HDFC Bank</b><span class="p-sub">now</span></div><div>Rs.386.00 debited from A/c XX4821 to SWIGGY via UPI.</div></div>
+                <span class="p-chip lock-badge">🔒 Read on this phone, never uploaded</span>
+              </div>
               <div class="phone-ui">
-                <div><div class="p-sub">Spent this month</div><div class="p-title" style="font-size:24px">₹24,380</div><div class="p-sub" style="color:var(--accent)">↓ 12% vs last month, same day</div></div>
+                <div><div class="p-sub">Spent this month</div><div class="p-title t-amt" style="font-size:24px">₹24,380</div><div class="p-sub" style="color:var(--accent)">↓ 12% vs last month, same day</div></div>
                 <div class="p-card"><div class="bars"><i style="--h:40%"></i><i style="--h:65%"></i><i style="--h:30%"></i><i style="--h:80%"></i><i style="--h:52%"></i><i style="--h:22%"></i><i class="hi" style="--h:90%"></i></div></div>
                 <div class="p-card" style="padding:4px 11px">
                   <div class="txn"><span class="ic" style="background:#f97316">S</span><span class="nm"><b>Swiggy</b><span>UPI · ••4821</span></span><span class="am">−₹386</span></div>
                   <div class="txn"><span class="ic" style="background:#ef4444">N</span><span class="nm"><b>Netflix <span class="p-chip" style="font-size:8px">Subscription</span></b><span>Renews in 2 days</span></span><span class="am">−₹649</span></div>
                   <div class="txn"><span class="ic" style="background:#34d399">R</span><span class="nm"><b>Rahul paid you back</b><span>Split settled</span></span><span class="am" style="color:var(--accent)">+₹1,300</span></div>
                 </div>
-                <div class="p-card" style="margin-top:auto">✦ <b>Tally AI</b> <span class="p-sub">Food is up ₹2,140, mostly weekend orders.</span></div>
+                <div class="p-card t-ai" style="margin-top:auto">✦ <b>Tally AI</b> <span class="p-sub t-ai-txt">Food is up ₹2,140, mostly weekend orders.</span></div>
               </div>
             </div>
           </div>
@@ -989,15 +1009,15 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
           </div>
         </div>
         <div class="case-visual">
-          <div class="tilt">
+          <div class="tilt" data-demo="handsoff">
             <div class="phone">
               <div class="p-status"><span>9:41</span><span>Linked ●</span></div>
               <div class="phone-ui">
                 <div class="p-row"><span class="p-title">Send</span><span class="p-chip on">3 items</span></div>
                 <div class="stack"><div></div><div></div><div></div></div>
-                <div class="hand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.9-2.4l-3.6-3.6a2 2 0 0 1 2.8-2.8L7 15"/></svg></div>
-                <div class="p-sub" style="text-align:center">Open your hand to send</div>
-                <div class="p-btn">Delivered ✓</div>
+                <div class="hand"><svg class="h-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-5.9-2.4l-3.6-3.6a2 2 0 0 1 2.8-2.8L7 15"/></svg><svg class="h-fist" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11.5V9a2 2 0 0 0-4 0v1.4M14 10V8a2 2 0 0 0-4 0v2M10 9.9V9a2 2 0 0 0-4 0v5M6 14a2 2 0 0 0-4 0M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-4a8 8 0 0 1-8-8 2 2 0 1 1 4 0"/></svg></div>
+                <div class="p-sub hs-hint" style="text-align:center">Open your hand to send</div>
+                <div class="p-btn hs-done">Delivered ✓</div>
               </div>
             </div>
             <div class="phone" style="margin-top:60px">
@@ -1005,8 +1025,8 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
               <div class="phone-ui">
                 <div class="p-title">Receive</div>
                 <div class="orb">3 items<br>open your palm</div>
-                <div class="p-card"><div class="p-row"><span class="p-sub">Receiving…</span><b>68%</b></div><div class="acc-bar" style="margin-top:6px;height:6px"><i style="--w:68%;background:var(--accent)"></i></div></div>
-                <div class="p-row" style="margin-top:auto"><span class="p-chip">Auto-accept</span><span class="p-chip on">Save all</span></div>
+                <div class="p-card"><div class="p-row"><span class="p-sub">Receiving…</span><b class="hs-pct">68%</b></div><div class="acc-bar" style="margin-top:6px;height:6px"><i class="hs-bar" style="--w:68%;background:var(--accent)"></i></div></div>
+                <div class="p-row" style="margin-top:auto"><span class="p-chip">Auto-accept</span><span class="p-chip on hs-save">Save all</span></div>
               </div>
             </div>
           </div>
@@ -1029,21 +1049,27 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
           <div class="case-links"><a href="https://github.com/SaiPranav13188/NutriSnap" target="_blank" rel="noopener">View source ↗</a></div>
         </div>
         <div class="case-visual">
-          <div class="tilt">
+          <div class="tilt" data-demo="nutrisnap">
             <div class="phone">
               <div class="p-status"><span>9:41</span><span>5G ▮▮▮</span></div>
+              <div class="p-scene">
+                <div class="p-row"><span class="p-title">Snap a meal</span><span class="p-chip">Lunch</span></div>
+                <div class="cam" style="background:#334155"><i class="plate"></i><i class="scan"></i><span class="p-chip cam-tag" style="top:12px">Analysing…</span></div>
+                <div class="p-sub" style="text-align:center">Hold steady, one photo is enough</div>
+                <div class="shutter"></div>
+              </div>
               <div class="phone-ui">
                 <div class="photo" style="height:110px;background:radial-gradient(circle at 50% 55%,#f5d0a9 0 28%,#b45309 29% 36%,#e5e7eb 37% 52%,#334155 53%)">
-                  <span class="p-chip">Paneer butter masala · 2 rotis</span>
+                  <span class="p-chip ns-tag">Paneer butter masala · 2 rotis</span>
                 </div>
-                <div class="p-row"><div><div class="p-sub">Calories</div><div class="p-title" style="font-size:22px">642 <span class="p-sub">kcal</span></div></div><span class="p-chip on">87% conf.</span></div>
+                <div class="p-row"><div><div class="p-sub">Calories</div><div class="p-title" style="font-size:22px"><span class="ns-kcal">642</span> <span class="p-sub">kcal</span></div></div><span class="p-chip on ns-conf">87% conf.</span></div>
                 <div class="rings">
                   <div class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#f472b6" stroke-width="4" stroke-dasharray="94" stroke-dashoffset="38" stroke-linecap="round"/></svg><b>24g</b>Protein</div>
                   <div class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#fbbf24" stroke-width="4" stroke-dasharray="94" stroke-dashoffset="30" stroke-linecap="round"/></svg><b>68g</b>Carbs</div>
                   <div class="ring"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#38bdf8" stroke-width="4" stroke-dasharray="94" stroke-dashoffset="50" stroke-linecap="round"/></svg><b>29g</b>Fat</div>
                 </div>
-                <div class="p-card"><div class="p-row"><span class="p-sub">Today</span><b>1,480 / 2,150</b></div><div class="acc-bar" style="margin-top:6px;height:6px"><i style="--w:69%;background:var(--accent)"></i></div></div>
-                <div class="p-row" style="margin-top:auto;gap:8px"><span class="p-btn" style="flex:1;margin:0;background:rgba(255,255,255,.08);color:var(--text)">Fix results</span><span class="p-btn" style="flex:1;margin:0">Log meal</span></div>
+                <div class="p-card"><div class="p-row"><span class="p-sub">Today</span><b class="ns-today">1,480 / 2,150</b></div><div class="acc-bar" style="margin-top:6px;height:6px"><i class="ns-bar" style="--w:69%;background:var(--accent)"></i></div></div>
+                <div class="p-row" style="margin-top:auto;gap:8px"><span class="p-btn" style="flex:1;margin:0;background:rgba(255,255,255,.08);color:var(--text)">Fix results</span><span class="p-btn ns-log" style="flex:1;margin:0">Log meal</span></div>
               </div>
             </div>
           </div>
@@ -1084,7 +1110,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
             </ol>
             <div class="fields" id="fields"><div class="fields-empty">Extracted fields will appear here.</div></div>
             <div class="verdict" id="verdict" hidden></div>
-            <div class="dlog" id="dlog"><div class="dim">$ waiting for run…</div></div>
+            <div class="dlog" id="dlog" data-lenis-prevent><div class="dim">$ waiting for run…</div></div>
           </div>
         </div>
         <p class="demo-note">A replay of BondCheck's pipeline on fictional letters, running entirely in your browser. Hover over a field to see its evidence in the letter.</p>
@@ -1271,7 +1297,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
 <div class="term" id="term" role="dialog" aria-modal="true" aria-label="Terminal" hidden>
   <div class="term-win">
     <div class="term-bar"><button type="button" class="term-x" id="termClose" aria-label="Close terminal"></button><i></i><i></i><span>sai@portfolio — zsh</span></div>
-    <div class="term-body" id="termBody">
+    <div class="term-body" id="termBody" data-lenis-prevent>
       <div class="term-out" id="termOut"></div>
       <label class="term-line"><span class="term-ps">sai@portfolio ~ %</span><input id="termIn" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command"></label>
     </div>
@@ -1289,103 +1315,132 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(hover: hover) and (min-width: 900px)').matches;
   var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
 
-  /* ---------- Three.js particle sphere ---------- */
+  /* ---------- Three.js particle portrait ---------- */
   var glState = { scroll: 0 };
   (function initGL() {
     var canvas = document.getElementById('gl');
     if (typeof THREE === 'undefined' || !canvas) return;
     var renderer;
-    try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true }); } catch (e) { return; }
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true, powerPreference: 'low-power' }); } catch (e) { return; }
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     renderer.setPixelRatio(dpr);
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-    camera.position.z = 5.2;
+    var camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    camera.position.z = 6;
 
     var mobile = window.innerWidth < 900;
-    var COUNT = mobile ? 4000 : 9000;
-    var pos = new Float32Array(COUNT * 3), rnd = new Float32Array(COUNT);
-    var golden = Math.PI * (3 - Math.sqrt(5));
-    for (var i = 0; i < COUNT; i++) {
-      var y = 1 - (i / (COUNT - 1)) * 2, r = Math.sqrt(1 - y * y), th = golden * i;
-      pos[i * 3] = Math.cos(th) * r; pos[i * 3 + 1] = y; pos[i * 3 + 2] = Math.sin(th) * r;
-      rnd[i] = Math.random();
-    }
-    var geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    geo.setAttribute('aRand', new THREE.BufferAttribute(rnd, 1));
+    // The portrait is sampled pixel by pixel; each opaque pixel of the cutout becomes one point.
+    // uBurst scatters the points for the intro, uProgress folds them into bands as the page scrolls over the hero.
     var mat = new THREE.ShaderMaterial({
-      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-      uniforms: { uTime: { value: 0 }, uPix: { value: dpr }, uMouse: { value: new THREE.Vector2() }, uBurst: { value: 0 } },
+      transparent: true, depthWrite: false,
+      uniforms: {
+        uTime: { value: 0 }, uPix: { value: dpr }, uBurst: { value: 0 }, uProgress: { value: 0 },
+        uAlpha: { value: 1 }
+      },
       vertexShader: [
-        'uniform float uTime; uniform float uPix; uniform vec2 uMouse; uniform float uBurst;',
-        'attribute float aRand; varying float vMix; varying float vA;',
+        'uniform float uTime; uniform float uPix; uniform float uBurst; uniform float uProgress;',
+        'attribute float aLum; attribute float aSeed; varying float vLum; varying float vA; varying float vTint;',
         'void main(){',
         '  vec3 p = position;',
-        '  float n = sin(p.x*3.1 + uTime*0.7) * sin(p.y*2.7 + uTime*0.55) * sin(p.z*3.3 + uTime*0.8);',
-        '  float n2 = sin(p.y*7.0 + uTime*1.3 + aRand*6.28) * 0.03;',
-        '  float d = 1.0 + 0.22*n + n2 + 0.15*dot(normalize(p.xy+0.0001), uMouse) ;',
-        '  p *= d + uBurst * (0.6 + aRand);',
+        '  float prog = smoothstep(0.02, 0.8, uProgress);',
+        '  vec3 band = vec3((aSeed - 0.5) * 2.5, (floor(position.x * 4.0 + 2.0) - 2.0) * 0.18 + sin(aSeed * 25.13) * 0.055, sin(aSeed * 18.0) * 0.1);',
+        '  p = mix(p, band, prog);',
+        '  float edge = smoothstep(0.18, 0.5, abs(position.x));',
+        '  p.x += sin(uTime * 0.3 + aSeed * 40.0) * 0.008 * (edge + prog);',
+        '  p.z += sin(aSeed * 64.0 + uTime * 0.2) * 0.015;',
+        '  vec3 rnd = vec3(sin(aSeed * 91.7), cos(aSeed * 57.3), sin(aSeed * 33.1)) * 2.4;',
+        '  p += rnd * uBurst * (0.4 + aSeed);',
         '  vec4 mv = modelViewMatrix * vec4(p, 1.0);',
         '  gl_Position = projectionMatrix * mv;',
-        '  gl_PointSize = (1.4 + aRand*2.6) * uPix * (4.2 / -mv.z);',
-        '  vMix = clamp((position.y + 1.0) * 0.5 + n*0.25, 0.0, 1.0);',
-        '  vA = (0.35 + 0.65*aRand) * (1.0 - uBurst*0.8);',
+        '  gl_PointSize = (1.15 + aLum * 0.9) * uPix;',
+        '  vLum = aLum;',
+        '  vTint = prog * 0.4;',
+        '  vA = (1.0 - prog * 0.5) * smoothstep(0.5, 0.33, -position.y) * (1.0 - uBurst * 0.6);',
         '}'
       ].join('\n'),
       fragmentShader: [
-        'varying float vMix; varying float vA;',
+        'uniform float uAlpha; varying float vLum; varying float vA; varying float vTint;',
         'void main(){',
-        '  float d = length(gl_PointCoord - 0.5); if (d > 0.5) discard;',
-        '  float a = smoothstep(0.5, 0.0, d) * vA;',
-        '  vec3 teal = vec3(0.37,0.92,0.83), vio = vec3(0.65,0.55,0.98), pink = vec3(0.96,0.45,0.71);',
-        '  vec3 c = vMix < 0.5 ? mix(pink, vio, vMix*2.0) : mix(vio, teal, (vMix-0.5)*2.0);',
-        '  gl_FragColor = vec4(c, a);',
+        '  float d = length(gl_PointCoord - 0.5);',
+        '  float a = smoothstep(0.5, 0.25, d) * vA * uAlpha;',
+        '  if (a < 0.025) discard;',
+        '  vec3 base = vec3(0.93, 0.94, 0.97) * (0.16 + pow(vLum, 1.15) * 1.25);',
+        '  vec3 tint = mix(vec3(0.37, 0.92, 0.83), vec3(0.65, 0.55, 0.98), vLum);',
+        '  gl_FragColor = vec4(mix(base, tint, vTint), a);',
         '}'
       ].join('\n')
     });
-    var sphere = new THREE.Points(geo, mat);
-    var group = new THREE.Group(); group.add(sphere); scene.add(group);
+    glState.mat = mat;
+    var portrait = new THREE.Points(new THREE.BufferGeometry(), mat);
+    portrait.frustumCulled = false;
+    var group = new THREE.Group(); group.add(portrait); scene.add(group);
 
-    // dust
-    var DUST = mobile ? 300 : 700, dpos = new Float32Array(DUST * 3);
-    for (var j = 0; j < DUST; j++) { dpos[j*3] = (Math.random()-0.5)*14; dpos[j*3+1] = (Math.random()-0.5)*9; dpos[j*3+2] = (Math.random()-0.5)*6 - 1; }
-    var dgeo = new THREE.BufferGeometry(); dgeo.setAttribute('position', new THREE.BufferAttribute(dpos, 3));
-    var dust = new THREE.Points(dgeo, new THREE.PointsMaterial({ size: 0.018, color: 0x8b90a0, transparent: true, opacity: 0.5, depthWrite: false }));
-    scene.add(dust);
+    var img = new Image();
+    img.onload = function () {
+      var w = mobile ? 180 : 300, h = Math.round(w * 1.25);
+      var c = document.createElement('canvas'); c.width = w; c.height = h;
+      var ctx = c.getContext('2d'); if (!ctx) return;
+      ctx.drawImage(img, 0, 0, w, h);
+      var data; try { data = ctx.getImageData(0, 0, w, h).data; } catch (e) { return; }
+      var pos = [], lum = [], seed = [];
+      for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) {
+        var k = (y * w + x) * 4;
+        if (data[k + 3] < 128) continue;
+        var l = (0.299 * data[k] + 0.587 * data[k + 1] + 0.114 * data[k + 2]) / 255;
+        pos.push((x / w - 0.5) * 0.8, 0.5 - y / h, l * 0.03);
+        lum.push(0.09 + l * 0.91);
+        seed.push(((127 * x + 311 * y) % 997) / 997);
+      }
+      var geo = portrait.geometry;
+      geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+      geo.setAttribute('aLum', new THREE.Float32BufferAttribute(lum, 1));
+      geo.setAttribute('aSeed', new THREE.Float32BufferAttribute(seed, 1));
+    };
+    img.src = 'portrait-signal.png';
 
+    var visH = 1, baseAlpha = 1, ghost = document.getElementById('glGhost');
     function size() {
       var w = canvas.clientWidth, h = canvas.clientHeight;
       renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
-      var wide = w >= 900;
-      group.position.x = wide ? 1.55 : 0; group.position.y = wide ? 0 : 0.9;
-      var s = wide ? 1.25 : 0.95; group.scale.set(s, s, s);
+      visH = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z;
+      var visW = visH * camera.aspect, wide = w >= 900;
+      // centred under the nav; the name and text sit over its lower part
+      var s = wide ? visH * 0.7 : Math.min(visH * 0.4, visW * 1.1);
+      group.scale.set(s, s, s);
+      group.position.x = 0;
+      group.position.y = visH * 0.5 - (64 / h) * visH - s * 0.5;
+      baseAlpha = wide ? 1 : 0.85;
+      ghost.style.height = (s / visH * h) + 'px';
     }
     size(); window.addEventListener('resize', size);
 
-    var mouse = { x: 0, y: 0 }, sm = { x: 0, y: 0 };
-    window.addEventListener('pointermove', function (e) { mouse.x = e.clientX / window.innerWidth * 2 - 1; mouse.y = -(e.clientY / window.innerHeight * 2 - 1); }, { passive: true });
+    var px = 0, sm = 0;
+    window.addEventListener('pointermove', function (e) { px = e.clientX / window.innerWidth * 2 - 1; }, { passive: true });
 
     var visible = true;
-    new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(canvas);
-    var clock = new THREE.Clock();
-    glState.mat = mat;
+    new IntersectionObserver(function (en) {
+      visible = en[0].isIntersecting; canvas.style.visibility = visible ? '' : 'hidden';
+    }).observe(document.querySelector('.hero'));
+    var clock = new THREE.Clock(), last = 0;
     (function loop() {
       requestAnimationFrame(loop);
       if (!visible) return;
-      var t = reduce ? 0 : clock.getElapsedTime();
-      sm.x += (mouse.x - sm.x) * 0.05; sm.y += (mouse.y - sm.y) * 0.05;
-      mat.uniforms.uTime.value = t;
-      mat.uniforms.uMouse.value.set(sm.x, sm.y);
-      group.rotation.y = t * 0.08 + sm.x * 0.5;
-      group.rotation.x = sm.y * 0.3 + glState.scroll * 0.8;
-      dust.rotation.y = t * 0.01;
+      var t = clock.getElapsedTime(), dt = Math.min(t - last, 0.1); last = t;
+      var u = mat.uniforms;
+      u.uTime.value = reduce ? 0 : t;
+      u.uProgress.value += (glState.scroll - u.uProgress.value) * (1 - Math.exp(-3 * dt));
+      var pr = u.uProgress.value, ss = THREE.MathUtils.smoothstep;
+      u.uAlpha.value = baseAlpha * (1 - ss(pr, 0.6, 0.95));
+      ghost.style.opacity = (0.45 * ss(pr, 0.0, 0.15) * (1 - ss(pr, 0.45, 0.9))).toFixed(3);
+      sm += (px - sm) * (1 - Math.exp(-3 * dt));
+      group.rotation.y = reduce ? 0 : sm * 0.02;
       renderer.render(scene, camera);
     })();
   })();
@@ -1620,7 +1675,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   }
   var run2 = {
     help: function () { out('<span class="c">whoami</span>          who I am\n<span class="c">ls</span>              list projects\n<span class="c">cat</span> <span class="y">&lt;project&gt;</span>   project details and numbers\n<span class="c">open</span> <span class="y">&lt;project&gt;</span>  open it in a new tab\n<span class="c">skills</span>          my toolbox\n<span class="c">demo</span>            jump to the live agent demo\n<span class="c">contact</span>         ways to reach me\n<span class="c">github</span> · <span class="c">linkedin</span> · <span class="c">email</span>\n<span class="c">clear</span> · <span class="c">exit</span>'); },
-    whoami: function () { out('<span class="v">Bandaru Sai Pranav</span>, AI &amp; full-stack engineer.\nI build agentic AI systems that check their own work, and ship them\nas native macOS, Android and web apps.\nB.Tech CSE (Data Science), Bennett University, 2026. <span class="c">Open to full-time roles.</span>'); },
+    whoami: function () { out('<span class="v">Bandaru Sai Pranav</span>, AI &amp; full-stack engineer.\nI build agentic AI systems that check their own work, and ship them\nas native macOS, Android and web apps. <span class="c">Open to full-time roles.</span>'); },
     ls: function () { out(Object.keys(P).map(function (k) { return '<span class="c">' + k + '/</span>'; }).join('  ') + '\n<span class="d">+ 11 more ML/data projects on GitHub. Try</span> <span class="c">cat bondcheck</span>'); },
     cat: function (a) {
       var p = P[(a || '').replace(/\/$/, '').toLowerCase()];
@@ -1651,11 +1706,11 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
     if (run2[c]) run2[c](a); else out('<span class="p">zsh: command not found: ' + esc(c) + '</span> <span class="d">(try</span> <span class="c">help</span><span class="d">)</span>');
   }
   function openTerm() {
-    lastFocus = document.activeElement; term.hidden = false;
+    lastFocus = document.activeElement; term.hidden = false; if (window.__lenis) window.__lenis.stop();
     if (!tOut.children.length) banner();
     setTimeout(function () { tIn.focus(); }, 30);
   }
-  function closeTerm() { term.hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  function closeTerm() { term.hidden = true; if (window.__lenis) window.__lenis.start(); if (lastFocus && lastFocus.focus) lastFocus.focus(); }
   document.getElementById('termOpen').addEventListener('click', openTerm);
   document.getElementById('termClose').addEventListener('click', closeTerm);
   term.addEventListener('click', function (e) { if (e.target === term) closeTerm(); });
@@ -1743,6 +1798,210 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   gsap.registerPlugin(ScrollTrigger);
   document.body.classList.add('anim');
 
+  /* smooth wheel scrolling (desktop only) */
+  var lenis = null;
+  if (finePointer && typeof Lenis !== 'undefined') {
+    lenis = new Lenis({ lerp: 0.13, smoothWheel: true, syncTouch: false });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    window.__lenis = lenis;
+  }
+
+  /* ---------- phone demos: each mockup plays a short scripted walkthrough, like a screen recording ---------- */
+  (function phoneDemos() {
+    function $$(sel, root) { return Array.prototype.slice.call(root.querySelectorAll(sel)); }
+    function center(el, phone, axis) {
+      var v = axis === 'x' ? el.offsetWidth / 2 : el.offsetHeight / 2;
+      for (var e = el; e && e !== phone; e = e.offsetParent) v += axis === 'x' ? e.offsetLeft : e.offsetTop;
+      return v;
+    }
+    function addChrome(phone) {
+      ['p-tap', 'p-flash', 'p-prog', 'p-paused'].forEach(function (c) {
+        var d = document.createElement('div'); d.className = c; d.setAttribute('aria-hidden', 'true');
+        if (c === 'p-prog') d.appendChild(document.createElement('i'));
+        phone.appendChild(d);
+      });
+    }
+    // a finger moves to the element and taps it; the press lands at `at + 0.6`
+    function tap(tl, phone, el, at) {
+      var t = phone.querySelector('.p-tap');
+      tl.to(t, { opacity: 1, duration: 0.2 }, at)
+        .to(t, { x: function () { return center(el, phone, 'x'); }, y: function () { return center(el, phone, 'y'); }, duration: 0.55, ease: 'power2.inOut' }, at)
+        .to(t, { scale: 0.6, duration: 0.12, ease: 'power2.in' }, at + 0.55)
+        .to(el, { scale: 0.94, duration: 0.12, yoyo: true, repeat: 1 }, at + 0.55)
+        .to(t, { scale: 1, duration: 0.3, ease: 'back.out(3)' }, at + 0.67)
+        .to(t, { opacity: 0, duration: 0.3 }, at + 1);
+    }
+    function flash(tl, phone, at) {
+      tl.fromTo(phone.querySelector('.p-flash'), { opacity: 0 }, { opacity: 0.85, duration: 0.07 }, at).to(phone.querySelector('.p-flash'), { opacity: 0, duration: 0.35 }, at + 0.08);
+    }
+    function type(tl, el, text, at, dur) {
+      var o = { n: 0 };
+      tl.fromTo(o, { n: 0 }, { n: text.length, duration: dur, ease: 'none', onUpdate: function () { el.textContent = text.slice(0, Math.round(o.n)); } }, at);
+    }
+    function count(tl, el, from, to, at, dur, fmt) {
+      var o = { v: from };
+      tl.fromTo(o, { v: from }, { v: to, duration: dur, ease: 'power2.out', onUpdate: function () { el.textContent = fmt(o.v); } }, at);
+    }
+    function show(tl, el, at, from) { tl.fromTo(el, Object.assign({ autoAlpha: 0, y: 10 }, from || {}), { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.4, ease: 'power3.out' }, at); }
+    function pop(tl, el, at) { tl.fromTo(el, { autoAlpha: 0, scale: 0.6 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, at); }
+    function sceneOut(tl, scene, at, end) { tl.fromTo(scene, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.4 }, at).to(scene, { autoAlpha: 1, duration: 0.4 }, end); }
+    var inr = function (v) { return '₹' + Math.round(v).toLocaleString('en-IN'); };
+
+    var DEMOS = {
+      bytewise: function (tl, root, st) {
+        var map = st.querySelector('.bw-map'), labels = st.querySelector('.bw-labels'), dim = st.querySelector('.bw-dim'), sheet = st.querySelector('.bw-sheet');
+        var hl = st.querySelector('.bw-hl'), tip = st.querySelector('.bw-tip');
+        var hs = function (n) { return st.querySelector('[data-hs="' + n + '"]'); };
+        var box = function (l, t, w, h) { return { left: l + '%', top: t + '%', width: w + '%', height: h + '%' }; };
+        tl.call(function () { tip.textContent = 'weights.bin · 4.27 GB'; }, null, 0);
+        // 1. treemap of the home folder: find the biggest file
+        tl.fromTo(map, { scale: 1, transformOrigin: '20% 50%' }, { scale: 1.06, duration: 3.4, ease: 'sine.inOut' }, 0);
+        tap(tl, st, hs('big'), 0.4);
+        tl.set(hl, box(2.2, 30.1, 26.2, 41.1), 0.9);
+        pop(tl, hl, 1.0);
+        tl.set(tip, { left: '17%', top: '44%' }, 1.1);
+        show(tl, tip, 1.2);
+        tl.to([hl, tip], { autoAlpha: 0, duration: 0.25 }, 2.6);
+        // 2. drill into Library > Caches: every location gets a verdict
+        tap(tl, st, hs('lib'), 2.6);
+        tl.fromTo(labels, { autoAlpha: 0, scale: 1.04 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power2.out' }, 3.25);
+        tl.set(hl, box(78.6, 35.4, 13.6, 21.2), 3.9);
+        pop(tl, hl, 4.0);
+        tl.to(hl, { autoAlpha: 0, duration: 0.25 }, 5.5);
+        // 3. clean up: nothing is deleted, items go to a holding area
+        tap(tl, st, hs('google'), 5.5);
+        tl.fromTo(dim, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 6.15);
+        tl.fromTo(sheet, { autoAlpha: 1, yPercent: -102 }, { yPercent: 0, duration: 0.5, ease: 'power3.out' }, 6.15);
+        tap(tl, st, hs('dry'), 7.2);
+        tl.set(hl, box(55.2, 73, 7.3, 3.7), 7.75);
+        pop(tl, hl, 7.8);
+        tl.call(function () { tip.textContent = 'Dry run · nothing is deleted'; }, null, 7.85);
+        tl.set(tip, { left: '44%', top: '64%' }, 7.85);
+        show(tl, tip, 7.9);
+        tl.to([hl, tip], { autoAlpha: 0, duration: 0.25 }, 9.6);
+        tl.to(sheet, { yPercent: -102, duration: 0.4, ease: 'power2.in' }, 9.7);
+        tl.to(dim, { autoAlpha: 0, duration: 0.3 }, 9.8);
+        tl.to(labels, { autoAlpha: 0, duration: 0.45 }, 10.2);
+      },
+      nagrik: function (tl, root, ph) {
+        var scene = ph.querySelector('.p-scene'), status = ph.querySelector('.n-status'), tag = ph.querySelector('.cam-tag');
+        var items = $$('.tl-item', ph), btn = ph.querySelector('.phone-ui .p-btn');
+        tl.call(function () { status.textContent = 'Scanning'; tag.textContent = 'Detecting…'; items.slice(0, 4).forEach(function (i) { i.classList.add('pending'); }); }, null, 0);
+        tl.fromTo(ph.querySelector('.cam-box'), { scale: 1.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: 'power3.out' }, 0.3);
+        tl.call(function () { tag.textContent = 'Pothole found'; }, null, 1.0);
+        tap(tl, ph, ph.querySelector('.shutter'), 1.1);
+        flash(tl, ph, 1.7);
+        sceneOut(tl, scene, 1.95, 10.2);
+        pop(tl, ph.querySelector('.n-tag'), 2.5);
+        var steps = ['Routing', 'Drafting', 'Filing', 'Filed'];
+        items.forEach(function (it, i) {
+          var t = 3.0 + i * 0.75;
+          tl.fromTo(it, { autoAlpha: 0.3, x: -6 }, { autoAlpha: 1, x: 0, duration: 0.35 }, t);
+          if (i < 4) tl.call(function () { it.classList.remove('pending'); status.textContent = steps[i]; }, null, t + 0.35);
+        });
+        show(tl, btn, 6.6);
+        tap(tl, ph, btn, 7.3);
+      },
+      journi: function (tl, root, ph) {
+        var scene = ph.querySelector('.p-scene'), comp = ph.querySelector('.comp-txt'), swap = ph.querySelector('.j-swap'), ask = ph.querySelector('.j-ask');
+        var cards = $$('.phone-ui > .p-card', ph);
+        tl.call(function () { comp.textContent = 'Message Journi…'; swap.classList.remove('on'); }, null, 0);
+        type(tl, comp, 'Plan 6 days in Vietnam for 3, ₹50k each', 0.5, 1.6);
+        tap(tl, ph, ph.querySelector('.send'), 2.1);
+        tl.call(function () { comp.textContent = 'Message Journi…'; }, null, 2.7);
+        show(tl, ph.querySelector('.bub.me'), 2.75, { scale: 0.92 });
+        show(tl, ph.querySelector('.bub.ai'), 3.2);
+        tl.fromTo(ph.querySelector('.dots'), { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.2 }, 4.4);
+        tl.fromTo(ph.querySelector('.ai-txt'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 4.5);
+        sceneOut(tl, scene, 5.6, 12);
+        show(tl, ph.querySelector('.phone-ui > div'), 5.9);
+        cards.forEach(function (c, i) { show(tl, c, 6.2 + i * 0.45, { y: 16 }); });
+        tl.fromTo(cards[1], { boxShadow: '0 0 0 0 rgba(251,191,36,0)' }, { boxShadow: '0 0 0 4px rgba(251,191,36,.28)', duration: 0.45, yoyo: true, repeat: 3 }, 6.9);
+        tl.fromTo(ph.querySelector('.j-bar'), { width: '0%' }, { width: '72%', duration: 1.1, ease: 'power2.out' }, 7.2);
+        count(tl, ph.querySelector('.j-bud'), 0, 48200, 7.2, 1.1, inr);
+        tap(tl, ph, swap, 7.9);
+        tl.call(function () { swap.classList.add('on'); }, null, 8.5);
+        type(tl, ask, '"Add a coffee spot near Day 1"', 9.0, 1.1);
+        tl.fromTo(ph.querySelector('.j-found'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 10.4);
+      },
+      tally: function (tl, root, ph) {
+        var scene = ph.querySelector('.p-scene'), notif = ph.querySelector('.notif'), txns = $$('.txn', ph);
+        show(tl, notif, 0.6, { y: -40 });
+        show(tl, ph.querySelector('.lock-badge'), 1.3);
+        tap(tl, ph, notif, 2.0);
+        sceneOut(tl, scene, 2.75, 8.9);
+        count(tl, ph.querySelector('.t-amt'), 23994, 24380, 3.1, 1.2, inr);
+        tl.fromTo($$('.bars i', ph), { scaleY: 0, transformOrigin: '50% 100%' }, { scaleY: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out' }, 3.1);
+        txns.forEach(function (t, i) { show(tl, t, 3.6 + i * 0.25, { x: 18, y: 0 }); });
+        tl.fromTo(txns[0], { backgroundColor: 'rgba(52,211,153,.2)' }, { backgroundColor: 'rgba(52,211,153,0)', duration: 1.6 }, 4.0);
+        show(tl, ph.querySelector('.t-ai'), 4.8);
+        type(tl, ph.querySelector('.t-ai-txt'), 'Food is up ₹2,140, mostly weekend orders.', 5.1, 1.6);
+      },
+      handsoff: function (tl, root, send, recv) {
+        var open = send.querySelector('.h-open'), fist = send.querySelector('.h-fist'), hint = send.querySelector('.hs-hint'), stack = send.querySelector('.stack');
+        tl.call(function () { hint.textContent = 'Make a fist to grab'; }, null, 0);
+        tl.fromTo(open, { autoAlpha: 1, scale: 1 }, { autoAlpha: 0, scale: 0.8, duration: 0.2 }, 1.0);
+        tl.fromTo(fist, { autoAlpha: 0, scale: 1.25 }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: 'back.out(2)' }, 1.0);
+        tl.call(function () { hint.textContent = 'Grabbed 3 items'; }, null, 1.15);
+        tl.fromTo(stack, { scale: 1, y: 0, x: 0, rotate: 0, autoAlpha: 1 }, { scale: 0.82, y: -6, duration: 0.4, ease: 'power2.out' }, 1.15);
+        tl.call(function () { hint.textContent = 'Open your hand to send'; }, null, 2.2);
+        tl.to(fist, { autoAlpha: 0, scale: 0.8, duration: 0.2 }, 2.8);
+        tl.to(open, { autoAlpha: 1, scale: 1, duration: 0.35, ease: 'back.out(3)' }, 2.8);
+        tl.to(stack, { x: 190, y: -90, rotate: 22, scale: 0.45, autoAlpha: 0, duration: 0.6, ease: 'power2.in' }, 2.9);
+        show(tl, send.querySelector('.hs-done'), 5.3);
+        if (!recv) return;
+        tl.fromTo(recv.querySelector('.orb'), { scale: 1 }, { scale: 1.12, duration: 0.3, yoyo: true, repeat: 1 }, 3.4);
+        tl.fromTo(recv.querySelector('.hs-bar'), { width: '0%' }, { width: '100%', duration: 1.6, ease: 'power1.inOut' }, 3.5);
+        count(tl, recv.querySelector('.hs-pct'), 0, 100, 3.5, 1.6, function (v) { return Math.round(v) + '%'; });
+        tap(tl, recv, recv.querySelector('.hs-save'), 5.4);
+      },
+      nutrisnap: function (tl, root, ph) {
+        var scene = ph.querySelector('.p-scene'), log = ph.querySelector('.ns-log');
+        tl.call(function () { log.textContent = 'Log meal'; }, null, 0);
+        tl.fromTo(ph.querySelector('.scan'), { top: '10%' }, { top: '86%', duration: 1.1, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0.2);
+        tap(tl, ph, ph.querySelector('.shutter'), 1.7);
+        flash(tl, ph, 2.3);
+        sceneOut(tl, scene, 2.55, 8.6);
+        pop(tl, ph.querySelector('.ns-tag'), 2.9);
+        count(tl, ph.querySelector('.ns-kcal'), 0, 642, 3.1, 1.2, function (v) { return Math.round(v); });
+        pop(tl, ph.querySelector('.ns-conf'), 3.7);
+        [38, 30, 50].forEach(function (off, i) {
+          tl.fromTo(ph.querySelectorAll('.ring circle:last-child')[i], { strokeDashoffset: 94 }, { strokeDashoffset: off, duration: 1, ease: 'power2.out' }, 3.3 + i * 0.15);
+        });
+        count(tl, ph.querySelector('.ns-today'), 838, 1480, 4.1, 1, function (v) { return Math.round(v).toLocaleString('en-IN') + ' / 2,150'; });
+        tl.fromTo(ph.querySelector('.ns-bar'), { width: '39%' }, { width: '69%', duration: 1, ease: 'power2.out' }, 4.1);
+        tap(tl, ph, log, 5.2);
+        tl.call(function () { log.textContent = 'Logged ✓'; }, null, 5.8);
+      }
+    };
+
+    $$('[data-demo]', document).forEach(function (root) {
+      var build = DEMOS[root.getAttribute('data-demo')]; if (!build) return;
+      var phones = $$('.phone, .bw-stage', root);
+      root.classList.add('demo-on');
+      phones.forEach(addChrome);
+      var bars = phones.map(function (ph) { return ph.querySelector('.p-prog i'); });
+      var tl = gsap.timeline({ repeat: -1, paused: true, onUpdate: function () { var p = tl.progress(); bars.forEach(function (b) { b.style.transform = 'scaleX(' + p + ')'; }); } });
+      phones.forEach(function (ph) {
+        tl.set(ph.querySelector('.p-tap'), { x: function () { return ph.clientWidth / 2; }, y: function () { return ph.clientHeight * 0.85; }, opacity: 0, scale: 1 }, 0);
+      });
+      build.apply(null, [tl, root].concat(phones));
+      tl.to({}, { duration: 1.4 });  // hold the finished screen before looping
+
+      var userPaused = false, inView = false;
+      function sync() {
+        if (inView && !userPaused) tl.play(); else tl.pause();
+        phones.forEach(function (ph) { ph.classList.toggle('is-paused', userPaused); ph.title = userPaused ? 'Play the demo' : 'Pause the demo'; });
+      }
+      ScrollTrigger.create({ trigger: root, start: 'top bottom', end: 'bottom top', onToggle: function (st) { inView = st.isActive; sync(); } });
+      phones.forEach(function (ph) { ph.addEventListener('click', function () { userPaused = !userPaused; sync(); }); });
+      window.addEventListener('resize', function () { tl.invalidate(); });
+      sync();
+    });
+  })();
+
   /* loader + intro */
   var counter = { v: 0 }, countEl = document.getElementById('count');
   gsap.set('.hero h1 .line > span', { yPercent: 110 });
@@ -1760,7 +2019,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   if (glState.mat) intro.fromTo(glState.mat.uniforms.uBurst, { value: 1.2 }, { value: 0, duration: 2.2, ease: 'expo.out' }, seen ? 0 : 1.6);
 
   /* hero scroll out */
-  gsap.to('.hero-inner', { yPercent: -18, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.to('.hero-inner', { y: -65, opacity: 0.35, ease: 'none', scrollTrigger: { trigger: '.hero', start: '25% top', end: 'bottom top', scrub: 1 } });
   ScrollTrigger.create({ trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true, onUpdate: function (s) { glState.scroll = s.progress; } });
 
   /* generic reveals */
@@ -1796,7 +2055,7 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   });
 
   /* active nav link */
-  ['about', 'background', 'work', 'demo', 'more'].forEach(function (id) {
+  ['about', 'work', 'demo', 'more'].forEach(function (id) {
     var a = document.querySelector('.nav a[href="#' + id + '"]');
     ScrollTrigger.create({ trigger: '#' + id, start: 'top 50%', end: 'bottom 50%', onToggle: function (s) { a.classList.toggle('active', s.isActive); } });
   });
@@ -1805,7 +2064,8 @@ try { if (sessionStorage.getItem('seenIntro')) document.body.classList.add('seen
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       var t = document.querySelector(a.getAttribute('href')); if (!t) return;
-      e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(t); else window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY, behavior: 'smooth' });
     });
   });
 
