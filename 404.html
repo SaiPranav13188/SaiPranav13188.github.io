@@ -5,27 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>404 — Bandaru Sai Pranav</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2305060a'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='26' font-weight='700' fill='%235eead4' text-anchor='middle'%3ESP%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#05070a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2305070a'/%3E%3Crect x='2' y='2' width='60' height='60' fill='none' stroke='%231c6d87' stroke-width='2'/%3E%3Ctext x='32' y='41' font-family='Menlo,monospace' font-size='24' fill='%234fd6ff' text-anchor='middle'%3ESP%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root { color-scheme: dark; }
 * { box-sizing: border-box; }
-body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px; background: #05060a; color: #e8eaf0; font-family: "Space Grotesk", system-ui, sans-serif; text-align: center; }
-.code { font-size: clamp(7rem, 26vw, 16rem); font-weight: 600; letter-spacing: -.06em; line-height: .9; background: linear-gradient(120deg, #5eead4, #a78bfa 55%, #f472b6); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.log { font-family: "JetBrains Mono", monospace; font-size: .85rem; color: #8b90a0; background: #0b0d14; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 16px 20px; margin: 28px auto 0; max-width: 460px; text-align: left; line-height: 1.8; }
-.log .bad { color: #fb7185; } .log .ok { color: #5eead4; }
-a { display: inline-block; margin-top: 32px; font-weight: 600; color: #05060a; background: #e8eaf0; padding: 14px 26px; border-radius: 999px; text-decoration: none; }
-a:hover { background: #5eead4; }
+body {
+  margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px 16px;
+  background: #05070a; color: #d6e3ee; font: 14px/1.6 "JetBrains Mono", ui-monospace, Menlo, monospace;
+  background-image: linear-gradient(#16202c 1px, transparent 1px), linear-gradient(90deg, #16202c 1px, transparent 1px);
+  background-size: 64px 64px; background-position: center;
+}
+main { width: 100%; max-width: 460px; border: 1px solid #16202c; background: rgba(5, 7, 10, .92); padding: 28px; }
+.k { font-size: 11px; letter-spacing: .3em; color: #4fd6ff; }
+h1 { margin: 16px 0 0; font-size: 56px; font-weight: 300; line-height: 1; }
+.log { margin-top: 24px; padding-top: 20px; border-top: 1px solid #16202c; color: #7d8fa3; font-size: 12px; line-height: 1.9; }
+.bad { color: #ffb454; } .ok { color: #4fd6ff; }
+a { display: inline-block; margin-top: 24px; border: 1px solid #1c6d87; color: #4fd6ff; padding: 8px 16px; font-size: 12px; letter-spacing: .15em; text-decoration: none; }
+a:hover { background: rgba(28, 109, 135, .25); }
 </style>
 </head>
 <body>
 <main>
-  <div class="code">404</div>
+  <p class="k">SAI PRANAV · ERROR</p>
+  <h1>404</h1>
   <div class="log">
     <div><span class="bad">✗</span> verify_quote · this page doesn't exist</div>
     <div><span class="ok">⟲</span> self-check · rerouting you somewhere real</div>
   </div>
-  <a href="/">Back to the portfolio</a>
+  <a href="/">BACK TO THE PORTFOLIO</a>
 </main>
 </body>
 </html>
