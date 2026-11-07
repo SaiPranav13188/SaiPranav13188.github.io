@@ -17,7 +17,8 @@ const { SYSTEM } = require('./_knowledge');
 
 const API_BASE = process.env.GEMINI_API_BASE || 'https://generativelanguage.googleapis.com/v1beta';
 // Tried in order; when one is out of quota the next is used.
-const MODELS = (process.env.GEMINI_MODEL || 'gemini-2.5-flash,gemini-2.5-flash-lite')
+// gemini-2.5-* is closed to new API users (Nov 2026), so default to the 3.x line.
+const MODELS = (process.env.GEMINI_MODEL || 'gemini-3.8-flash,gemini-3.5-flash-lite')
   .split(',').map((s) => s.trim()).filter(Boolean);
 
 const ALLOWED_ORIGINS = [
@@ -143,19 +144,31 @@ module.exports = async function handler(req, res) {
       const generationConfig = { maxOutputTokens: 900, temperature: 0.6 };
       const thinking = thinkingFor(model);
       if (thinking) generationConfig.thinkingConfig = thinking;
+      const call = () => fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':streamGenerateContent?alt=sse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: SYSTEM + '\n\n# Language for this turn\n' + LANGUAGE[lang] }] },
+          contents,
+          generationConfig,
+        }),
+        signal: controller.signal,
+      });
       try {
-        const r = await fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':streamGenerateContent?alt=sse', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: SYSTEM + '\n\n# Language for this turn\n' + LANGUAGE[lang] }] },
-            contents,
-            generationConfig,
-          }),
-          signal: controller.signal,
-        });
+        let r = await call();
+        let detail = '';
+        // A model that rejects the thinking setting is a hard 400, not
+        // something ignored. Retry once without it rather than fail.
+        if (r.status === 400 && generationConfig.thinkingConfig) {
+          detail = await r.text().catch(() => '');
+          if (/thinking/i.test(detail)) {
+            delete generationConfig.thinkingConfig;
+            r = await call();
+            detail = '';
+          }
+        }
         if (r.ok && r.body) { upstream = r; break; }
-        const detail = await r.text().catch(() => '');
+        detail = detail || await r.text().catch(() => '');
         if (r.status === 429 || /RESOURCE_EXHAUSTED|quota/i.test(detail)) {
           exhausted.set(id, Date.now() + QUOTA_COOLDOWN);
           sawQuota = true;
