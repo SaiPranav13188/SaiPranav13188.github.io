@@ -21,7 +21,7 @@ An AI assistant in a side panel ("✦ Ask JARVIS"). Visitors type or speak a que
 - `api/chat.js` is a Vercel serverless function that calls Google Gemini and streams the answer. The API key lives only in Vercel's environment variables.
 - On GitHub Pages (no server), the page sends questions to the Vercel deployment instead.
 - Voice uses the browser's own speech recognition and speech synthesis, so it costs no API quota.
-- Built-in limits: 25 questions per visitor and 60 per IP address per hour, with automatic fallback to `gemini-3.5-flash-lite` when `gemini-3.8-flash` runs out of quota.
+- Built-in limits: 25 questions per visitor and 60 per IP address per hour, with automatic fallback from `gemini-3.5-flash-lite` to `gemini-3.8-flash` when a model is out of quota, overloaded or silent for 8 seconds.
 
 **Setup:** create a free key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey), then in Vercel go to Project → Settings → Environment Variables and add `GEMINI_API_KEY`. Redeploy.
 

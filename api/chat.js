@@ -17,8 +17,9 @@ const { SYSTEM } = require('./_knowledge');
 
 const API_BASE = process.env.GEMINI_API_BASE || 'https://generativelanguage.googleapis.com/v1beta';
 // Tried in order; when one is out of quota the next is used.
-// gemini-2.5-* is closed to new API users (Nov 2026), so default to the 3.x line.
-const MODELS = (process.env.GEMINI_MODEL || 'gemini-3.8-flash,gemini-3.5-flash-lite')
+// gemini-2.5-* is closed to new API users (Nov 2026). Flash-lite leads: it is
+// fast and has the larger free allowance; 3.8-flash is the fallback.
+const MODELS = (process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite,gemini-3.8-flash')
   .split(',').map((s) => s.trim()).filter(Boolean);
 
 const ALLOWED_ORIGINS = [
@@ -33,6 +34,12 @@ const PER_SESSION_PER_HOUR = Number(process.env.MAX_TURNS_PER_SESSION || 25);
 const PER_IP_PER_HOUR = Number(process.env.MAX_TURNS_PER_IP_PER_HOUR || 60);
 const HOUR = 60 * 60 * 1000;
 const QUOTA_COOLDOWN = 15 * 60 * 1000;
+// A model under heavy load can accept the request and then say nothing at all.
+// Give each attempt this long to start answering before trying the next one,
+// and end an answer that goes silent mid-stream, so a visitor never waits on
+// the platform's 60-second kill.
+const FIRST_BYTE_MS = 8000;
+const IDLE_MS = 15000;
 
 const LANGUAGE = {
   en: 'Answer in English, whatever language the question is in.',
@@ -136,6 +143,7 @@ module.exports = async function handler(req, res) {
   res.on('close', () => { if (!res.writableEnded) controller.abort(); });
 
   let upstream = null;
+  let upstreamCtl = null;
   let sawQuota = false;
   for (const model of MODELS) {
     for (const key of keys()) {
@@ -144,6 +152,10 @@ module.exports = async function handler(req, res) {
       const generationConfig = { maxOutputTokens: 900, temperature: 0.6 };
       const thinking = thinkingFor(model);
       if (thinking) generationConfig.thinkingConfig = thinking;
+      const attempt = new AbortController();
+      const relay = () => attempt.abort();
+      controller.signal.addEventListener('abort', relay);
+      const timer = setTimeout(() => attempt.abort(), FIRST_BYTE_MS);
       const call = () => fetch(API_BASE + '/models/' + encodeURIComponent(model) + ':streamGenerateContent?alt=sse', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
@@ -152,7 +164,7 @@ module.exports = async function handler(req, res) {
           contents,
           generationConfig,
         }),
-        signal: controller.signal,
+        signal: attempt.signal,
       });
       try {
         let r = await call();
@@ -167,7 +179,7 @@ module.exports = async function handler(req, res) {
             detail = '';
           }
         }
-        if (r.ok && r.body) { upstream = r; break; }
+        if (r.ok && r.body) { clearTimeout(timer); upstream = r; upstreamCtl = attempt; break; }
         detail = detail || await r.text().catch(() => '');
         if (r.status === 429 || /RESOURCE_EXHAUSTED|quota/i.test(detail)) {
           exhausted.set(id, Date.now() + QUOTA_COOLDOWN);
@@ -176,7 +188,10 @@ module.exports = async function handler(req, res) {
         console.warn('[jarvis] ' + model + ' -> ' + r.status + ' ' + detail.slice(0, 200));
       } catch (err) {
         if (controller.signal.aborted) return;
-        console.warn('[jarvis] ' + model + ' failed: ' + err.message);
+        console.warn('[jarvis] ' + model + (attempt.signal.aborted ? ' gave no answer in ' + FIRST_BYTE_MS + ' ms' : ' failed: ' + err.message));
+      } finally {
+        clearTimeout(timer);
+        if (!upstream) controller.signal.removeEventListener('abort', relay);
       }
     }
     if (upstream) break;
@@ -197,7 +212,11 @@ module.exports = async function handler(req, res) {
   let wrote = false;
   try {
     for (;;) {
-      const { value, done } = await reader.read();
+      let idle;
+      const { value, done } = await Promise.race([
+        reader.read(),
+        new Promise((_, reject) => { idle = setTimeout(() => reject(new Error('idle')), IDLE_MS); }),
+      ]).finally(() => clearTimeout(idle));
       if (done) break;
       buffer += decoder.decode(value, { stream: true });
       let nl;
@@ -215,6 +234,7 @@ module.exports = async function handler(req, res) {
     }
   } catch (err) {
     if (controller.signal.aborted) return;
+    upstreamCtl.abort();
     console.warn('[jarvis] stream broke: ' + err.message);
   }
   if (!wrote) res.write("Sorry, I lost my train of thought there. Could you ask that again?");
