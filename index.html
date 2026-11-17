@@ -237,10 +237,11 @@ summary::-webkit-details-marker { display: none; }
 .live-facts { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--text); }
 .live-facts span::before { content: "✓ "; color: var(--live); }
 .live-grid { margin-top: 36px; display: grid; gap: 20px; }
-@media (min-width: 720px) { .live-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .live-grid > .live-card:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 10px); } }
-@media (min-width: 900px) { .live-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .live-grid > .live-card:last-child:nth-child(odd) { grid-column: auto; width: auto; } }
+@media (min-width: 720px) { .live-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .live-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .live-grid .live-body { padding: 16px 16px 18px; }
+  .live-grid .live-body h3 { font-size: 13px; }
+  .live-grid .live-stats { gap: 10px; } }
 
 .live-card { --accent: var(--signal); --glow: rgba(79, 214, 255, .28); position: relative; display: flex; padding: 1px;
   background: conic-gradient(from var(--ang), var(--edge-2) 0deg 230deg, var(--accent) 300deg, var(--edge-2) 360deg);
@@ -651,10 +652,10 @@ footer svg { width: 16px; height: 16px; display: block; }
   <section id="live" class="live-sec" aria-labelledby="live-title">
     <div class="wrap">
       <div class="live-head rv">
-        <span class="live-badge"><span class="pulse-dot"></span>Live now · 3 deployments</span>
+        <span class="live-badge"><span class="pulse-dot"></span>Live now · 4 deployments</span>
         <h2 id="live-title">Don't take my word for it. <span class="signal">Open them.</span></h2>
-        <p>Three of my AI systems are deployed and public. Nothing to install, no account to make: click and use the real thing in your browser, then check the code behind it.</p>
-        <div class="live-facts"><span>No sign-up</span><span>Runs in the browser</span><span>Source on GitHub</span></div>
+        <p>Four of my AI apps are deployed and public. Nothing to install, no account to make: click and use the real thing in your browser, then check the code behind it.</p>
+        <div class="live-facts"><span>No sign-up</span><span>Runs in the browser</span><span>Source on GitHub for 3 of 4</span></div>
       </div>
       <div class="live-grid">
           <article class="live-card rv">
@@ -723,6 +724,28 @@ footer svg { width: 16px; height: 16px; display: block; }
                   <a class="btn" href="https://github.com/SaiPranav13188/haathi" target="_blank" rel="noopener noreferrer">Code</a>
                 </div>
                 <p class="live-note">Pick a language and answer a few questions. Best on a phone.</p>
+              </div>
+            </div>
+          </article>
+          <article class="live-card amber late rv">
+            <div class="live-inner">
+              <a class="shot" href="https://tally-sooty-mu.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Open Tally live in a new tab">
+                <div class="chrome"><i></i><i></i><i></i><span class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>tally-sooty-mu.vercel.app</span><span class="live-pill"><span class="pulse-dot"></span>LIVE</span></div>
+                <div class="view">
+                  <img loading="lazy" src="media/live-tally.jpg" width="1600" height="1000" alt="Tally's home page: 'Know where every rupee goes. Automatically.', beside a phone showing a bank SMS turned into a monthly spend chart">
+                  <span class="scan" aria-hidden="true"></span>
+                  <span class="open" aria-hidden="true"><span>Open it live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></span>
+                </div>
+              </a>
+              <div class="live-body">
+                <div class="live-kicker"><b>Tally</b><span>Android + AI agent · FastAPI</span></div>
+                <h3>Turns the SMS your bank already sends into an <span class="warm">automatic expense tracker</span>, without uploading your messages.</h3>
+                <dl class="live-stats"><div><dt>0</dt><dd>raw SMS sent to a server</dd></div><div><dt>RLS</dt><dd>on every table</dd></div><div><dt>3</dt><dd>apps: Android, web, AI API</dd></div></dl>
+                <div class="live-actions">
+                  <a class="btn-go" href="https://tally-sooty-mu.vercel.app" target="_blank" rel="noopener noreferrer">Try Tally live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                  <a class="btn" href="#tally">Case study</a>
+                </div>
+                <p class="live-note">The web dashboard for the Android app. Source is private.</p>
               </div>
             </div>
           </article>
