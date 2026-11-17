@@ -163,6 +163,10 @@ summary::-webkit-details-marker { display: none; }
 .feature dt { color: var(--signal); font-size: 18px; font-weight: 300; }
 .feature dd { margin-top: 4px; font-size: 10px; color: var(--muted); line-height: 1.4; letter-spacing: .03em; }
 .feature .btns { margin-top: 24px; }
+.feature.also { margin-top: 12px; padding: 20px 28px; }
+.feature.also h3 { margin-top: 12px; font-size: 15px; font-weight: 300; line-height: 1.5; }
+.feature.also .btns { margin-top: 16px; }
+@media (max-width: 520px) { .feature, .feature.also { padding: 20px; } }
 .caption { margin-top: 16px; font-size: 11px; line-height: 1.7; color: var(--muted); }
 .caption i { font-style: normal; }
 @media (pointer: coarse) { .caption .fine { display: none; } }
@@ -529,6 +533,14 @@ footer svg { width: 16px; height: 16px; display: block; }
               <a href="#bondcheck" class="btn">The case study</a>
               <button type="button" class="btn" data-ask="Tell me about BondCheck. Why should I trust its numbers?">✦ Ask about it</button>
               <a href="https://bondcheck-two.vercel.app" target="_blank" rel="noopener noreferrer" class="btn sig">Live site ↗</a>
+            </div>
+          </div>
+          <div class="feature also">
+            <div class="feature-top"><span class="warm">Also live · Fin</span><span class="muted">Demo · no sign-up</span></div>
+            <h3>Split money with friends by just saying what happened. <span class="signal">Nine AI agents</span> draft the split and settle up over UPI, at 99.3% field accuracy with 0 hallucinated fields.</h3>
+            <div class="btns">
+              <a href="#fin" class="btn">The case study</a>
+              <a href="https://saipranav13188.github.io/fin-showcase/" target="_blank" rel="noopener noreferrer" class="btn sig">Live demo ↗</a>
             </div>
           </div>
           <p class="caption">Behind this page: the nine main projects and the tools each one uses, built from the cards below. <i class="warm">Amber</i> is a project, <i class="signal">cyan</i> a technology, and a line means that project uses that tool.<span class="fine"> Move the cursor and the traffic follows it; click an amber node to jump to its card.</span></p>
