@@ -610,7 +610,7 @@ footer svg { width: 16px; height: 16px; display: block; }
               <a href="https://saipranav13188.github.io/fin-showcase/" target="_blank" rel="noopener noreferrer" class="btn sig">Live demo ↗</a>
             </div>
           </div>
-          <p class="caption">Behind this page: the nine main projects and the tools each one uses, built from the cards below. <i class="warm">Amber</i> is a project, <i class="signal">cyan</i> a technology, and a line means that project uses that tool.<span class="fine"> Move the cursor and the traffic follows it; click an amber node to jump to its card.</span></p>
+          <p class="caption">Behind this page: the eight main projects and the tools each one uses, built from the cards below. <i class="warm">Amber</i> is a project, <i class="signal">cyan</i> a technology, and a line means that project uses that tool.<span class="fine"> Move the cursor and the traffic follows it; click an amber node to jump to its card.</span></p>
         </div>
       </div>
     </div>
@@ -865,7 +865,7 @@ footer svg { width: 16px; height: 16px; display: block; }
       </div>
 
       <div class="group">
-        <div class="group-head"><span>Native &amp; cross-platform apps</span><span class="line"></span><span class="count">04</span></div>
+        <div class="group-head"><span>Native &amp; cross-platform apps</span><span class="line"></span><span class="count">03</span></div>
         <div class="cards">
 
           <!-- Bytewise -->
@@ -922,35 +922,6 @@ footer svg { width: 16px; height: 16px; display: block; }
                 <div><h4>Privacy</h4><p>Parsing happens on the phone. OTPs are never stored, and only the last four digits of accounts are kept. Budgets, subscriptions and split bills are all worked out from the parsed transactions.</p></div>
                 <div><h4>Decision</h4><p><b>Raw bank SMS never leaves the phone.</b> Bank messages are some of the most sensitive data on a phone, and sending them to a server to parse is the easy route. The AI fallback is opt-in and masks text twice, on the phone and again on the server.</p></div>
                 <div class="full"><h4>Trade-off</h4><p>Every bank needs its own parser and test fixtures, instead of a single LLM call.</p></div>
-              </div>
-            </details>
-          </article>
-
-          <!-- Handsoff -->
-          <article class="card rv" id="handsoff" data-node="Handsoff">
-            <div class="card-body">
-              <div class="card-top"><h3>Handsoff</h3><span class="kind">Computer vision · Android</span></div>
-              <div class="card-meta"><span class="what">Kotlin · MediaPipe · Next.js</span><span class="tag live">v1.0 RELEASED</span></div>
-              <p class="headline">Grab a photo with a fist and throw it to another phone by opening your hand. Phone to phone over Bluetooth and Wi-Fi Direct, with no internet.</p>
-              <dl class="metrics">
-                <div><dt>v1.0</dt><dd>public APK</dd></div>
-                <div><dt>200 MB</dt><dd>per send, chunked</dd></div>
-                <div><dt data-count>5</dt><dd>-frame streak before a gesture fires</dd></div>
-                <div><dt>Offline</dt><dd>Nearby Connections</dd></div>
-              </dl>
-              <ul class="stack"><li>Kotlin</li><li>MediaPipe</li><li>Next.js</li><li>WebSockets</li><li>PWA</li></ul>
-              <div class="btns">
-                <a class="btn sig" href="https://github.com/SaiPranav13188/Handsoff/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">Download APK ↗</a>
-                <a class="btn" href="https://github.com/SaiPranav13188/Handsoff" target="_blank" rel="noopener noreferrer">Repository</a>
-                <a class="btn" href="https://github.com/SaiPranav13188/Handsoff#tests" target="_blank" rel="noopener noreferrer">Tests ↗</a>
-                <button type="button" class="btn" data-ask="Tell me about Handsoff">✦ Ask JARVIS</button>
-              </div>
-            </div>
-            <details class="breakdown">
-              <summary><span><span class="when-closed">▸ FULL BREAKDOWN</span><span class="when-open">▾ COLLAPSE</span></span><span class="secs">Gesture tracking · Transfer</span></summary>
-              <div class="bd">
-                <div><h4>Gesture tracking</h4><p>MediaPipe hand tracking with smoothing, hysteresis and a 5-frame streak, so flicker never fires a gesture.</p></div>
-                <div><h4>Transfer</h4><p>The native Android app transfers phone to phone over Bluetooth and Wi-Fi Direct, up to 200 MB per send in chunks. The web version pairs with a QR code over a WebSocket relay that never stores files.</p></div>
               </div>
             </details>
           </article>
@@ -1081,7 +1052,7 @@ footer svg { width: 16px; height: 16px; display: block; }
       <ol class="timeline">
         <li class="tl now rv">
           <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>May 2026 → Now</p><p class="k">Open to work</p></div></div>
-          <div><h3>Looking for a first full-time role</h3><p class="org">Applied AI or backend engineering</p><p class="what">Graduated in May 2026. Since then: Nagrik, Haathi, BondCheck, Fin, Journi, Bytewise, Handsoff and NutriSnap, each taken from an idea to something you can open, install or run.</p></div>
+          <div><h3>Looking for a first full-time role</h3><p class="org">Applied AI or backend engineering</p><p class="what">Graduated in May 2026. Since then: Nagrik, Haathi, BondCheck, Fin, Journi, Bytewise and NutriSnap, each taken from an idea to something you can open, install or run.</p></div>
         </li>
         <li class="tl rv">
           <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>Aug 2025</p><p class="k">Job simulation</p></div></div>
@@ -1127,7 +1098,6 @@ footer svg { width: 16px; height: 16px; display: block; }
             <li><b>Dean's Award</b> for Smart Crop Prediction, an ensemble model that recommends crops from soil and climate data.</li>
             <li><b>200+ DSA problems</b> solved across LeetCode, HackerRank and GeeksforGeeks.</li>
             <li><b>3rd place</b> in a college-level hackathon (2024), and a participant in Smart India Hackathon.</li>
-            <li><b>Handsoff v1.0</b> released as a public Android APK.</li>
             <li><b>Tavudu</b>, an agentic app that replaced paper calculations for my father's rice bran business.</li>
             <li><b>Tollgate</b> (audits MCP server configs) and <b>Glink</b> (a Raycast-style launcher), two macOS apps in SwiftUI.</li>
             <li><b>10+ full-stack AI apps</b> built, several live on Vercel and Render.</li>
@@ -1168,9 +1138,6 @@ footer svg { width: 16px; height: 16px; display: block; }
             <a href="https://tally-sooty-mu.vercel.app" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
               <span><b>Tally</b><small>The expense tracker's web dashboard.</small></span></a>
-            <a href="https://github.com/SaiPranav13188/Handsoff/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-              <span><b>Handsoff v1.0 APK</b><small>Install it on two Android phones and throw a photo across.</small></span></a>
           </div>
         </div>
       </div>

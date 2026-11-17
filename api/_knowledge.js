@@ -245,15 +245,6 @@ and masks text twice (phone and server). Trade-off: every bank needs its own
 parser and test fixtures. Source is private; web dashboard live at
 tally-sooty-mu.vercel.app.
 
-### Handsoff (computer vision, Android; Kotlin, MediaPipe, Next.js, WebSockets, PWA)
-Grab a photo with a fist and throw it to another phone by opening your hand.
-MediaPipe hand tracking with smoothing, hysteresis and a 5-frame streak so
-flicker never fires a gesture. Phone to phone over Bluetooth and Wi-Fi Direct
-(Nearby Connections), no internet, up to 200 MB per send in chunks. The web
-version pairs by QR code over a WebSocket relay that never stores files. v1.0
-APK publicly released on GitHub.
-Repo: github.com/SaiPranav13188/Handsoff
-
 ### NutriSnap (vision AI monorepo; TypeScript, Next.js 15, Expo, Fastify, Gemini, Supabase)
 Photograph a meal and a vision model logs calories and 7 nutrients against a
 personal target. Web and mobile apps share one Fastify + TypeScript API, one
@@ -294,8 +285,7 @@ Core CS: data structures and algorithms, OOP, DBMS, back-end development.
 
 ## Achievements and certifications
 Dean's Award for Smart Crop Prediction. 3rd place in a college-level hackathon
-(2024); took part in Smart India Hackathon. Handsoff v1.0 released as a public
-Android APK. Built Tavudu, an agentic app that replaced paper calculations for
+(2024); took part in Smart India Hackathon. Built Tavudu, an agentic app that replaced paper calculations for
 his father's rice bran business. Built two macOS apps in SwiftUI: Tollgate
 (audits MCP server configs) and Glink (a Raycast-style launcher). Data Analytics Job Simulation, Deloitte Australia via Forage (Aug
 2025), built a Tableau dashboard. Google Data Analytics Professional
