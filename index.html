@@ -362,17 +362,17 @@ summary::-webkit-details-marker { display: none; }
 .card.arrive { animation: arrive 1.6s ease-out; }
 
 /* Small project tiles */
-.minis { display: grid; gap: 12px; }
-@media (min-width: 640px) { .minis { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .minis { grid-template-columns: repeat(3, 1fr); } }
-.mini { display: flex; flex-direction: column; border: 1px solid var(--edge); background: rgba(11, 16, 23, .35); padding: 16px 18px; transition: border-color .2s; }
-.mini:hover { border-color: var(--signal-dim); }
-.mini .top { display: flex; justify-content: space-between; gap: 12px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--signal-dim); }
-.mini h4 { margin-top: 10px; font-size: 14px; font-weight: 400; transition: color .2s; }
-.mini:hover h4 { color: var(--signal); }
-.mini p { margin-top: 6px; font-size: 12px; color: var(--muted); line-height: 1.65; flex: 1; }
-.mini .foot { margin-top: 12px; display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
-.mini .foot span:last-child { color: var(--signal-dim); }
+.minis { display: grid; border-top: 1px solid var(--edge); }
+@media (min-width: 900px) { .minis { grid-template-columns: 1fr 1fr; column-gap: 32px; } }
+.mini { display: flex; align-items: baseline; gap: 12px; min-width: 0; padding: 11px 4px; border-bottom: 1px solid var(--edge); font-size: 12px; transition: background-color .2s; }
+.mini:hover { background: rgba(28, 109, 135, .1); }
+.mini b { flex: none; font-weight: 400; font-size: 13px; color: var(--text); transition: color .2s; }
+.mini:hover b { color: var(--signal); }
+.mini .d { flex: 1; min-width: 0; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mini .tag { flex: none; font-size: 9px; padding: 1px 6px; }
+.mini .ar { flex: none; color: var(--signal-dim); transition: color .2s, transform .2s; }
+.mini:hover .ar { color: var(--signal); transform: translate(2px, -2px); }
+@media (max-width: 520px) { .mini { flex-wrap: wrap; row-gap: 2px; } .mini .d { order: 5; flex-basis: 100%; white-space: normal; } }
 
 /* Skills */
 .skills { margin-top: 48px; display: grid; gap: 36px 40px; }
@@ -974,66 +974,18 @@ footer svg { width: 16px; height: 16px; display: block; }
       <div class="group">
         <div class="group-head"><span>ML, data &amp; everything else</span><span class="line"></span><span class="count">11</span></div>
         <div class="minis">
-          <a class="mini rv" href="https://github.com/SaiPranav13188/crop_prediction_using_pyspark" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Machine learning</span><span class="tag award">★ DEAN'S AWARD</span></div>
-            <h4>Smart Crop Prediction</h4>
-            <p>An ensemble model recommends crops from soil NPK levels and climate data, with a Streamlit interface for real-time suggestions.</p>
-            <div class="foot"><span>PySpark · Streamlit</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://github.com/SaiPranav13188/Trader-Behavior-Market-Sentiment-Analysis" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Data science</span></div>
-            <h4>Trader Behaviour vs. Market Sentiment</h4>
-            <p>K-Means finds trader archetypes on Hyperliquid, compared against the Bitcoin Fear/Greed index. Random Forest models inform position-sizing rules.</p>
-            <div class="foot"><span>Python · scikit-learn</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://github.com/SaiPranav13188/Rag-chatbot" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>LLM · RAG</span></div>
-            <h4>RAG Chatbot</h4>
-            <p>Answers questions about uploaded documents and shared URLs in real time, using OpenAI embeddings with a FastAPI back end and a Streamlit front end.</p>
-            <div class="foot"><span>FastAPI · Streamlit</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://github.com/SaiPranav13188/customer_support_RAG_chatbot" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>LLM · RAG</span></div>
-            <h4>Customer Support Bot</h4>
-            <p>Answers product, purchase and returns questions from a PDF knowledge base, and keeps conversational memory between turns.</p>
-            <div class="foot"><span>Python · LLMs</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://cineai-lilac.vercel.app" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Web · AI</span><span class="tag live">LIVE</span></div>
-            <h4>CineAI</h4>
-            <p>An AI-powered movie web app, deployed on Vercel.</p>
-            <div class="foot"><span>TypeScript</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://foodora-x-web.vercel.app" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Web app</span><span class="tag live">LIVE</span></div>
-            <h4>FoodoraX</h4>
-            <p>A food-ordering web app, deployed on Vercel.</p>
-            <div class="foot"><span>TypeScript</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://github.com/SaiPranav13188/Leaf_Disease_Prediction" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Deep learning</span></div>
-            <h4>Leaf Disease Prediction</h4>
-            <p>Image classification that identifies plant diseases from leaf photos.</p>
-            <div class="foot"><span>Python · CNN</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://github.com/SaiPranav13188/web-traffic-forecasting-Time-Series-analysis" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Time series</span></div>
-            <h4>Web Traffic Forecasting</h4>
-            <p>Time-series analysis and forecasting of website traffic.</p>
-            <div class="foot"><span>Python · Forecasting</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://github.com/SaiPranav13188/Breast-cancer-prediction" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Machine learning</span></div>
-            <h4>Breast Cancer Prediction</h4>
-            <p>A classification model trained on clinical diagnostic features.</p>
-            <div class="foot"><span>Python · scikit-learn</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://github.com/SaiPranav13188/Data-analystics-project-using-power-BI" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Analytics</span></div>
-            <h4>Power BI Analytics</h4>
-            <p>Data cleaning and analysis, delivered as interactive Power BI dashboards.</p>
-            <div class="foot"><span>Power BI · Python</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://github.com/SaiPranav13188/Supermarket_billing_system" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Systems</span></div>
-            <h4>Supermarket Billing</h4>
-            <p>A console billing and inventory system written in C++.</p>
-            <div class="foot"><span>C++</span><span>↗</span></div></a>
-          <a class="mini rv" href="https://github.com/SaiPranav13188?tab=repositories" target="_blank" rel="noopener noreferrer">
-            <div class="top"><span>Everything</span></div>
-            <h4>See all repositories</h4>
-            <p>Every project, including work in progress, is on GitHub.</p>
-            <div class="foot"><span>github.com/SaiPranav13188</span><span>↗</span></div></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188/crop_prediction_using_pyspark" target="_blank" rel="noopener noreferrer"><b>Smart Crop Prediction</b><span class="d">Crop picks from soil and climate.</span><span class="tag award">★ AWARD</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188/Trader-Behavior-Market-Sentiment-Analysis" target="_blank" rel="noopener noreferrer"><b>Trader Behaviour vs. Sentiment</b><span class="d">Trader types vs. Fear/Greed.</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188/Rag-chatbot" target="_blank" rel="noopener noreferrer"><b>RAG Chatbot</b><span class="d">Chat with uploaded documents and URLs.</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188/customer_support_RAG_chatbot" target="_blank" rel="noopener noreferrer"><b>Customer Support Bot</b><span class="d">Answers from a PDF knowledge base, with memory.</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://cineai-lilac.vercel.app" target="_blank" rel="noopener noreferrer"><b>CineAI</b><span class="d">AI-powered movie web app.</span><span class="tag live">LIVE</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://foodora-x-web.vercel.app" target="_blank" rel="noopener noreferrer"><b>FoodoraX</b><span class="d">Food-ordering web app.</span><span class="tag live">LIVE</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188/Leaf_Disease_Prediction" target="_blank" rel="noopener noreferrer"><b>Leaf Disease Prediction</b><span class="d">CNN that spots plant diseases from photos.</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188/web-traffic-forecasting-Time-Series-analysis" target="_blank" rel="noopener noreferrer"><b>Web Traffic Forecasting</b><span class="d">Time-series forecasting of site traffic.</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188/Breast-cancer-prediction" target="_blank" rel="noopener noreferrer"><b>Breast Cancer Prediction</b><span class="d">Classifier on clinical features.</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188/Data-analystics-project-using-power-BI" target="_blank" rel="noopener noreferrer"><b>Power BI Analytics</b><span class="d">Interactive dashboards from cleaned data.</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188/Supermarket_billing_system" target="_blank" rel="noopener noreferrer"><b>Supermarket Billing</b><span class="d">Billing and inventory system in C++.</span><span class="ar" aria-hidden="true">↗</span></a>
+          <a class="mini rv" href="https://github.com/SaiPranav13188?tab=repositories" target="_blank" rel="noopener noreferrer"><b>See all repositories</b><span class="d">Everything else is on GitHub.</span><span class="ar" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </div>
