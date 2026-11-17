@@ -486,7 +486,7 @@ footer svg { width: 16px; height: 16px; display: block; }
 
           <h1 class="rv" style="--d:80ms">I build <span class="signal">agentic AI systems</span> that check their own work, and the apps that put them in people's hands.</h1>
 
-          <p class="lede rv" style="--d:160ms">Seven agent-based systems so far, most of them the same problem in different forms: let a model plan and call tools, but keep the safety rules in code it can't talk its way around. Then ship it as something people can install, on macOS, Android or the web.</p>
+          <p class="lede rv" style="--d:160ms">Eight agent-based systems so far, most of them the same problem in different forms: let a model plan and call tools, but keep the safety rules in code it can't talk its way around. Then ship it as something people can install, on macOS, Android or the web.</p>
 
           <dl class="status rv" style="--d:240ms">
             <div><dt>Now</dt><dd>Open to full-time roles</dd></div>
@@ -531,7 +531,7 @@ footer svg { width: 16px; height: 16px; display: block; }
               <a href="https://bondcheck-two.vercel.app" target="_blank" rel="noopener noreferrer" class="btn sig">Live site ↗</a>
             </div>
           </div>
-          <p class="caption">Behind this page: the eight main projects and the tools each one uses, built from the cards below. <i class="warm">Amber</i> is a project, <i class="signal">cyan</i> a technology, and a line means that project uses that tool.<span class="fine"> Move the cursor and the traffic follows it; click an amber node to jump to its card.</span></p>
+          <p class="caption">Behind this page: the nine main projects and the tools each one uses, built from the cards below. <i class="warm">Amber</i> is a project, <i class="signal">cyan</i> a technology, and a line means that project uses that tool.<span class="fine"> Move the cursor and the traffic follows it; click an amber node to jump to its card.</span></p>
         </div>
       </div>
     </div>
@@ -540,7 +540,7 @@ footer svg { width: 16px; height: 16px; display: block; }
       <div class="wrap">
         <dl>
           <div class="rv"><dt data-count>10+</dt><dd>full-stack AI apps built: agentic, RAG, vision and voice</dd></div>
-          <div class="rv" style="--d:70ms"><dt data-count>7</dt><dd>agent-based systems with logged tool calls</dd></div>
+          <div class="rv" style="--d:70ms"><dt data-count>8</dt><dd>agent-based systems with logged tool calls</dd></div>
           <div class="rv" style="--d:140ms"><dt data-count>99.6%</dt><dd>field accuracy in BondCheck's benchmark</dd></div>
           <div class="rv" style="--d:210ms"><dt data-count>200+</dt><dd>DSA problems solved on LeetCode, HackerRank and GfG</dd></div>
         </dl>
@@ -555,7 +555,7 @@ footer svg { width: 16px; height: 16px; display: block; }
       <p class="sec-intro rv">Every number below comes from the project's own tests and benchmarks, and most cards link straight to where you can check it.</p>
 
       <div class="group">
-        <div class="group-head"><span>Agentic AI systems</span><span class="line"></span><span class="count">04</span></div>
+        <div class="group-head"><span>Agentic AI systems</span><span class="line"></span><span class="count">05</span></div>
         <div class="cards">
 
           <!-- Nagrik -->
@@ -652,6 +652,40 @@ footer svg { width: 16px; height: 16px; display: block; }
        → verification → store | moderator</pre></div>
                 <div><h4>Decision</h4><p><b>Every value needs a quote, or it gets dropped.</b> <code>verify_quote()</code> checks that every quote exists in the redacted letter, and plain Python re-derives each value from its quote. The model never gets the last word on a number.</p><p>The cost: some true values get dropped and sent to the uploader to confirm. That trades recall for accuracy on purpose.</p></div>
                 <div><h4>Results</h4><ul><li>Field accuracy rose from <b>88.5%</b> (single pass) to <b>99.6%</b> with the agentic self-check loop.</li><li>Hallucinated fields fell from <b>22 to 0</b>.</li><li><b>0 of 335</b> personal details leaked past redaction.</li></ul></div>
+              </div>
+            </details>
+          </article>
+
+          <!-- Fin -->
+          <article class="card rv" id="fin" data-node="Fin">
+            <div class="card-body">
+              <div class="card-top"><h3>Fin</h3><span class="kind">Multi-agent fintech · Android</span></div>
+              <div class="card-meta"><span class="what">LangGraph · FastAPI · Expo</span><span class="tag live">LIVE DEMO</span></div>
+              <p class="headline">Split money with friends by just saying what happened: "I paid 2400 for dinner, Rahul skipped drinks." Nine AI agents draft the split, track who owes whom, write polite reminders and settle up through your own UPI app. Fin never holds or moves money, and nothing is saved, sent or paid until you confirm.</p>
+              <dl class="metrics">
+                <div><dt data-count>99.3%</dt><dd>field accuracy on the live model, 0 hallucinated fields</dd></div>
+                <div><dt data-count>9</dt><dd>agents behind one LangGraph orchestrator</dd></div>
+                <div><dt data-count>64</dt><dd>eval cases, gated in CI at 95%</dd></div>
+                <div><dt data-count>4</dt><dd>languages: English, Hindi, Hinglish, Telugu</dd></div>
+              </dl>
+              <ul class="stack"><li>LangGraph</li><li>FastAPI</li><li>Expo</li><li>Gemini</li><li>PostgreSQL</li><li>Docker</li></ul>
+              <div class="btns">
+                <a class="btn sig" href="https://saipranav13188.github.io/fin-showcase/" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
+                <a class="btn" href="https://github.com/SaiPranav13188/fin" target="_blank" rel="noopener noreferrer">Repository</a>
+                <a class="btn" href="https://github.com/SaiPranav13188/fin#evals" target="_blank" rel="noopener noreferrer">Verify the numbers ↗</a>
+                <button type="button" class="btn" data-ask="Tell me about Fin">✦ Ask JARVIS</button>
+              </div>
+            </div>
+            <details class="breakdown">
+              <summary><span><span class="when-closed">▸ FULL BREAKDOWN</span><span class="when-open">▾ COLLAPSE</span></span><span class="secs">Architecture · Decision · Safety · Results</span></summary>
+              <div class="bd">
+                <div><h4>Architecture</h4><p>A LangGraph orchestrator routes each message to one of eight specialists: expense parser (text or voice), receipt reader, split advisor, settle-up planner, nudge writer, insights, safety guard and a daily monitor for rent, EMI and subscriptions. Every agent can only read data and produce a draft.</p>
+<pre>message → orchestrator → specialist agent
+        → validator (drop untraceable ids / amounts)
+        → draft → user confirms → /agent/confirm</pre></div>
+                <div><h4>Decision</h4><p><b>Anything that decides where money goes is deterministic.</b> The settle-up planner and the safety guard are plain code, so the same group always gets the same payments. Paying opens GPay, PhonePe or Paytm with the details filled in; Fin itself never touches money.</p><p>Simple sentences ("cab 450 with Priya") are drafted by rules without calling the model: instant, and it saves API quota.</p></div>
+                <div><h4>Safety, enforced in code</h4><ul><li><code>/agent/confirm</code> is the only write path and re-validates like a hand-typed expense.</li><li>User, receipt and friend text is passed as tagged data, never instructions.</li><li>Model-written SQL runs in a throwaway in-memory database holding only that user's rows, <code>SELECT</code> only.</li><li>Every agent has a rule-based fallback, and every run is logged with tool calls, tokens and latency.</li></ul></div>
+                <div><h4>Results</h4><ul><li><b>99.3%</b> field accuracy with <b>0</b> hallucinated fields on the live Gemini path.</li><li>64 expense cases: typos, "2.5k", Hinglish, Hindi and Telugu script, unknown names, prompt injection.</li><li>CI fails if accuracy drops below <b>95%</b> or any field is hallucinated.</li></ul></div>
               </div>
             </details>
           </article>
@@ -904,7 +938,7 @@ footer svg { width: 16px; height: 16px; display: block; }
       <ol class="timeline">
         <li class="tl now rv">
           <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>May 2026 → Now</p><p class="k">Open to work</p></div></div>
-          <div><h3>Looking for a first full-time role</h3><p class="org">AI engineering or full-stack development</p><p class="what">Graduated in May 2026. Since then: Nagrik, Haathi, BondCheck, Journi, Bytewise, Handsoff and NutriSnap, each taken from an idea to something you can open, install or run.</p></div>
+          <div><h3>Looking for a first full-time role</h3><p class="org">AI engineering or full-stack development</p><p class="what">Graduated in May 2026. Since then: Nagrik, Haathi, BondCheck, Fin, Journi, Bytewise, Handsoff and NutriSnap, each taken from an idea to something you can open, install or run.</p></div>
         </li>
         <li class="tl rv">
           <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>Aug 2025</p><p class="k">Job simulation</p></div></div>
@@ -980,6 +1014,9 @@ footer svg { width: 16px; height: 16px; display: block; }
             <a href="https://bondcheck-two.vercel.app" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
               <span><b>BondCheck</b><small>The multi-agent offer-letter checker, live on Vercel.</small></span></a>
+            <a href="https://saipranav13188.github.io/fin-showcase/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              <span><b>Fin</b><small>Split money with friends. Tap "Try the live demo" for a sample account, no sign-up. First load can take a minute.</small></span></a>
             <a href="https://haathi-ten.vercel.app" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
               <span><b>Haathi</b><small>Ask about government schemes in Telugu, Hindi or English. Best on a phone.</small></span></a>

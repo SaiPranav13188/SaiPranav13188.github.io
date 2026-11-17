@@ -9,7 +9,7 @@ Portfolio of **Bandaru Sai Pranav**, an AI and full-stack engineer who builds ag
 ## What's on it
 
 - **A live project graph behind the page.** Every main project and the tools it uses, drawn on a canvas. Amber nodes are projects, cyan nodes are technologies, and a line means that project actually uses that tool. The graph is built from the project cards on the page, so it can never drift from them. Click a project node to jump to its card.
-- **Eight case studies.** Each has its real metrics, its stack, links to verify the numbers in the source repo, and a "Full breakdown" (problem, architecture, key decision and trade-off). The breakdowns are plain `<details>` elements, so they're readable without JavaScript and by crawlers and ATS parsers.
+- **Nine case studies.** Each has its real metrics, its stack, links to verify the numbers in the source repo, and a "Full breakdown" (problem, architecture, key decision and trade-off). The breakdowns are plain `<details>` elements, so they're readable without JavaScript and by crawlers and ATS parsers.
 - **Eleven more ML, data and web projects**, plus Skills, a Timeline, Background and Contact.
 
 ![Work section](docs/work.png)

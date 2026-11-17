@@ -96,7 +96,7 @@ Location, notice period and salary are not on record.
 
 ## Headline numbers
 10+ full-stack AI apps built (agentic, RAG, vision, voice), several live on
-Vercel and Render. 7 agent-based systems. 200+ DSA problems solved on LeetCode,
+Vercel and Render. 8 agent-based systems. 200+ DSA problems solved on LeetCode,
 HackerRank and GeeksforGeeks. 19 projects on GitHub at the time the site
 counted them.
 
@@ -166,6 +166,37 @@ agentic self-check loop; hallucinated fields fell from 22 to 0; 0 of 335
 personal details leaked. Evaluated on an offline engine with 50 synthetic
 letters. Live at bondcheck-two.vercel.app.
 Repo: github.com/SaiPranav13188/bondcheck
+
+### Fin (multi-agent fintech Android app; LangGraph, FastAPI, Expo/React Native, Gemini, PostgreSQL, Docker)
+Split money with friends, flatmates and family by just saying what happened
+("I paid 2400 for dinner, Rahul skipped drinks"). Nine agents behind one
+LangGraph orchestrator using Gemini: orchestrator, expense parser (text or
+voice; English, Hindi, Hinglish, Telugu), receipt reader, split advisor,
+settle-up planner (fewest payments, with UPI links), nudge writer (friendly
+reminders), insights (read-only SQL over the user's own records), safety guard
+(new UPI ID, unusual amount, duplicate, scam phrases) and a daily monitor for
+rent, EMI and subscription reminders. A coin-shaped mascot, also called Fin,
+reacts to every step.
+Key decisions: Fin never holds or moves money; paying opens GPay, PhonePe or
+Paytm with details filled in. Every agent only reads data and produces a
+draft; /agent/confirm is the only write path and re-validates like a hand-typed
+expense. A validator drops any member id not in the group and any amount not
+traceable to the user's message; gaps become questions. User, receipt and
+friend text is passed as tagged data (prompt-injection defence). Model-written
+SQL runs in a throwaway in-memory database with only that user's rows and a
+SELECT-only authorizer. Settle-up planner and safety guard are deterministic on
+purpose. Every agent has a rule-based fallback; simple sentences are drafted by
+rules without calling the model. Step limit, token budget, timeout, two
+retries; every run logged with tool calls, tokens and latency.
+Results: 64 expense eval cases (typos, "2.5k", Hinglish, Hindi and Telugu
+script, missing amounts, unknown names, prompt injection). CI fails below 95%
+field accuracy or on any hallucinated field. On the live Gemini path: 99.3%
+field accuracy, 0 hallucinated fields.
+Live demo (no sign-up; tap "Try the live demo" for a sample account that
+resets after 24 hours; first load can take up to a minute while the free
+server wakes): saipranav13188.github.io/fin-showcase
+Repo: github.com/SaiPranav13188/fin (source public for evaluation, not open
+source).
 
 ### Journi (AI travel planner; Expo/React Native, Express 5, Vercel AI SDK, Gemini, zod, Supabase)
 Plan a trip by chatting. Six tool-calling agents (orchestrator, planner,
