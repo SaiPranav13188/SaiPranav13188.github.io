@@ -79,8 +79,8 @@ B.Tech in Computer Science Engineering, specialization in Data Science, Bennett
 University, Aug 2022 to May 2026, CGPA 8.30/10. Graduated May 2026.
 Intermediate (TSBIE), Sri Chaitanya Junior College, Jun 2020 to May 2022, 97.8%
 (978/1000).
-Status: open to his first full-time role in AI engineering or full-stack
-development.
+Status: open to his first full-time role as an applied AI or backend
+engineer.
 Contact: email saipranav1388@gmail.com. GitHub github.com/SaiPranav13188.
 LinkedIn linkedin.com/in/sai-pranav-2a3b50303. The résumé downloads from the
 "Résumé" button on this page.
@@ -102,7 +102,7 @@ counted them.
 
 ## Projects: agentic AI
 
-### Nagrik (agentic civic tech; TypeScript, Expo, Express, Playwright, Gemini, Supabase)
+### Nagrik (agentic civic tech; TypeScript, Expo, Express, Playwright, Gemini, Vercel AI SDK, Supabase, Docker, AWS, Redis + BullMQ)
 Photograph a civic problem such as a pothole, and AI agents file the complaint
 with the right government office, then keep checking and escalate when nothing
 happens. Six agents led by a coordinator, run as tool-calling loops: classify
@@ -111,6 +111,12 @@ letter, submit it on the official portal with Playwright, monitor and escalate.
 Safety rules live inside the tools and every tool call is logged for audit.
 Supports English, Telugu and Hindi, plus voice. Runs with zero API keys using a
 rule-based planner.
+Evals: a 40-case agent eval (typos, Hinglish, prompt injection) and 39
+failure-mode tests, gated in CI. Nagrik is exposed to Claude through an MCP
+server with 7 tools (confirm-before-submit).
+Shipping: the Node.js + Playwright back end is containerized with Docker;
+GitHub Actions builds, tests and pushes the image to AWS ECR (IAM-scoped) on
+every commit. Jobs run through a Redis-backed BullMQ queue.
 Key decision: hand OTPs and CAPTCHAs back to the citizen, never bypass them.
 The real municipal portal asks for a mobile OTP before the complaint form
 appears. The agents check for CAPTCHAs and OTPs before filling a form and after
@@ -151,7 +157,7 @@ government documents back 13 of the 30 schemes so far; one official order
 caught a wrong income limit in a summary, which was fixed.
 Repo: github.com/SaiPranav13188/haathi
 
-### BondCheck (multi-agent AI; LangGraph, Claude API, FastAPI, PostgreSQL, Next.js)
+### BondCheck (multi-agent AI; LangGraph, Claude API, FastAPI, PostgreSQL, Next.js, Kubernetes)
 Seven AI agents read job offer letters and warn students about job bonds
 before they sign. A LangGraph orchestrator (retries up to 2, token budget)
 routes uploads through privacy redaction (redact, then re-scan), extraction,
@@ -164,7 +170,10 @@ get dropped and sent to the uploader to confirm, trading recall for accuracy.
 Results: field accuracy rose from 88.5% (single pass) to 99.6% with the
 agentic self-check loop; hallucinated fields fell from 22 to 0; 0 of 335
 personal details leaked. Evaluated on an offline engine with 50 synthetic
-letters. Live at bondcheck-two.vercel.app.
+letters. Human-in-the-loop confirmation; the FastAPI + PostgreSQL back end
+streams agent events. Deployed on Kubernetes with Envoy Gateway load
+balancing, CPU-based autoscaling (3 to 10 pods) and zero-downtime rolling
+updates. Live at bondcheck-two.vercel.app.
 Repo: github.com/SaiPranav13188/bondcheck
 
 ### Fin (multi-agent fintech Android app; LangGraph, FastAPI, Expo/React Native, Gemini, PostgreSQL, Docker)
@@ -269,23 +278,26 @@ Supermarket Billing system in C++.
 
 ## Skills
 AI and agents: LangGraph, LangChain, MCP, Claude / Gemini / OpenAI / Groq APIs,
-Vercel AI SDK, RAG, embeddings, FAISS, Hugging Face, evals, prompt engineering,
+Vercel AI SDK, RAG (hybrid search, reranking), embeddings, Qdrant, FAISS,
+guardrails, LLM evaluation, Hugging Face, evals, prompt engineering,
 computer vision, MediaPipe.
 Languages: Python, TypeScript, JavaScript, SQL, Kotlin, Swift, C++.
 Apps and front end: Next.js, React, React Native / Expo, SwiftUI, Jetpack
 Compose, Tailwind, Framer Motion.
 Back end and data: FastAPI, Flask, Node.js / Express, Fastify, PostgreSQL,
-Supabase + Row Level Security, WebSockets, Pydantic, zod, Playwright.
+Supabase + Row Level Security, Redis + BullMQ, WebSockets, Pydantic, zod, Playwright.
 ML and analytics: PyTorch, TensorFlow, scikit-learn, PySpark, Pandas, NumPy,
 Power BI, Tableau, EDA, time series, NLP.
-Cloud and shipping: AWS (EC2, S3, IAM), Docker, Vercel, Render, GitHub Actions
+Cloud and shipping: AWS (ECR, S3, IAM, EC2), Docker, Kubernetes, Vercel, Render, GitHub Actions
 CI/CD, EAS Build, pytest, XCTest.
 Core CS: data structures and algorithms, OOP, DBMS, back-end development.
 
 ## Achievements and certifications
 Dean's Award for Smart Crop Prediction. 3rd place in a college-level hackathon
 (2024); took part in Smart India Hackathon. Handsoff v1.0 released as a public
-Android APK. Data Analytics Job Simulation, Deloitte Australia via Forage (Aug
+Android APK. Built Tavudu, an agentic app that replaced paper calculations for
+his father's rice bran business. Built two macOS apps in SwiftUI: Tollgate
+(audits MCP server configs) and Glink (a Raycast-style launcher). Data Analytics Job Simulation, Deloitte Australia via Forage (Aug
 2025), built a Tableau dashboard. Google Data Analytics Professional
 Certificate. Sequences, Time Series and Prediction (DeepLearning.AI, 2024).
 Exploratory Data Analysis for ML (IBM, 2024). Object-Oriented C++ (Codio, 2025).

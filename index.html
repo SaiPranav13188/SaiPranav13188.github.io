@@ -580,8 +580,9 @@ footer svg { width: 16px; height: 16px; display: block; }
                 <div><dt data-count>6</dt><dd>agents, every tool call logged</dd></div>
                 <div><dt data-count>3</dt><dd>languages: English, Telugu, Hindi</dd></div>
                 <div><dt>0 keys</dt><dd>needed: runs offline with a rule planner</dd></div>
+                <div><dt data-count>40</dt><dd>agent eval cases + 39 failure-mode tests in CI</dd></div>
               </dl>
-              <ul class="stack"><li>TypeScript</li><li>Expo</li><li>Express</li><li>Playwright</li><li>Gemini</li><li>Supabase</li></ul>
+              <ul class="stack"><li>TypeScript</li><li>Expo</li><li>Express</li><li>Playwright</li><li>Gemini</li><li>Supabase</li><li>Docker</li><li>AWS</li><li>Redis</li></ul>
               <div class="btns">
                 <a class="btn" href="https://github.com/SaiPranav13188/Nagrik" target="_blank" rel="noopener noreferrer">Repository</a>
                 <a class="btn" href="https://github.com/SaiPranav13188/Nagrik#guardrails" target="_blank" rel="noopener noreferrer">Read the guardrails ↗</a>
@@ -589,10 +590,12 @@ footer svg { width: 16px; height: 16px; display: block; }
               </div>
             </div>
             <details class="breakdown">
-              <summary><span><span class="when-closed">▸ FULL BREAKDOWN</span><span class="when-open">▾ COLLAPSE</span></span><span class="secs">Architecture · Decision · Trade-off</span></summary>
+              <summary><span><span class="when-closed">▸ FULL BREAKDOWN</span><span class="when-open">▾ COLLAPSE</span></span><span class="secs">Architecture · Decision · Evals · Shipping · Trade-off</span></summary>
               <div class="bd">
                 <div><h4>Architecture</h4><p>Six agents, led by a coordinator, run as tool-calling loops. They classify the photo with Gemini vision, work out which office is responsible, draft a formal letter, submit it on the official portal with Playwright, then monitor the complaint and escalate it. Safety rules live inside the tools, and every tool call is logged for audit. It supports voice as well as text.</p></div>
                 <div><h4>Decision</h4><p><b>Hand OTPs back to the citizen. Never bypass them.</b> The real municipal portal asks for a mobile OTP before the complaint form even appears. The agents check for CAPTCHAs and OTPs before filling a form and again after submitting it, and if one appears, the citizen gets a three-step hand-off. Monitoring and escalation still run automatically.</p></div>
+                <div><h4>Evals &amp; MCP</h4><p>A 40-case agent eval (typos, Hinglish, prompt injection) and 39 failure-mode tests run as a gate in CI. Nagrik is also exposed to Claude through an <b>MCP server</b> with 7 tools, where submitting always needs a confirmation first.</p></div>
+                <div><h4>Shipping</h4><p>The Node.js + Playwright back end is containerized with Docker. On every commit, GitHub Actions builds and tests the image and pushes it to <b>AWS ECR</b> with IAM-scoped credentials. Long-running filing and monitoring jobs go through a Redis-backed <b>BullMQ</b> queue.</p></div>
                 <div class="full"><h4>Trade-off</h4><p>Filing isn't fully hands-off on gated portals, but the agents never automate their way around a human check. <a class="inline" href="https://github.com/SaiPranav13188/Nagrik#behaviour-against-the-real-wanaparthy-portal" target="_blank" rel="noopener noreferrer">Behaviour against the real portal ↗</a></p></div>
               </div>
             </details>
@@ -645,7 +648,7 @@ footer svg { width: 16px; height: 16px; display: block; }
                 <div><dt>0 / 335</dt><dd>personal details leaked</dd></div>
                 <div><dt data-count>7</dt><dd>agents, one orchestrator</dd></div>
               </dl>
-              <ul class="stack"><li>LangGraph</li><li>Claude API</li><li>FastAPI</li><li>PostgreSQL</li><li>Next.js</li></ul>
+              <ul class="stack"><li>LangGraph</li><li>Claude API</li><li>FastAPI</li><li>PostgreSQL</li><li>Next.js</li><li>Kubernetes</li></ul>
               <div class="btns">
                 <a class="btn sig" href="https://bondcheck-two.vercel.app" target="_blank" rel="noopener noreferrer">Live site ↗</a>
                 <a class="btn" href="https://github.com/SaiPranav13188/bondcheck" target="_blank" rel="noopener noreferrer">Repository</a>
@@ -654,7 +657,7 @@ footer svg { width: 16px; height: 16px; display: block; }
               </div>
             </div>
             <details class="breakdown">
-              <summary><span><span class="when-closed">▸ FULL BREAKDOWN</span><span class="when-open">▾ COLLAPSE</span></span><span class="secs">Problem · Architecture · Decision · Results</span></summary>
+              <summary><span><span class="when-closed">▸ FULL BREAKDOWN</span><span class="when-open">▾ COLLAPSE</span></span><span class="secs">Problem · Architecture · Decision · Results · Deployment</span></summary>
               <div class="bd">
                 <div><h4>Problem</h4><p>LLM extraction invents plausible numbers. On an offer letter, a fake bond penalty could change someone's career decision, so "mostly right" isn't good enough.</p></div>
                 <div><h4>Architecture</h4><p>A LangGraph orchestrator routes each upload through privacy redaction, extraction, verification and moderation, with at most two retries and a token budget.</p>
@@ -664,6 +667,7 @@ footer svg { width: 16px; height: 16px; display: block; }
        → verification → store | moderator</pre></div>
                 <div><h4>Decision</h4><p><b>Every value needs a quote, or it gets dropped.</b> <code>verify_quote()</code> checks that every quote exists in the redacted letter, and plain Python re-derives each value from its quote. The model never gets the last word on a number.</p><p>The cost: some true values get dropped and sent to the uploader to confirm. That trades recall for accuracy on purpose.</p></div>
                 <div><h4>Results</h4><ul><li>Field accuracy rose from <b>88.5%</b> (single pass) to <b>99.6%</b> with the agentic self-check loop.</li><li>Hallucinated fields fell from <b>22 to 0</b>.</li><li><b>0 of 335</b> personal details leaked past redaction.</li></ul></div>
+                <div class="full"><h4>Deployment</h4><p>A FastAPI + PostgreSQL back end streams agent events to the browser. It runs on <b>Kubernetes</b> behind Envoy Gateway load balancing, with CPU-based autoscaling from <b>3 to 10 pods</b> and zero-downtime rolling updates.</p></div>
               </div>
             </details>
           </article>
@@ -927,18 +931,18 @@ footer svg { width: 16px; height: 16px; display: block; }
     <div class="wrap">
       <div class="sh rv"><span class="n">02</span><h2>Skills</h2><span class="line"></span></div>
       <div class="skills">
-        <div class="skill rv"><div class="skill-head"><h3>AI &amp; agents</h3><span class="count">10</span></div>
-          <ul class="chips"><li>LangGraph</li><li>LangChain</li><li>MCP</li><li>Claude / Gemini / OpenAI / Groq APIs</li><li>Vercel AI SDK</li><li>RAG</li><li>Embeddings</li><li>FAISS</li><li>Hugging Face</li><li>Evals</li></ul></div>
+        <div class="skill rv"><div class="skill-head"><h3>AI &amp; agents</h3><span class="count">12</span></div>
+          <ul class="chips"><li>LangGraph</li><li>LangChain</li><li>MCP</li><li>Claude / Gemini / OpenAI / Groq APIs</li><li>Vercel AI SDK</li><li>RAG (hybrid search, reranking)</li><li>Embeddings</li><li>Qdrant</li><li>FAISS</li><li>Hugging Face</li><li>LLM evals</li><li>Guardrails</li></ul></div>
         <div class="skill rv" style="--d:60ms"><div class="skill-head"><h3>Languages</h3><span class="count">07</span></div>
           <ul class="chips"><li>Python</li><li>TypeScript</li><li>JavaScript</li><li>SQL</li><li>Kotlin</li><li>Swift</li><li>C++</li></ul></div>
         <div class="skill rv" style="--d:120ms"><div class="skill-head"><h3>Apps &amp; front end</h3><span class="count">07</span></div>
           <ul class="chips"><li>Next.js</li><li>React</li><li>React Native / Expo</li><li>SwiftUI</li><li>Jetpack Compose</li><li>Tailwind</li><li>Framer Motion</li></ul></div>
-        <div class="skill rv"><div class="skill-head"><h3>Back end &amp; data</h3><span class="count">10</span></div>
-          <ul class="chips"><li>FastAPI</li><li>Flask</li><li>Node.js / Express</li><li>Fastify</li><li>PostgreSQL</li><li>Supabase + RLS</li><li>WebSockets</li><li>Pydantic</li><li>zod</li><li>Playwright</li></ul></div>
+        <div class="skill rv"><div class="skill-head"><h3>Back end &amp; data</h3><span class="count">11</span></div>
+          <ul class="chips"><li>FastAPI</li><li>Flask</li><li>Node.js / Express</li><li>Fastify</li><li>PostgreSQL</li><li>Supabase + RLS</li><li>Redis + BullMQ</li><li>WebSockets</li><li>Pydantic</li><li>zod</li><li>Playwright</li></ul></div>
         <div class="skill rv" style="--d:60ms"><div class="skill-head"><h3>ML &amp; analytics</h3><span class="count">10</span></div>
           <ul class="chips"><li>PyTorch</li><li>TensorFlow</li><li>scikit-learn</li><li>PySpark</li><li>Pandas</li><li>NumPy</li><li>MediaPipe</li><li>Computer vision</li><li>Power BI</li><li>Tableau</li></ul></div>
-        <div class="skill rv" style="--d:120ms"><div class="skill-head"><h3>Cloud &amp; shipping</h3><span class="count">07</span></div>
-          <ul class="chips"><li>AWS (EC2, S3, IAM)</li><li>Docker</li><li>Vercel</li><li>Render</li><li>GitHub Actions CI/CD</li><li>EAS Build</li><li>pytest / XCTest</li></ul></div>
+        <div class="skill rv" style="--d:120ms"><div class="skill-head"><h3>Cloud &amp; shipping</h3><span class="count">08</span></div>
+          <ul class="chips"><li>AWS (ECR, S3, IAM, EC2)</li><li>Docker</li><li>Kubernetes</li><li>Vercel</li><li>Render</li><li>GitHub Actions CI/CD</li><li>EAS Build</li><li>pytest / XCTest</li></ul></div>
       </div>
     </div>
   </section>
@@ -950,7 +954,7 @@ footer svg { width: 16px; height: 16px; display: block; }
       <ol class="timeline">
         <li class="tl now rv">
           <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>May 2026 → Now</p><p class="k">Open to work</p></div></div>
-          <div><h3>Looking for a first full-time role</h3><p class="org">AI engineering or full-stack development</p><p class="what">Graduated in May 2026. Since then: Nagrik, Haathi, BondCheck, Fin, Journi, Bytewise, Handsoff and NutriSnap, each taken from an idea to something you can open, install or run.</p></div>
+          <div><h3>Looking for a first full-time role</h3><p class="org">Applied AI or backend engineering</p><p class="what">Graduated in May 2026. Since then: Nagrik, Haathi, BondCheck, Fin, Journi, Bytewise, Handsoff and NutriSnap, each taken from an idea to something you can open, install or run.</p></div>
         </li>
         <li class="tl rv">
           <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>Aug 2025</p><p class="k">Job simulation</p></div></div>
@@ -997,6 +1001,8 @@ footer svg { width: 16px; height: 16px; display: block; }
             <li><b>200+ DSA problems</b> solved across LeetCode, HackerRank and GeeksforGeeks.</li>
             <li><b>3rd place</b> in a college-level hackathon (2024), and a participant in Smart India Hackathon.</li>
             <li><b>Handsoff v1.0</b> released as a public Android APK.</li>
+            <li><b>Tavudu</b>, an agentic app that replaced paper calculations for my father's rice bran business.</li>
+            <li><b>Tollgate</b> (audits MCP server configs) and <b>Glink</b> (a Raycast-style launcher), two macOS apps in SwiftUI.</li>
             <li><b>10+ full-stack AI apps</b> built, several live on Vercel and Render.</li>
             <li>Core CS: data structures and algorithms, OOP, DBMS and back-end development.</li>
           </ul>
@@ -1011,7 +1017,7 @@ footer svg { width: 16px; height: 16px; display: block; }
       <div class="sh rv"><span class="n">05</span><h2>Contact</h2><span class="line"></span></div>
       <div class="contact-grid rv">
         <div>
-          <p class="muted" style="max-width:36rem;line-height:1.75">I graduated in May 2026 and I'm looking for my first full-time role in AI engineering or full-stack development. The code is on GitHub, the record is on LinkedIn, and the résumé has the full detail. If you're hiring, I'd love to hear from you.</p>
+          <p class="muted" style="max-width:36rem;line-height:1.75">I graduated in May 2026 and I'm looking for my first full-time role as an applied AI or backend engineer. The code is on GitHub, the record is on LinkedIn, and the résumé has the full detail. If you're hiring, I'd love to hear from you.</p>
           <button type="button" class="email" id="copyEmail" aria-label="Copy email address"><span>saipranav1388@gmail.com</span><span class="copy" id="copyTag">Copy</span></button>
           <div class="btns">
             <a href="mailto:saipranav1388@gmail.com" class="btn solid">✦ Say hello</a>
