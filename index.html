@@ -385,19 +385,6 @@ summary::-webkit-details-marker { display: none; }
 .chips { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
 .chips li { padding: 4px 8px; font-size: 12px; }
 
-/* Timeline */
-.timeline { margin-top: 48px; }
-.tl { display: grid; gap: 8px 32px; border-top: 1px solid var(--edge); padding: 24px 0; }
-.tl:last-child { border-bottom: 1px solid var(--edge); }
-@media (min-width: 768px) { .tl { grid-template-columns: 200px 1fr; } }
-.tl-when { display: flex; gap: 12px; align-items: flex-start; }
-.tl-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 7px; flex: none; background: var(--signal-dim); }
-.tl.now .tl-dot { background: var(--warm); box-shadow: 0 0 0 4px rgba(255, 180, 84, .12); }
-.tl-when p { font-size: 12px; color: var(--muted); }
-.tl-when .k { margin-top: 4px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--signal-dim); }
-.tl h3 { font-size: 14px; font-weight: 400; }
-.tl .org { margin-top: 2px; font-size: 12px; color: var(--signal); }
-.tl .what { margin-top: 8px; max-width: 48rem; font-size: 12px; color: var(--muted); line-height: 1.75; }
 
 /* Background */
 .bg-grid { margin-top: 48px; display: grid; gap: 48px; }
@@ -559,7 +546,6 @@ footer svg { width: 16px; height: 16px; display: block; }
       <a href="#live" class="nav-live"><span class="pulse-dot" aria-hidden="true"></span>Live</a>
       <a href="#work">Work</a>
       <a href="#skills">Skills</a>
-      <a href="#timeline">Timeline</a>
       <a href="#background">Background</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -1074,43 +1060,10 @@ footer svg { width: 16px; height: 16px; display: block; }
     </div>
   </section>
 
-  <!-- TIMELINE -->
-  <section id="timeline" class="sec">
-    <div class="wrap">
-      <div class="sh rv"><span class="n">03</span><h2>Timeline</h2><span class="line"></span></div>
-      <ol class="timeline">
-        <li class="tl now rv">
-          <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>May 2026 → Now</p><p class="k">Open to work</p></div></div>
-          <div><h3>Looking for a first full-time role</h3><p class="org">Applied AI or backend engineering</p><p class="what">Graduated in May 2026. Since then: Nagrik, Haathi, BondCheck, Fin, Journi, Bytewise and NutriSnap, each taken from an idea to something you can open, install or run.</p></div>
-        </li>
-        <li class="tl rv">
-          <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>Aug 2025</p><p class="k">Job simulation</p></div></div>
-          <div><h3>Data Analytics Job Simulation</h3><p class="org">Deloitte Australia · Forage</p><p class="what">Built an interactive Tableau dashboard as part of the simulation.</p></div>
-        </li>
-        <li class="tl rv">
-          <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>2024</p><p class="k">Hackathon</p></div></div>
-          <div><h3>3rd place, college-level hackathon</h3><p class="org">Bennett University</p><p class="what">Also took part in Smart India Hackathon (SIH).</p></div>
-        </li>
-        <li class="tl rv">
-          <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>2024 → 2025</p><p class="k">Certifications</p></div></div>
-          <div><h3>ML, data and C++ coursework</h3><p class="org">DeepLearning.AI · IBM · Google · Codio</p><p class="what">Sequences, Time Series and Prediction (DeepLearning.AI, 2024), Exploratory Data Analysis for ML (IBM, 2024), the Google Data Analytics Professional Certificate, and Object-Oriented C++ (Codio, 2025).</p></div>
-        </li>
-        <li class="tl rv">
-          <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>Aug 2022 → May 2026</p><p class="k">Education</p></div></div>
-          <div><h3>B.Tech in Computer Science Engineering</h3><p class="org">Bennett University · Specialization in Data Science</p><p class="what">CGPA 8.30 / 10. Dean's Award for the Smart Crop Prediction project.</p></div>
-        </li>
-        <li class="tl rv">
-          <div class="tl-when"><span class="tl-dot" aria-hidden="true"></span><div><p>Jun 2020 → May 2022</p><p class="k">Education</p></div></div>
-          <div><h3>Intermediate (TSBIE)</h3><p class="org">Sri Chaitanya Junior College</p><p class="what">97.8% (978 / 1000).</p></div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
   <!-- BACKGROUND -->
   <section id="background" class="sec">
     <div class="wrap">
-      <div class="sh rv"><span class="n">04</span><h2>Background</h2><span class="line"></span></div>
+      <div class="sh rv"><span class="n">03</span><h2>Background</h2><span class="line"></span></div>
       <div class="bg-grid">
         <div class="rv">
           <h3 class="sub-h">How I work</h3>
@@ -1124,6 +1077,7 @@ footer svg { width: 16px; height: 16px; display: block; }
         <div class="rv" style="--d:90ms">
           <h3 class="sub-h">Beyond the projects</h3>
           <ul class="list">
+            <li><b>B.Tech CSE (Data Science)</b>, Bennett University, 2022 to 2026, with a CGPA of <b>8.30 / 10</b>.</li>
             <li><b>Dean's Award</b> for Smart Crop Prediction, an ensemble model that recommends crops from soil and climate data.</li>
             <li><b>200+ DSA problems</b> solved across LeetCode, HackerRank and GeeksforGeeks.</li>
             <li><b>3rd place</b> in a college-level hackathon (2024), and a participant in Smart India Hackathon.</li>
@@ -1140,7 +1094,7 @@ footer svg { width: 16px; height: 16px; display: block; }
   <!-- CONTACT -->
   <section id="contact" class="sec">
     <div class="wrap">
-      <div class="sh rv"><span class="n">05</span><h2>Contact</h2><span class="line"></span></div>
+      <div class="sh rv"><span class="n">04</span><h2>Contact</h2><span class="line"></span></div>
       <div class="contact-grid rv">
         <div>
           <p class="muted" style="max-width:36rem;line-height:1.75">I graduated in May 2026 and I'm looking for my first full-time role as an applied AI or backend engineer. The code is on GitHub, the record is on LinkedIn, and the résumé has the full detail. If you're hiring, I'd love to hear from you.</p>
