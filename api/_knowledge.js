@@ -124,6 +124,8 @@ submitting, and give the citizen a three-step hand-off; monitoring and
 escalation still run automatically. Trade-off: filing is not fully hands-off on
 gated portals, but the agents never automate around a human check.
 Repo: github.com/SaiPranav13188/Nagrik
+Live demo (no sign-up; tap "Open the live demo" for a sample account; complaints go
+to a practice portal, never a real office): saipranav13188.github.io/Nagrik/demo/
 
 ### Haathi (multilingual RAG; LangGraph, FastAPI, Next.js 15 PWA, Qdrant, Gemini, BGE-M3)
 Ask in Telugu, Hindi or English, typed or spoken (Tenglish and Hinglish work

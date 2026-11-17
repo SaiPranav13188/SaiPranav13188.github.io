@@ -237,8 +237,15 @@ summary::-webkit-details-marker { display: none; }
 .live-facts { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--text); }
 .live-facts span::before { content: "✓ "; color: var(--live); }
 .live-grid { margin-top: 36px; display: grid; gap: 20px; }
-@media (min-width: 720px) { .live-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1100px) { .live-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+/* 5 cards: Nagrik leads. 2-up (Nagrik full width) -> 3 + 2 -> all five in one row. */
+@media (min-width: 720px) { .live-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .live-grid > .live-card:first-child { grid-column: 1 / -1; } }
+@media (min-width: 960px) { .live-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
+  .live-grid > .live-card, .live-grid > .live-card:first-child { grid-column: span 2; }
+  .live-grid > .live-card:nth-child(n+4) { grid-column: span 3; } }
+@media (min-width: 1280px) { .live-sec .wrap { max-width: 1440px; }
+  .live-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .live-grid > .live-card, .live-grid > .live-card:first-child, .live-grid > .live-card:nth-child(n+4) { grid-column: auto; }
   .live-grid .live-body { padding: 16px 16px 18px; }
   .live-grid .live-body h3 { font-size: 13px; }
   .live-grid .live-stats { gap: 10px; } }
@@ -652,12 +659,35 @@ footer svg { width: 16px; height: 16px; display: block; }
   <section id="live" class="live-sec" aria-labelledby="live-title">
     <div class="wrap">
       <div class="live-head rv">
-        <span class="live-badge"><span class="pulse-dot"></span>Live now · 4 deployments</span>
+        <span class="live-badge"><span class="pulse-dot"></span>Live now · 5 deployments</span>
         <h2 id="live-title">Don't take my word for it. <span class="signal">Open them.</span></h2>
-        <p>Four of my AI apps are deployed and public. Nothing to install, no account to make: click and use the real thing in your browser, then check the code behind it.</p>
-        <div class="live-facts"><span>No sign-up</span><span>Runs in the browser</span><span>Source on GitHub for 3 of 4</span></div>
+        <p>Five of my AI apps are deployed and public. Nothing to install, no account to make: click and use the real thing in your browser, then check the code behind it.</p>
+        <div class="live-facts"><span>No sign-up</span><span>Runs in the browser</span><span>Source on GitHub for 4 of 5</span></div>
       </div>
       <div class="live-grid">
+          <article class="live-card amber late rv">
+            <div class="live-inner">
+              <a class="shot" href="https://saipranav13188.github.io/Nagrik/demo/" target="_blank" rel="noopener noreferrer" aria-label="Open the Nagrik live demo in a new tab">
+                <div class="chrome"><i></i><i></i><i></i><span class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>saipranav13188.github.io/Nagrik/demo</span><span class="live-pill"><span class="pulse-dot"></span>LIVE</span></div>
+                <div class="view">
+                  <img loading="lazy" src="media/live-nagrik.jpg" width="1600" height="1000" alt="Nagrik's demo page: 'Snap a civic problem. AI agents file it and follow it up.', beside a pothole photo turned into a filed complaint">
+                  <span class="scan" aria-hidden="true"></span>
+                  <span class="open" aria-hidden="true"><span>Open it live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></span></span>
+                </div>
+              </a>
+              <div class="live-body">
+                <div class="live-kicker"><b>Nagrik</b><span>Agentic civic tech · Gemini · Playwright</span></div>
+                <h3>Photograph a pothole and <span class="warm">AI agents file the complaint</span> with the right government office, then follow up and escalate.</h3>
+                <dl class="live-stats"><div><dt>6</dt><dd>agents, every tool call logged</dd></div><div><dt>3</dt><dd>languages: EN / TE / HI</dd></div><div><dt>40</dt><dd>agent eval cases in CI</dd></div></dl>
+                <div class="live-actions">
+                  <a class="btn-go" href="https://saipranav13188.github.io/Nagrik/demo/" target="_blank" rel="noopener noreferrer">Try the Nagrik demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                  <a class="btn" href="#nagrik">Case study</a>
+                  <a class="btn" href="https://github.com/SaiPranav13188/Nagrik" target="_blank" rel="noopener noreferrer">Code</a>
+                </div>
+                <p class="live-note">Tap “Open the live demo” for a sample account. Complaints go to a practice portal, never a real office. First load can take up to a minute.</p>
+              </div>
+            </div>
+          </article>
           <article class="live-card rv">
             <div class="live-inner">
               <a class="shot" href="https://bondcheck-two.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Open BondCheck live in a new tab">
@@ -704,7 +734,7 @@ footer svg { width: 16px; height: 16px; display: block; }
               </div>
             </div>
           </article>
-          <article class="live-card late rv">
+          <article class="live-card rv">
             <div class="live-inner">
               <a class="shot" href="https://haathi-ten.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Open Haathi live in a new tab">
                 <div class="chrome"><i></i><i></i><i></i><span class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>haathi-ten.vercel.app</span><span class="live-pill"><span class="pulse-dot"></span>LIVE</span></div>
@@ -767,7 +797,7 @@ footer svg { width: 16px; height: 16px; display: block; }
           <article class="card rv" id="nagrik" data-node="Nagrik">
             <div class="card-body">
               <div class="card-top"><h3>Nagrik</h3><span class="kind">Agentic civic tech</span></div>
-              <div class="card-meta"><span class="what">Expo · Gemini · Playwright</span></div>
+              <div class="card-meta"><span class="what">Expo · Gemini · Playwright</span><span class="tag live">LIVE DEMO</span></div>
               <p class="headline">Photograph a pothole, and AI agents file the complaint with the right government office for you, then keep checking and escalate when nothing happens.</p>
               <dl class="metrics">
                 <div><dt data-count>6</dt><dd>agents, every tool call logged</dd></div>
@@ -777,6 +807,7 @@ footer svg { width: 16px; height: 16px; display: block; }
               </dl>
               <ul class="stack"><li>TypeScript</li><li>Expo</li><li>Express</li><li>Playwright</li><li>Gemini</li><li>Supabase</li><li>Docker</li><li>AWS</li><li>Redis</li></ul>
               <div class="btns">
+                <a class="btn sig" href="https://saipranav13188.github.io/Nagrik/demo/" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
                 <a class="btn" href="https://github.com/SaiPranav13188/Nagrik" target="_blank" rel="noopener noreferrer">Repository</a>
                 <a class="btn" href="https://github.com/SaiPranav13188/Nagrik#guardrails" target="_blank" rel="noopener noreferrer">Read the guardrails ↗</a>
                 <button type="button" class="btn" data-ask="Tell me about Nagrik">✦ Ask JARVIS</button>
@@ -1112,6 +1143,9 @@ footer svg { width: 16px; height: 16px; display: block; }
         <div>
           <h3 class="sub-h">Open it yourself</h3>
           <div class="openable">
+            <a href="https://saipranav13188.github.io/Nagrik/demo/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              <span><b>Nagrik</b><small>Snap a civic problem; AI agents file and follow it up. Sample account, practice portal. First load can take a minute.</small></span></a>
             <a href="https://bondcheck-two.vercel.app" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
               <span><b>BondCheck</b><small>The multi-agent offer-letter checker, live on Vercel.</small></span></a>
